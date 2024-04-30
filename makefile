@@ -1,9 +1,9 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -pedantic -std=c++2a
 
-OBJS = Game.o main.o
+OBJS = Zombi.o Game.o main.o
 
-HEADERS = Game.h
+HEADERS = Zombi.h Game.h
 
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 

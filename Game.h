@@ -1,9 +1,8 @@
-#include<iostream>
-#include<vector>
-#include<ctime>
+#include <SFML/Graphics.hpp>
+#include "Zombi.h"
+#include<string>
 #include<sstream>
 
-#include <SFML/Graphics.hpp>
 
 /*
 	Class that acts as the game engine.
@@ -16,14 +15,18 @@
 class Game
 {
 private:
-	//Variables
+
+	//zombi
+	Zombi* zombi;
+
 	//Window
 	sf::RenderWindow* window;
 	sf::VideoMode videoMode;
-	sf::Event ev;
+	sf::Event event;
 
 	//Private functions
 	void initWindow();
+	void initZombi();
 
 public:
 	//Constructors / Destructors
@@ -34,7 +37,6 @@ public:
 	const bool running() const;
     
 	//Functions
-
 	void pollEvents();
 	void update();
 	void render();
