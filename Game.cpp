@@ -1,6 +1,8 @@
 #include "Game.h"
+#include "HairMetalZombie.h"
+#include "RegularZombie.h"
 
-const float zombieGenerateInterval = 1.0f;
+const float zombieGenerateInterval = 2.0f;
 
 void Game::initWindow()
 {
@@ -18,6 +20,7 @@ Game::Game()
 {
 	this->attacking = false;
 	this->waveNum = 1;
+	this->zombieAddedInWave=0;
 	this->initWindow();
 }
 
@@ -28,8 +31,12 @@ Game::~Game()
 		delete zombi;
 }
 
-void Game::addNewZombi(){
-	this->zombies.push_back(new Zombi());
+void Game::addNewNormalZombie(){
+	this->zombies.push_back(new RegularZombie());
+}
+
+void Game::addNewBigZombie(){
+	this->zombies.push_back(new HairMetalZombie());
 }
 
 const bool Game::running() const
@@ -56,26 +63,34 @@ void Game::pollEvents()
 
 void Game::beginAttackIfItsTime(){
 
-	int numberOfZombies = waveNum * 2 + 5;
+	int numberOfZombies = waveNum * 3 + 2;
 	float zombieGenerateTime = numberOfZombies*zombieGenerateInterval;
 		// If more than 2 minutes have passed since the last spawn
-	if(!attacking && waveAttack.getElapsedTime().asSeconds()>=10.0f){
+
+	if(!attacking && waveAttackClock.getElapsedTime().asSeconds()>=3.0f){
 		attacking = true;
-		waveAttack.restart();
+		waveAttackClock.restart();
 	}
 
-	if(attacking && waveAttack.getElapsedTime().asSeconds()<=zombieGenerateTime){
-		if (zombiAttack.getElapsedTime().asSeconds() >= zombieGenerateInterval) {
+	if(attacking && waveAttackClock.getElapsedTime().asSeconds()<=zombieGenerateTime){
+		if (zombiAttackClock.getElapsedTime().asSeconds() >= zombieGenerateInterval) {
 			// Reset the clock
-			addNewZombi();
-			zombiAttack.restart();
+			zombieAddedInWave += 1;
+			if (zombieAddedInWave % 3 == 0){
+				addNewBigZombie();
+			} else {
+				addNewNormalZombie();
+			}
+			
+			zombiAttackClock.restart();
 		}
 	}
 
-	if(attacking && waveAttack.getElapsedTime().asSeconds()>=zombieGenerateTime && zombies.size()== 0){
+	if(attacking && waveAttackClock.getElapsedTime().asSeconds()>=zombieGenerateTime && zombies.size()== 0){
 		attacking = false;
 		waveNum += 1;
-		waveAttack.restart();
+		zombieAddedInWave = 0;
+		waveAttackClock.restart();
 
 	}
 		
@@ -136,7 +151,7 @@ void Game::render()
 		zombi->render(*this->window);
 	//showing the mouse position
     sf::Vector2i position = sf::Mouse::getPosition(*this->window);
-    std::cout << "Mouse position: " << position.x << ", " << position.y << std::endl;
+    // std::cout << "Mouse position: " << position.x << ", " << position.y << std::endl;
 
 	this->window->display();
 }

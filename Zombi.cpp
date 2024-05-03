@@ -2,9 +2,11 @@
 #include "Zombi.h"
 #include <cstdlib>
 #include <ctime> 
+#include <iostream>
+#include <string>
 
-void Zombi::initTexture(){
-    this->texture.loadFromFile("extrafile/Zombi.png");
+void Zombi::initTexture(std::string textureFilePath){
+    this->texture.loadFromFile(textureFilePath);
 }
 
 bool Zombi::hasArrivedHome(){
@@ -21,18 +23,18 @@ float getRandomPosition(){
     return possiblePosition[randomNumber];
 }
 
-void Zombi::initSprite(){
+void Zombi::initSprite(float scale){
     this->sprite.setTexture(this->texture);
     //resize the sprite
-    this->sprite.scale(0.18f,0.18f);
+    this->sprite.scale(scale, scale);
     this->sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
     this->sprite.setPosition(1919.f,getRandomPosition());
 }
 
-Zombi::Zombi(){
-    this->movementSpeed = .6f;
-    this->initTexture();
-    this->initSprite();
+Zombi::Zombi(std::string textureFilePath, float scale){
+    movementSpeed = .6f;
+    Zombi::initTexture(textureFilePath);
+    initSprite(scale);
 }
 
 void Zombi::setPosition(float x, float y) {

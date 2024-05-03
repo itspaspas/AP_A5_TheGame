@@ -20,8 +20,9 @@ private:
 	int waveNum;
 	//zombi
 	std::vector <Zombi*> zombies;
-	sf::Clock zombiAttack;
-	sf::Clock waveAttack;
+	sf::Clock zombiAttackClock;
+	sf::Clock waveAttackClock;
+	int zombieAddedInWave;
 
 	//Window
 	sf::RenderWindow* window;
@@ -30,7 +31,8 @@ private:
 
 	//Private functions
 	void initWindow();
-	void addNewZombi();
+	void addNewNormalZombie();
+	void addNewBigZombie();
 	void gameOver();
 
 public:
