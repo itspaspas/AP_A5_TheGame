@@ -1,5 +1,3 @@
 #include "HairMetalZombie.h"
 
-void HairMetalZombie::initTexture(std::string textureFilePath){
-    this->texture.loadFromFile("extrafile/Zombi.png");
-}
+HairMetalZombie::HairMetalZombie() : Zombi("extrafile/hairmetal.png", 0.4 , .5f ,  80 , 20 , 6){}

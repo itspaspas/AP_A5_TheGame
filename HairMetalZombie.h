@@ -8,10 +8,8 @@
 
 
 class HairMetalZombie : public Zombi{
-protected:
-    void initTexture(std::string textureFilePath);
 public:
-    HairMetalZombie() : Zombi("extrafile/hairmetal.png", 0.4){};
+    HairMetalZombie();
 };
 
 #endif

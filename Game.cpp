@@ -65,8 +65,6 @@ void Game::beginAttackIfItsTime(){
 
 	int numberOfZombies = waveNum * 3 + 2;
 	float zombieGenerateTime = numberOfZombies*zombieGenerateInterval;
-		// If more than 2 minutes have passed since the last spawn
-
 	if(!attacking && waveAttackClock.getElapsedTime().asSeconds()>=3.0f){
 		attacking = true;
 		waveAttackClock.restart();
@@ -74,7 +72,6 @@ void Game::beginAttackIfItsTime(){
 
 	if(attacking && waveAttackClock.getElapsedTime().asSeconds()<=zombieGenerateTime){
 		if (zombiAttackClock.getElapsedTime().asSeconds() >= zombieGenerateInterval) {
-			// Reset the clock
 			zombieAddedInWave += 1;
 			if (zombieAddedInWave % 3 == 0){
 				addNewBigZombie();
@@ -127,6 +124,7 @@ void Game::ShowBackGround(std::string backgroundPath){
     float scaleY = static_cast<float>(this->videoMode.height) / texture.getSize().y;
     sprite.setScale(scaleX, scaleY);
     this->window->draw(sprite);
+	this->window->getSize();
 }
 
 void Game::render()
@@ -151,7 +149,7 @@ void Game::render()
 		zombi->render(*this->window);
 	//showing the mouse position
     sf::Vector2i position = sf::Mouse::getPosition(*this->window);
-    // std::cout << "Mouse position: " << position.x << ", " << position.y << std::endl;
+    std::cout << "Mouse position: " << position.x << " - " << window->getSize().x << ", " << position.y << " - " << window->getSize().y << std::endl;
 
 	this->window->display();
 }

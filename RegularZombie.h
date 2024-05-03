@@ -6,11 +6,9 @@
 #ifndef REGULAR_ZOMBIE_H
 #define REGULAR_ZOMBIE_H
 
-
 class RegularZombie : public Zombi{
-
 public:
-    RegularZombie() : Zombi("extrafile/Zombi.png", 0.18){};
+    RegularZombie();
 };
 
 #endif
