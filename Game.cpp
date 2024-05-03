@@ -1,5 +1,7 @@
 #include "Game.h"
 
+const float zombieGenerateInterval = 1.0f;
+
 void Game::initWindow()
 {
 	// this->videoMode.height = 642;
@@ -14,20 +16,20 @@ void Game::initWindow()
 
 Game::Game()
 {
+	this->attacking = false;
+	this->waveNum = 1;
 	this->initWindow();
-	this->initZombi();
 }
 
 Game::~Game()
 {
 	delete this->window;
-	delete this->zombi;
+	for(auto zombi : this->zombies)
+		delete zombi;
 }
 
-void Game::initZombi(){
-	this->zombi = new Zombi();
-	
-	// this->zombi->initPositin(this->window.getSize().x, this->window.getSize().y / 2);
+void Game::addNewZombi(){
+	this->zombies.push_back(new Zombi());
 }
 
 const bool Game::running() const
@@ -52,10 +54,64 @@ void Game::pollEvents()
 	}
 }
 
+void Game::beginAttackIfItsTime(){
+
+	int numberOfZombies = waveNum * 2 + 5;
+	float zombieGenerateTime = numberOfZombies*zombieGenerateInterval;
+		// If more than 2 minutes have passed since the last spawn
+	if(!attacking && waveAttack.getElapsedTime().asSeconds()>=10.0f){
+		attacking = true;
+		waveAttack.restart();
+	}
+
+	if(attacking && waveAttack.getElapsedTime().asSeconds()<=zombieGenerateTime){
+		if (zombiAttack.getElapsedTime().asSeconds() >= zombieGenerateInterval) {
+			// Reset the clock
+			addNewZombi();
+			zombiAttack.restart();
+		}
+	}
+
+	if(attacking && waveAttack.getElapsedTime().asSeconds()>=zombieGenerateTime && zombies.size()== 0){
+		attacking = false;
+		waveNum += 1;
+		waveAttack.restart();
+
+	}
+		
+}
+
+void Game::gameOver(){
+	for(int i=0 ; i<zombies.size() ; i++)
+		if(zombies[i]->hasArrivedHome()){
+			delete zombies[i];
+			zombies.erase(zombies.begin() + i);
+		}
+
+}
+
 void Game::update()
 {
+
 	this->pollEvents();
-	this->zombi->move(-1.f,0.f);
+	this->beginAttackIfItsTime();
+	this->gameOver();
+	for(auto zombi : this->zombies)
+		//move zombi by time
+		zombi->move(-1.f,0.f);
+
+}
+
+void Game::ShowBackGround(std::string backgroundPath){
+    sf::Texture texture;
+    texture.loadFromFile(backgroundPath);
+    sf::Sprite sprite(texture);
+	sprite.setTexture(texture);
+    sf::Vector2u textureSize = texture.getSize();
+    float scaleX = static_cast<float>(this->videoMode.width) / texture.getSize().x;
+    float scaleY = static_cast<float>(this->videoMode.height) / texture.getSize().y;
+    sprite.setScale(scaleX, scaleY);
+    this->window->draw(sprite);
 }
 
 void Game::render()
@@ -74,17 +130,13 @@ void Game::render()
 
     //draw game object
 	//showing background
-    sf::Texture texture;
-    texture.loadFromFile("extrafile/ext8waid79e81.jpg");
-    sf::Sprite sprite(texture);
-	sprite.setTexture(texture);
-    sf::Vector2u textureSize = texture.getSize();
-    float scaleX = static_cast<float>(this->videoMode.width) / texture.getSize().x;
-    float scaleY = static_cast<float>(this->videoMode.height) / texture.getSize().y;
-    sprite.setScale(scaleX, scaleY);
-    this->window->draw(sprite);
-	//showing zombi
-	this->zombi->render(*this->window);
+	this->ShowBackGround("extrafile/ext8waid79e81.jpg");
+	//showing zombies
+	for(auto zombi : this->zombies)
+		zombi->render(*this->window);
+	//showing the mouse position
+    sf::Vector2i position = sf::Mouse::getPosition(*this->window);
+    std::cout << "Mouse position: " << position.x << ", " << position.y << std::endl;
 
 	this->window->display();
 }

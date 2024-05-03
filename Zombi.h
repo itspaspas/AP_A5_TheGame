@@ -13,8 +13,8 @@ private:
 
 public:
     Zombi();
-    virtual ~Zombi();
 
+    bool hasArrivedHome();
     void setPosition(float x, float y);
     void update();
     void render(sf::RenderTarget& target);
