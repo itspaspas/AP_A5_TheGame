@@ -17,6 +17,7 @@
 class Game
 {
 private:
+	int suns; 
 	bool isDone;
 	bool attacking;
 	int waveNum;
@@ -39,6 +40,8 @@ private:
 	void addNewNormalZombie();
 	void addNewBigZombie();
 	void gameOver();
+	void showSunsNum();
+	void showSunRectangle();
 
 	//music of game
 	sf::Music music;

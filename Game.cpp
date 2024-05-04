@@ -14,14 +14,14 @@ void Game::initWindow()
 
 Game::Game()
 {
+	suns = 50;
 	this->isDone = false;
 	this->attacking = false;
 	this->waveNum = 1;
 	this->zombieAddedInWave=0;
 	this->initWindow();
 
-	if(this->music.openFromFile("extrafile/Main-Music.ogg"))
-		std::cout<<"jdsfvajldsvnljvdsfnv";
+	this->music.openFromFile("extrafile/Main-Music.ogg");
 	this->music.setLoop(true);
 	this->music.play();
 }
@@ -164,6 +164,39 @@ void Game::showWonState(){
 		this->window->draw(text);
 }
 
+void Game::showSunRectangle(){
+	sf::RectangleShape rectangle(sf::Vector2f(150.f, 60.f));
+    rectangle.setFillColor(sf::Color::Black);
+	rectangle.setOrigin(rectangle.getLocalBounds().width / 2, rectangle.getLocalBounds().height / 2);
+    rectangle.setPosition(185 , 50);
+	//Create a text object
+	sf::Text text;
+    text.setString(std::to_string(this->suns));
+	text.setOrigin(30, 25);
+    text.setCharacterSize(40);
+	text.setColor(sf::Color::White);
+    // Load a font
+    sf::Font font;
+    font.loadFromFile("extrafile/Dosis-Light.ttf");
+    text.setFont(font);
+	text.setPosition(185 , 50 );
+	this->window->draw(rectangle);
+    this->window->draw(text);
+}
+
+void Game::showSunsNum(){
+	sf::Texture sun;
+	sun.loadFromFile("extrafile/sun.png");
+	sf::Sprite sunSprite;
+	sunSprite.setTexture(sun);
+	sunSprite.setScale(.3f,.3f);
+	sunSprite.setOrigin(sun.getSize().x/2 , sun.getSize().y/2);
+	sunSprite.setPosition(50,50);
+	// sf::RenderTarget& target = *this->window;
+	this->window->draw(sunSprite);
+	this->showSunRectangle();
+}
+
 void Game::render()
 {
 	this->window->clear();
@@ -171,6 +204,8 @@ void Game::render()
 	this->ShowBackGround("extrafile/ext8waid79e81.jpg");
 	//showing round
 	this->showRound();
+	//showing sun number
+	this->showSunsNum();
 	//showing zombies
 	if(!isDone){
 		for(auto zombi : this->zombies)
@@ -179,11 +214,12 @@ void Game::render()
 	else{
 		showWonState();
 	}
-	//showing the mouse position
-    // sf::Vector2i position = sf::Mouse::getPosition(*this->window);
-    // std::cout << "Mouse position: " << position.x << " - " << window->getSize().x << ", " << position.y << " - " << window->getSize().y << std::endl;
 
-	// std::cout<<"the wave num"<<this->waveNum << std::endl;
+	// showing the mouse position
+    sf::Vector2i position = sf::Mouse::getPosition(*this->window);
+    std::cout << "Mouse position: " << position.x << " - " << window->getSize().x << ", " << position.y << " - " << window->getSize().y << std::endl;
+
+	std::cout<<"the wave num"<<this->waveNum << std::endl;
 
 	this->window->display();
 }
