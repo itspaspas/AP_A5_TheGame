@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "Zombi.h"
+#include "sun.h"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -17,15 +18,17 @@
 class Game
 {
 private:
-	int suns; 
+	int sunsNum; 
 	bool isDone;
 	bool attacking;
 	int waveNum;
 	//zombi
 	std::vector <Zombi*> zombies;
+	std::vector <Sun*> suns;
 	sf::Clock showingRound;
 	sf::Clock zombiAttackClock;
 	sf::Clock waveAttackClock;
+	sf::Clock sunClock;
 	int zombieAddedInWave;
 
 	//Window
@@ -42,6 +45,8 @@ private:
 	void gameOver();
 	void showSunsNum();
 	void showSunRectangle();
+	void fallingSuns();
+	void clearDownSun();
 
 	//music of game
 	sf::Music music;

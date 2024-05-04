@@ -14,7 +14,7 @@ void Game::initWindow()
 
 Game::Game()
 {
-	suns = 50;
+	sunsNum = 50;
 	this->isDone = false;
 	this->attacking = false;
 	this->waveNum = 1;
@@ -31,6 +31,8 @@ Game::~Game()
 	delete this->window;
 	for(auto zombi : this->zombies)
 		delete zombi;
+	for(auto sun : this->suns)
+		delete sun;
 }
 
 void Game::addNewNormalZombie(){
@@ -108,17 +110,6 @@ void Game::gameOver(){
 
 }
 
-void Game::update()
-{
-
-	this->pollEvents();
-	this->beginAttackIfItsTime();
-	this->gameOver();
-	for(auto zombi : this->zombies)
-		//move zombi by time
-		zombi->move(-1.f,0.f);
-
-}
 
 void Game::ShowBackGround(std::string backgroundPath){
     sf::Texture texture;
@@ -171,7 +162,7 @@ void Game::showSunRectangle(){
     rectangle.setPosition(185 , 50);
 	//Create a text object
 	sf::Text text;
-    text.setString(std::to_string(this->suns));
+    text.setString(std::to_string(this->sunsNum));
 	text.setOrigin(30, 25);
     text.setCharacterSize(40);
 	text.setColor(sf::Color::White);
@@ -197,6 +188,35 @@ void Game::showSunsNum(){
 	this->showSunRectangle();
 }
 
+void Game::fallingSuns(){
+	if(sunClock.getElapsedTime().asSeconds()>=5.0f){
+		suns.push_back(new Sun);
+		sunClock.restart();
+	}
+}
+
+void Game::update()
+{
+	this->pollEvents();
+	this->beginAttackIfItsTime();
+	this->fallingSuns();
+	this->gameOver();
+	for(auto zombi : this->zombies)
+		zombi->move(-1.f,0.f);
+	for(auto sun : this->suns)
+		sun->move(0.f,1.f);
+
+}
+
+void Game::clearDownSun(){
+	for(int i=0 ; i<suns.size() ; i++)
+		if(suns[i]->hasArrivedToDown()){
+			delete suns[i];
+			suns.erase(suns.begin() + i);
+		}
+}
+
+
 void Game::render()
 {
 	this->window->clear();
@@ -206,10 +226,14 @@ void Game::render()
 	this->showRound();
 	//showing sun number
 	this->showSunsNum();
+	//deleting sun that reach the doown
+	this->clearDownSun();
 	//showing zombies
 	if(!isDone){
 		for(auto zombi : this->zombies)
 			zombi->render(*this->window);
+		for(auto sun : this->suns)
+			sun->render(*this->window);
 	}
 	else{
 		showWonState();
