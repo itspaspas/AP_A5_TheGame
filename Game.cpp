@@ -19,6 +19,11 @@ Game::Game()
 	this->waveNum = 1;
 	this->zombieAddedInWave=0;
 	this->initWindow();
+
+	if(this->music.openFromFile("extrafile/Main-Music.ogg"))
+		std::cout<<"jdsfvajldsvnljvdsfnv";
+	this->music.setLoop(true);
+	this->music.play();
 }
 
 Game::~Game()
@@ -175,10 +180,10 @@ void Game::render()
 		showWonState();
 	}
 	//showing the mouse position
-    sf::Vector2i position = sf::Mouse::getPosition(*this->window);
-    std::cout << "Mouse position: " << position.x << " - " << window->getSize().x << ", " << position.y << " - " << window->getSize().y << std::endl;
+    // sf::Vector2i position = sf::Mouse::getPosition(*this->window);
+    // std::cout << "Mouse position: " << position.x << " - " << window->getSize().x << ", " << position.y << " - " << window->getSize().y << std::endl;
 
-	std::cout<<"the wave num"<<this->waveNum << std::endl;
+	// std::cout<<"the wave num"<<this->waveNum << std::endl;
 
 	this->window->display();
 }

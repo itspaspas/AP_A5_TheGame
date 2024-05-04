@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Zombi.h"
 #include <iostream>
 #include <string>
@@ -39,6 +40,8 @@ private:
 	void addNewBigZombie();
 	void gameOver();
 
+	//music of game
+	sf::Music music;
 public:
 	//Constructors / Destructors
 	Game();

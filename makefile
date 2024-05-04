@@ -5,7 +5,7 @@ OBJS = Zombi.o Game.o main.o HairMetalZombie.o RegularZombie.o
 
 HEADERS = Zombi.h Game.h HairMetalZombie.h RegularZombie.h
 
-LIBS = -lsfml-graphics -lsfml-window -lsfml-system
+LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 all: PlantVsZombi clean
 
