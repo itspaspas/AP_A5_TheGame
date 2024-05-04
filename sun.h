@@ -9,12 +9,12 @@ class Sun{
 private:
     int speed;
     int interval;
-    sf::Sprite sprite;
     sf::Texture texture;
     void initTexture();
     void initSprite();
     void setPosition(float x, float y);
 public:
+    sf::Sprite sprite;
     Sun();
     bool hasArrivedToDown();
     void render(sf::RenderTarget& target);

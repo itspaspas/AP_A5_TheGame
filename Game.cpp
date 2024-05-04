@@ -195,6 +195,35 @@ void Game::fallingSuns(){
 	}
 }
 
+void Game::updateMousePositions(){
+	this->mousePosWindow = sf::Mouse::getPosition(*this->window);
+	this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindow);
+}
+
+void Game::updateSuns(){
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		if (this->mouseHeld == false)
+		{
+			this->mouseHeld = true;
+			bool deleted = false;
+			for (size_t i = 0; i < this->suns.size() && deleted == false; i++)
+			{
+				if (this->suns[i]->sprite.getGlobalBounds().contains(this->mousePosView)){
+					this->sunsNum += 25;
+					//Delete the sun
+					deleted = true;
+					this->suns.erase(this->suns.begin() + i);
+				}
+			}
+		}
+	}
+	else
+	{
+		this->mouseHeld = false;
+	}
+}
+
 void Game::update()
 {
 	this->pollEvents();
@@ -205,6 +234,9 @@ void Game::update()
 		zombi->move(-1.f,0.f);
 	for(auto sun : this->suns)
 		sun->move(0.f,1.f);
+
+	this->updateMousePositions();
+	this->updateSuns();
 
 }
 

@@ -36,6 +36,11 @@ private:
 	sf::VideoMode videoMode;
 	sf::Event event;
 
+	//Mouse positions
+	sf::Vector2i mousePosWindow;
+	sf::Vector2f mousePosView;
+	bool mouseHeld;
+
 	//Private functions
 	void showWonState();
 	void showRound();
@@ -47,6 +52,8 @@ private:
 	void showSunRectangle();
 	void fallingSuns();
 	void clearDownSun();
+	void updateMousePositions();
+	void updateSuns();
 
 	//music of game
 	sf::Music music;
