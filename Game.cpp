@@ -2,22 +2,19 @@
 #include "HairMetalZombie.h"
 #include "RegularZombie.h"
 
-const float zombieGenerateInterval = 2.0f;
+const float zombieGenerateInterval = 3.0f;
 
 void Game::initWindow()
 {
-	// this->videoMode.height = 642;
-	// this->videoMode.width = 1143;
 	this->videoMode = sf::VideoMode::getDesktopMode();
-	
 	this->window = new sf::RenderWindow(videoMode, "Full Screen Image", sf::Style::Fullscreen);
-
 	this->window->setFramerateLimit(144);
 	this->window->setVerticalSyncEnabled(false);
 }
 
 Game::Game()
 {
+	this->isDone = false;
 	this->attacking = false;
 	this->waveNum = 1;
 	this->zombieAddedInWave=0;
@@ -65,7 +62,7 @@ void Game::beginAttackIfItsTime(){
 
 	int numberOfZombies = waveNum * 3 + 2;
 	float zombieGenerateTime = numberOfZombies*zombieGenerateInterval;
-	if(!attacking && waveAttackClock.getElapsedTime().asSeconds()>=3.0f){
+	if(!attacking && waveAttackClock.getElapsedTime().asSeconds()>=5.0f){
 		attacking = true;
 		waveAttackClock.restart();
 	}
@@ -86,6 +83,10 @@ void Game::beginAttackIfItsTime(){
 	if(attacking && waveAttackClock.getElapsedTime().asSeconds()>=zombieGenerateTime && zombies.size()== 0){
 		attacking = false;
 		waveNum += 1;
+		if(waveNum == 5){
+			isDone = true;
+		}
+		showingRound.restart();
 		zombieAddedInWave = 0;
 		waveAttackClock.restart();
 
@@ -127,29 +128,57 @@ void Game::ShowBackGround(std::string backgroundPath){
 	this->window->getSize();
 }
 
+void Game::showRound(){
+	if(showingRound.getElapsedTime().asSeconds() <= 2){
+		sf::Font font;
+		font.loadFromFile("extrafile/BROMPH_TOWN.ttf");
+		sf::Text text;
+		text.setFont(font);
+		text.setCharacterSize(100);
+		text.setFillColor(sf::Color::Red);
+		text.setOrigin(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
+		// text.setPosition(this->window->getSize().x / 2, this->window->getSize().y / 2);
+		text.setPosition(850 , 450);
+		if(!isDone){
+			text.setString("Round " + std::to_string(waveNum));
+			this->window->draw(text);
+		}
+	}
+}
+
+void Game::showWonState(){
+		sf::Font font;
+		font.loadFromFile("extrafile/BROMPH_TOWN.ttf");
+		sf::Text text;
+		text.setFont(font);
+		text.setCharacterSize(100);
+		text.setFillColor(sf::Color::Red);
+		text.setOrigin(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
+		text.setPosition(800 , 450);
+		text.setString("YOU WON!!!");
+		this->window->draw(text);
+}
+
 void Game::render()
 {
-	/**
-		@return void
-
-		- clear old frame
-		- render objects
-		- display frame in window
-
-		Renders the game objects.
-	*/
-
 	this->window->clear();
-
-    //draw game object
 	//showing background
 	this->ShowBackGround("extrafile/ext8waid79e81.jpg");
+	//showing round
+	this->showRound();
 	//showing zombies
-	for(auto zombi : this->zombies)
-		zombi->render(*this->window);
+	if(!isDone){
+		for(auto zombi : this->zombies)
+			zombi->render(*this->window);
+	}
+	else{
+		showWonState();
+	}
 	//showing the mouse position
     sf::Vector2i position = sf::Mouse::getPosition(*this->window);
     std::cout << "Mouse position: " << position.x << " - " << window->getSize().x << ", " << position.y << " - " << window->getSize().y << std::endl;
+
+	std::cout<<"the wave num"<<this->waveNum << std::endl;
 
 	this->window->display();
 }

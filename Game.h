@@ -16,10 +16,12 @@
 class Game
 {
 private:
+	bool isDone;
 	bool attacking;
 	int waveNum;
 	//zombi
 	std::vector <Zombi*> zombies;
+	sf::Clock showingRound;
 	sf::Clock zombiAttackClock;
 	sf::Clock waveAttackClock;
 	int zombieAddedInWave;
@@ -30,6 +32,8 @@ private:
 	sf::Event event;
 
 	//Private functions
+	void showWonState();
+	void showRound();
 	void initWindow();
 	void addNewNormalZombie();
 	void addNewBigZombie();
