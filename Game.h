@@ -8,6 +8,9 @@
 #include <vector>
 #include "Board.h"
 #include "SunFlowerPriceRectangle.h"
+#include "WalnutPriceRectangle.h"
+#include "RegularPeaShooterPriceRectangle.h"
+#include "icyPeaShooterPriceRectangle.h"
 
 #ifndef GAME_H
 #define GAME_H
@@ -59,14 +62,9 @@ private:
 
 	//price rectangle
 	SunFlowerPriceRectangle* sunFlowerPriceRectangle;
-	sf::Sprite PRWalnut;
-	sf::Sprite PRRegularPeaShooter;
-	sf::Sprite PRicyPeaShooter;
-
-	sf::Sprite WalnutCostSprite();
-	sf::Sprite RegularPeaShooterCostSprite();
-	sf::Sprite icyPeaShooterCostSprite();
-
+	WalnutPriceRectangle* walnutPriceRectangle;
+	RegularPeaShooterPriceRectangle* regularPeaShooterPriceRectangle;
+	IcyPeaShooterPriceRectangle* icyPeaShooterPriceRectangle;
 
 public:
 	//Constructors / Destructors

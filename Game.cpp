@@ -12,42 +12,6 @@ void Game::initWindow()
 	this->window->setVerticalSyncEnabled(false);
 }
 
-sf::Sprite Game::WalnutCostSprite(){
-	sf::Texture WalnutCost;
-	WalnutCost.loadFromFile("extrafile/2.png");
-	sf::Sprite WalnutCostSprite;
-	WalnutCostSprite.setTexture(WalnutCost);
-	WalnutCostSprite.setScale(1.8f,1.8f);
-	WalnutCostSprite.setOrigin(WalnutCost.getSize().x/2 , WalnutCost.getSize().y/2);
-	WalnutCostSprite.setPosition(120,160 +2* WalnutCost.getSize().y);
-	this->window->draw(WalnutCostSprite);
-	return WalnutCostSprite;
-}
-
-sf::Sprite Game::RegularPeaShooterCostSprite(){
-	sf::Texture RegularPeaShooterCost;
-	RegularPeaShooterCost.loadFromFile("extrafile/3.png");
-	sf::Sprite RegularPeaShooterCostSprite;
-	RegularPeaShooterCostSprite.setTexture(RegularPeaShooterCost);
-	RegularPeaShooterCostSprite.setScale(1.8f,1.8f);
-	RegularPeaShooterCostSprite.setOrigin(RegularPeaShooterCost.getSize().x/2 , RegularPeaShooterCost.getSize().y/2);
-	RegularPeaShooterCostSprite.setPosition(120,160 + 4*RegularPeaShooterCost.getSize().y);
-	this->window->draw(RegularPeaShooterCostSprite);
-	return RegularPeaShooterCostSprite;	
-}
-
-sf::Sprite Game::icyPeaShooterCostSprite(){
-	sf::Texture icyPeaShooterCost;
-	icyPeaShooterCost.loadFromFile("extrafile/4.png");
-	sf::Sprite icyPeaShooterCostSprite;
-	icyPeaShooterCostSprite.setTexture(icyPeaShooterCost);
-	icyPeaShooterCostSprite.setScale(1.8f,1.8f);
-	icyPeaShooterCostSprite.setOrigin(icyPeaShooterCost.getSize().x/2 , icyPeaShooterCost.getSize().y/2);
-	icyPeaShooterCostSprite.setPosition(120,160 + 6*icyPeaShooterCost.getSize().y);
-	this->window->draw(icyPeaShooterCostSprite);
-	return icyPeaShooterCostSprite;	
-}
-
 Game::Game(){
 	sunsNum = 50;
 
@@ -71,9 +35,9 @@ Game::Game(){
 	this->music.play();
 
 	this->sunFlowerPriceRectangle = new SunFlowerPriceRectangle();
-	PRWalnut = WalnutCostSprite();
-	PRRegularPeaShooter = RegularPeaShooterCostSprite();
-	PRicyPeaShooter = icyPeaShooterCostSprite();
+	this->walnutPriceRectangle = new WalnutPriceRectangle();
+	this->regularPeaShooterPriceRectangle = new RegularPeaShooterPriceRectangle();
+	this->icyPeaShooterPriceRectangle = new IcyPeaShooterPriceRectangle();
 }
 
 Game::~Game()
@@ -323,9 +287,9 @@ void Game::render()
 
 	// showing the box of cost
 	this->sunFlowerPriceRectangle->render(*this->window);
-	this->WalnutCostSprite();
-	this->RegularPeaShooterCostSprite();
-	this->icyPeaShooterCostSprite();
+	this->walnutPriceRectangle->render(*this->window);
+	this->regularPeaShooterPriceRectangle->render(*this->window);
+	this->icyPeaShooterPriceRectangle->render(*this->window);
 
 	// showing the mouse position
     sf::Vector2i position = sf::Mouse::getPosition(*this->window);
