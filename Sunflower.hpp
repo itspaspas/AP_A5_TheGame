@@ -13,11 +13,7 @@ public:
     }
 
     void update() override {
-        timeSinceLastProduction += 1.0f / 60.0f; // Assuming a 60 FPS frame rate
-        if (timeSinceLastProduction >= produceInterval) {
-            act();
-            timeSinceLastProduction = 0.0f;
-        }
+        //TODO
     }
 };
 

@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "Zombi.h"
+#include "Zombie.h"
 #include "sun.h"
 #include <iostream>
 #include <string>
@@ -23,7 +23,7 @@ private:
 	bool attacking;
 	int waveNum;
 	//zombi
-	std::vector <Zombi*> zombies;
+	std::vector <Zombie*> zombies;
 	std::vector <Sun*> suns;
 	sf::Clock showingRound;
 	sf::Clock zombiAttackClock;

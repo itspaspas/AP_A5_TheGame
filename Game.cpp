@@ -279,3 +279,25 @@ void Game::render()
 
 	this->window->display();
 }
+
+/* std::vector<Plant*> plants; // Assuming you have a vector of pointers to Plant objects
+
+void gameLoop() {
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Plants vs. Zombies");
+
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        window.clear();
+        for (auto& plant : plants) {
+            plant->update();
+            plant->render(window);
+        }
+        window.display();
+    }
+}
+ */

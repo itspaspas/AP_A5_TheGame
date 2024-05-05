@@ -13,10 +13,6 @@ public:
     }
 
     void update() override {
-        timeSinceLastShot += 1.0f / 60.0f; // Assuming a 60 FPS frame rate
-        if (timeSinceLastShot >= shootInterval) {
-            act();
-            timeSinceLastShot = 0.0f;
-        }
+        //TODO
     }
 };
