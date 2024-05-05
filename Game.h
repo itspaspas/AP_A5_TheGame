@@ -55,12 +55,24 @@ private:
 	void clearDownSun();
 	void updateMousePositions();
 	void updateSuns();
+	sf::Sprite sunFlowerCostSprite();
+	sf::Sprite WalnutCostSprite();
+	sf::Sprite RegularPeaShooterCostSprite();
+	sf::Sprite icyPeaShooterCostSprite();
 
 	//music of game
 	sf::Music music;
 
 	//board of game
 	Board* board;
+
+	//price rectangle
+	sf::Sprite PRSunflower;
+	sf::Sprite PRWalnut;
+	sf::Sprite PRRegularPeaShooter;
+	sf::Sprite PRicyPeaShooter;
+
+
 public:
 	//Constructors / Destructors
 	Game();
