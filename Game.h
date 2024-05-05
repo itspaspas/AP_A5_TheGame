@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include "Board.h"
 
 /*
 	Class that acts as the game engine.
@@ -57,6 +58,9 @@ private:
 
 	//music of game
 	sf::Music music;
+
+	//board of game
+	Board* board;
 public:
 	//Constructors / Destructors
 	Game();

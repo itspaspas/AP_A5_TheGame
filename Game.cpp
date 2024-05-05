@@ -12,9 +12,18 @@ void Game::initWindow()
 	this->window->setVerticalSyncEnabled(false);
 }
 
-Game::Game()
-{
+Game::Game(){
 	sunsNum = 50;
+
+	sf::Vector2f beginOfBoard;
+	beginOfBoard.x = 350;
+	beginOfBoard.y = 150;
+	sf::Vector2f endOfBoard;
+	endOfBoard.x = 1600;
+	endOfBoard.y = 980;
+	Board b(beginOfBoard , endOfBoard);
+	this->board = &b;
+
 	this->isDone = false;
 	this->attacking = false;
 	this->waveNum = 1;
@@ -224,6 +233,15 @@ void Game::updateSuns(){
 	}
 }
 
+
+void Game::clearDownSun(){
+	for(int i=0 ; i<suns.size() ; i++)
+		if(suns[i]->hasArrivedToDown()){
+			delete suns[i];
+			suns.erase(suns.begin() + i);
+		}
+}
+
 void Game::update()
 {
 	this->pollEvents();
@@ -239,15 +257,6 @@ void Game::update()
 	this->updateSuns();
 
 }
-
-void Game::clearDownSun(){
-	for(int i=0 ; i<suns.size() ; i++)
-		if(suns[i]->hasArrivedToDown()){
-			delete suns[i];
-			suns.erase(suns.begin() + i);
-		}
-}
-
 
 void Game::render()
 {
