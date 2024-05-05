@@ -1,15 +1,15 @@
 
-#include "Zombi.h"
+#include "Zombie.h"
 #include <cstdlib>
 #include <ctime> 
 #include <iostream>
 #include <string>
 
-void Zombi::initTexture(std::string textureFilePath){
+void Zombie::initTexture(std::string textureFilePath){
     this->texture.loadFromFile(textureFilePath);
 }
 
-bool Zombi::hasArrivedHome(){
+bool Zombie::hasArrivedHome(){
     return this->sprite.getPosition().x < 350.f ;
 }
 
@@ -21,14 +21,14 @@ float getRandomPosition(){
     return possiblePosition[randomNumber];
 }
 
-void Zombi::initSprite(float scale){
+void Zombie::initSprite(float scale){
     this->sprite.setTexture(this->texture);
     this->sprite.scale(scale, scale);
     this->sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
     this->sprite.setPosition(1919.f,getRandomPosition());
 }
 
-Zombi::Zombi(std::string textureFilePath, float scale , float _movementSpeed, int _maxHealth , int _damage , int _hiRate){
+Zombie::Zombie(std::string textureFilePath, float scale , float _movementSpeed, int _maxHealth , int _damage , int _hiRate){
     movementSpeed = _movementSpeed;
     maxHealth = _maxHealth;
     maxHealth = _maxHealth;
@@ -41,20 +41,20 @@ Zombi::Zombi(std::string textureFilePath, float scale , float _movementSpeed, in
     freezing_time = 5;
 
 
-    Zombi::initTexture(textureFilePath);
+    Zombie::initTexture(textureFilePath);
     initSprite(scale);
 }
 
-void Zombi::setPosition(float x, float y) {
+void Zombie::setPosition(float x, float y) {
         this->sprite.setPosition(x, y);
 }
 
 
-void Zombi::move(const float dirX , const float dirY){
+void Zombie::move(const float dirX , const float dirY){
     this->sprite.move(this->movementSpeed * dirX ,this->movementSpeed * dirY);
 }
 
-void Zombi::render(sf::RenderTarget& target){
+void Zombie::render(sf::RenderTarget& target){
     target.draw(this->sprite);
 }
 

@@ -5,7 +5,7 @@
 #ifndef ZOMBIE_H
 #define ZOMBIE_H
 
-class Zombi{
+class Zombie{
 
 private:
     int damage;
@@ -23,7 +23,7 @@ private:
     void initSprite(float scale);
     void setPosition(float x, float y);
 public:
-    Zombi(std::string textureFilePath, float scale ,float _movementSpeed, int maxHealth , int damage , int hiRate);
+    Zombie(std::string textureFilePath, float scale ,float _movementSpeed, int maxHealth , int damage , int hiRate);
     bool hasArrivedHome();
     void render(sf::RenderTarget& target);
     void move(const float dirX , const float dirY);
