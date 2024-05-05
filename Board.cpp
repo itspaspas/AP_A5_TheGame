@@ -15,7 +15,7 @@ Board::Board(sf::Vector2f _beginOfBoard , sf::Vector2f _endOfBoard){
     float cellWeight = calculateWeight(this->beginOfBoard ,this->endOfBoard);
     for(int i = 0 ; i < 5 ; i++){
         std::vector<Cell*> rowCell;
-        for(int j = 0 ; j = 9 ; j++){
+        for(int j = 0 ; j < 9 ; j++){
             sf::Vector2f beginOfCell;
             beginOfCell.x = beginOfBoard.x + j*cellWeight;
             beginOfCell.y = beginOfBoard.y + i*cellHeight;

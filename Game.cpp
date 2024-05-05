@@ -16,11 +16,11 @@ Game::Game(){
 	sunsNum = 50;
 
 	sf::Vector2f beginOfBoard;
-	beginOfBoard.x = 350;
-	beginOfBoard.y = 150;
+	beginOfBoard.x = 350.f;
+	beginOfBoard.y = 150.f;
 	sf::Vector2f endOfBoard;
-	endOfBoard.x = 1600;
-	endOfBoard.y = 980;
+	endOfBoard.x = 1600.f;
+	endOfBoard.y = 980.f;
 	Board b(beginOfBoard , endOfBoard);
 	this->board = &b;
 
