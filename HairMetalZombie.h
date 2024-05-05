@@ -1,13 +1,13 @@
 #include<SFML/Graphics.hpp>
 #include<SFML/System.hpp>
-#include"Zombi.h"
+#include"Zombie.h"
 
 
 #ifndef HAIR_METAL_ZOMBIE_H
 #define HAIR_METAL_ZOMBIE_H
 
 
-class HairMetalZombie : public Zombi{
+class HairMetalZombie : public Zombie{
 public:
     HairMetalZombie();
 };
