@@ -3,6 +3,9 @@
 #include <vector>
 #include <string>
 
+#ifndef PLANTS_HPP
+#define PLANTS_HPP
+
 class Plant {
 protected:
     sf::Sprite sprite;
@@ -30,3 +33,5 @@ public:
         target.draw(sprite);
     }
 };
+
+#endif
