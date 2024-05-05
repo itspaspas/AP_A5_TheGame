@@ -7,11 +7,7 @@
 #include <sstream>
 #include <vector>
 #include "Board.h"
-
-/*
-	Class that acts as the game engine.
-	Wrapper class.
-*/
+#include "SunFlowerPriceRectangle.h"
 
 #ifndef GAME_H
 #define GAME_H
@@ -55,11 +51,6 @@ private:
 	void clearDownSun();
 	void updateMousePositions();
 	void updateSuns();
-	sf::Sprite sunFlowerCostSprite();
-	sf::Sprite WalnutCostSprite();
-	sf::Sprite RegularPeaShooterCostSprite();
-	sf::Sprite icyPeaShooterCostSprite();
-
 	//music of game
 	sf::Music music;
 
@@ -67,10 +58,14 @@ private:
 	Board* board;
 
 	//price rectangle
-	sf::Sprite PRSunflower;
+	SunFlowerPriceRectangle* sunFlowerPriceRectangle;
 	sf::Sprite PRWalnut;
 	sf::Sprite PRRegularPeaShooter;
 	sf::Sprite PRicyPeaShooter;
+
+	sf::Sprite WalnutCostSprite();
+	sf::Sprite RegularPeaShooterCostSprite();
+	sf::Sprite icyPeaShooterCostSprite();
 
 
 public:

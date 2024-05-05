@@ -12,18 +12,6 @@ void Game::initWindow()
 	this->window->setVerticalSyncEnabled(false);
 }
 
-sf::Sprite Game::sunFlowerCostSprite(){
-	sf::Texture sunFlowerCost;
-	sunFlowerCost.loadFromFile("extrafile/1.png");
-	sf::Sprite sunFlowerCostSprite;
-	sunFlowerCostSprite.setTexture(sunFlowerCost);
-	sunFlowerCostSprite.setScale(1.8f,1.8f);
-	sunFlowerCostSprite.setOrigin(sunFlowerCost.getSize().x/2 , sunFlowerCost.getSize().y/2);
-	sunFlowerCostSprite.setPosition(120,160);
-	this->window->draw(sunFlowerCostSprite);
-	return sunFlowerCostSprite;
-}
-
 sf::Sprite Game::WalnutCostSprite(){
 	sf::Texture WalnutCost;
 	WalnutCost.loadFromFile("extrafile/2.png");
@@ -82,7 +70,7 @@ Game::Game(){
 	this->music.setLoop(true);
 	this->music.play();
 
-	PRSunflower = sunFlowerCostSprite();
+	this->sunFlowerPriceRectangle = new SunFlowerPriceRectangle();
 	PRWalnut = WalnutCostSprite();
 	PRRegularPeaShooter = RegularPeaShooterCostSprite();
 	PRicyPeaShooter = icyPeaShooterCostSprite();
@@ -334,7 +322,7 @@ void Game::render()
 	}
 
 	// showing the box of cost
-	this->sunFlowerCostSprite();
+	this->sunFlowerPriceRectangle->render(*this->window);
 	this->WalnutCostSprite();
 	this->RegularPeaShooterCostSprite();
 	this->icyPeaShooterCostSprite();
