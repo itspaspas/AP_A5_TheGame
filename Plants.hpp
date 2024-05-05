@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <vectors>
+#include <vector>
 
 class Plants{
     public:
@@ -8,4 +8,4 @@ class Plants{
 
     private:
 
-}
+};
