@@ -6,8 +6,8 @@ const float zombieGenerateInterval = 3.0f;
 
 void Game::initWindow()
 {
-	this->videoMode = sf::VideoMode::getDesktopMode();
-	this->window = new sf::RenderWindow(videoMode, "Full Screen Image", sf::Style::Fullscreen);
+	this->videoMode = sf::VideoMode(1920,1080);
+	this->window = new sf::RenderWindow(videoMode, "Plant vs Zombie");
 	this->window->setFramerateLimit(144);
 	this->window->setVerticalSyncEnabled(false);
 }
