@@ -13,18 +13,25 @@ protected:
     std::string texturePath;
     int health;
     int maxHealth;
+    float scale;
 
     void loadTexture() {
         if (!texture.loadFromFile(texturePath)) {
-            // Handle error
             std::cerr << "Failed to load texture from path: " << texturePath << std::endl;
         }
         sprite.setTexture(texture);
+        this->sprite.scale(scale, scale);
+        this->sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
     }
 
 public:
-    Plant(const std::string& path, int hp) : texturePath(path), health(hp), maxHealth(hp) {
+
+    Plant(const std::string& path, int hp ,float _scale) : texturePath(path), health(hp), maxHealth(hp) , scale(_scale){
         loadTexture();
+    }
+
+    void setPosition(sf::Vector2f addr){
+        this->sprite.setPosition(addr);
     }
 
     virtual void act() = 0; // Perform the plant's action (e.g., shoot, produce sun)

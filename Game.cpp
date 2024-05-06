@@ -38,6 +38,8 @@ Game::Game(){
 	this->walnutPriceRectangle = new WalnutPriceRectangle();
 	this->regularPeaShooterPriceRectangle = new RegularPeaShooterPriceRectangle();
 	this->icyPeaShooterPriceRectangle = new IcyPeaShooterPriceRectangle();
+
+	this->sunflower = new SunFlower("extrafile/Sunflower.png");
 }
 
 Game::~Game()
@@ -247,6 +249,18 @@ void Game::clearDownSun(){
 		}
 }
 
+void Game::addNewSunFlower(){
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(*this->window);
+	sf::Vector2f mousePositionFloat(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
+	if (this->isPressedBeforForSun || this->sunFlowerPriceRectangle->isContains(mousePositionFloat)){
+		if(this->isPressedBeforForSun || sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+			this->sunflower->setPosition(mousePositionFloat);
+			this->sunflower->render(*this->window);
+			this->isPressedBeforForSun = true;
+		}
+	}
+}
+
 void Game::update()
 {
 	this->pollEvents();
@@ -290,6 +304,8 @@ void Game::render()
 	this->walnutPriceRectangle->render(*this->window);
 	this->regularPeaShooterPriceRectangle->render(*this->window);
 	this->icyPeaShooterPriceRectangle->render(*this->window);
+
+	this->addNewSunFlower();
 
 	// showing the mouse position
     sf::Vector2i position = sf::Mouse::getPosition(*this->window);

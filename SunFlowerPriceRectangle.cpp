@@ -6,6 +6,7 @@ SunFlowerPriceRectangle::SunFlowerPriceRectangle(){
     collDownPicPath = "extrafile/1dark.png";
 }
 
+
 void SunFlowerPriceRectangle::render(sf::RenderTarget& target){
     if(clock.getElapsedTime().asSeconds() >= collDownTime){
         sf::Texture sunFlowerCost;
@@ -15,6 +16,7 @@ void SunFlowerPriceRectangle::render(sf::RenderTarget& target){
         sunFlowerCostSprite.setScale(1.8f,1.8f);
         sunFlowerCostSprite.setOrigin(sunFlowerCost.getSize().x/2 , sunFlowerCost.getSize().y/2);
         sunFlowerCostSprite.setPosition(120,160);
+        this->sprit = sunFlowerCostSprite;
         target.draw(sunFlowerCostSprite);
     }
     else{
@@ -27,4 +29,8 @@ void SunFlowerPriceRectangle::render(sf::RenderTarget& target){
         sunFlowerCostSprite.setPosition(120,160);
         target.draw(sunFlowerCostSprite);
     }
+}
+
+bool SunFlowerPriceRectangle::isContains(sf::Vector2f addr){
+    return this->sprit.getGlobalBounds().contains(addr);
 }

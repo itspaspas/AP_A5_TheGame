@@ -11,6 +11,8 @@
 #include "WalnutPriceRectangle.h"
 #include "RegularPeaShooterPriceRectangle.h"
 #include "icyPeaShooterPriceRectangle.h"
+#include "Plants.hpp"
+#include "Sunflower.hpp"
 
 #ifndef GAME_H
 #define GAME_H
@@ -23,6 +25,7 @@ private:
 	bool attacking;
 	int waveNum;
 	//zombi
+	SunFlower* sunflower;
 	std::vector <Zombie*> zombies;
 	std::vector <Sun*> suns;
 	sf::Clock showingRound;
@@ -40,6 +43,7 @@ private:
 	sf::Vector2i mousePosWindow;
 	sf::Vector2f mousePosView;
 	bool mouseHeld;
+	bool isPressedBeforForSun;
 
 	//Private functions
 	void showWonState();
@@ -54,6 +58,7 @@ private:
 	void clearDownSun();
 	void updateMousePositions();
 	void updateSuns();
+	void addNewSunFlower();
 	//music of game
 	sf::Music music;
 
