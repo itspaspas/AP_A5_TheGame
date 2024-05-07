@@ -18,4 +18,4 @@ PlantVsZombi: $(OBJS)
 
 .PHONY: clean
 clean:
-	rm -f *.o
+	rm -f 

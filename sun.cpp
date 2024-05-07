@@ -11,12 +11,12 @@ void Sun::initTexture(){
 }
 
 bool Sun::hasArrivedToDown(){
-    return this->sprite.getPosition().y > 1080.f ;
+    return this->sprite.getPosition().y > 600.f ;
 }
 
 void Sun::initSprite(){
     this->sprite.setTexture(this->texture);
-    this->sprite.scale(.3f, .3f);
+    this->sprite.scale(.15f, .15f);
     this->sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
 }
 
@@ -24,7 +24,7 @@ Sun::Sun(){
     speed = 2;
     this->initTexture();
     this->initSprite();
-    this->setPosition(350 + static_cast<float>(rand() % static_cast<int>(1300)) ,0.f);
+    this->setPosition(150 + static_cast<float>(rand() % static_cast<int>(500)) ,0.f);
 }
 
 void Sun::setPosition(float x, float y) {

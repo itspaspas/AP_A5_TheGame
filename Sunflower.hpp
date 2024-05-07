@@ -9,7 +9,7 @@ class SunFlower : public Plant {
     float timeSinceLastProduction;
 
 public:
-    SunFlower(const std::string& path) : Plant(path, 50 ,0.1f), produceInterval(5.0f), timeSinceLastProduction(0.0f) , scale(.1f) {}
+    SunFlower(const std::string& path) : Plant(path, 50 ,0.05f), produceInterval(5.0f), timeSinceLastProduction(0.0f) , scale(.05f) {}
 
     void act() override {
         // Implementation for producing suns

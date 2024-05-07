@@ -6,7 +6,7 @@ const float zombieGenerateInterval = 3.0f;
 
 void Game::initWindow()
 {
-	this->videoMode = sf::VideoMode(1920,1080);
+	this->videoMode = sf::VideoMode(800,600);
 	this->window = new sf::RenderWindow(videoMode, "Plant vs Zombie");
 	this->window->setFramerateLimit(144);
 	this->window->setVerticalSyncEnabled(false);
@@ -148,11 +148,11 @@ void Game::showRound(){
 		font.loadFromFile("extrafile/BROMPH_TOWN.ttf");
 		sf::Text text;
 		text.setFont(font);
-		text.setCharacterSize(100);
+		text.setCharacterSize(50);
 		text.setFillColor(sf::Color::Red);
 		text.setOrigin(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
 		// text.setPosition(this->window->getSize().x / 2, this->window->getSize().y / 2);
-		text.setPosition(850 , 450);
+		text.setPosition(325 , 225);
 		if(!isDone){
 			text.setString("Round " + std::to_string(waveNum));
 			this->window->draw(text);
@@ -165,30 +165,30 @@ void Game::showWonState(){
 		font.loadFromFile("extrafile/BROMPH_TOWN.ttf");
 		sf::Text text;
 		text.setFont(font);
-		text.setCharacterSize(100);
+		text.setCharacterSize(50);
 		text.setFillColor(sf::Color::Red);
 		text.setOrigin(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
-		text.setPosition(800 , 450);
+		text.setPosition(300 , 225);
 		text.setString("YOU WON!!!");
 		this->window->draw(text);
 }
 
 void Game::showSunRectangle(){
-	sf::RectangleShape rectangle(sf::Vector2f(150.f, 60.f));
+	sf::RectangleShape rectangle(sf::Vector2f(75.f, 30.f));
     rectangle.setFillColor(sf::Color::Black);
 	rectangle.setOrigin(rectangle.getLocalBounds().width / 2, rectangle.getLocalBounds().height / 2);
-    rectangle.setPosition(185 , 50);
+    rectangle.setPosition(92 , 25);
 	//Create a text object
 	sf::Text text;
     text.setString(std::to_string(this->sunsNum));
-	text.setOrigin(30, 25);
-    text.setCharacterSize(40);
+	text.setOrigin(15, 12);
+    text.setCharacterSize(20);
 	text.setColor(sf::Color::White);
     // Load a font
     sf::Font font;
     font.loadFromFile("extrafile/Dosis-Light.ttf");
     text.setFont(font);
-	text.setPosition(185 , 50 );
+	text.setPosition(92 , 25);
 	this->window->draw(rectangle);
     this->window->draw(text);
 }
@@ -198,9 +198,9 @@ void Game::showSunsNum(){
 	sun.loadFromFile("extrafile/sun.png");
 	sf::Sprite sunSprite;
 	sunSprite.setTexture(sun);
-	sunSprite.setScale(.3f,.3f);
+	sunSprite.setScale(.15f,.15f);
 	sunSprite.setOrigin(sun.getSize().x/2 , sun.getSize().y/2);
-	sunSprite.setPosition(50,50);
+	sunSprite.setPosition(25,25);
 	// sf::RenderTarget& target = *this->window;
 	this->window->draw(sunSprite);
 	this->showSunRectangle();
@@ -297,6 +297,9 @@ void Game::render()
 	this->showSunsNum();
 	//deleting sun that reach the doown
 	this->clearDownSun();
+	//showing sunflower
+	for(auto sunflower : sunflowers)
+		sunflower->render(*this->window);
 	//showing zombies
 	if(!isDone){
 		for(auto zombie : this->zombies)
@@ -316,9 +319,6 @@ void Game::render()
 	//showing sunflower when adding one
 	this->addNewSunFlower();
 
-	//showing sunflower
-	for(auto sunflower : sunflowers)
-		sunflower->render(*this->window);
 
 	// showing the mouse position
     sf::Vector2i position = sf::Mouse::getPosition(*this->window);
