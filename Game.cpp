@@ -46,10 +46,11 @@ Game::Game(){
 Game::~Game()
 {
 	delete this->window;
-	for(auto zombi : this->zombies)
-		delete zombi;
+	for(auto zombie : this->zombies)
+		delete zombie;
 	for(auto sun : this->suns)
 		delete sun;
+	delete this->board;
 }
 
 void Game::addNewNormalZombie(){
@@ -275,8 +276,8 @@ void Game::update()
 	this->beginAttackIfItsTime();
 	this->fallingSuns();
 	this->gameOver();
-	for(auto zombi : this->zombies)
-		zombi->move(-1.f,0.f);
+	for(auto zombie : this->zombies)
+		zombie->move(-1.f,0.f);
 	for(auto sun : this->suns)
 		sun->move(0.f,1.f);
 
@@ -298,8 +299,8 @@ void Game::render()
 	this->clearDownSun();
 	//showing zombies
 	if(!isDone){
-		for(auto zombi : this->zombies)
-			zombi->render(*this->window);
+		for(auto zombie : this->zombies)
+			zombie->render(*this->window);
 		for(auto sun : this->suns)
 			sun->render(*this->window);
 	}

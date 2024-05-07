@@ -1,5 +1,13 @@
 #include "Board.h"
 
+Board::~Board() {
+    for (auto& row : cells) {
+        for (auto cell : row) {
+            delete cell;
+        }
+    }
+}
+
 float calculateHeight(sf::Vector2f beginOfBoard , sf::Vector2f endOfBoard){
     return (endOfBoard.y - beginOfBoard.y)/5;
 }
@@ -37,10 +45,15 @@ void Board::plantAt(sf::Vector2f mouseAddr ,Plant* plant) {
     }
 } 
 
-// void Board::removePlantAt(int row, int col) {
-//     cells[row][col].removePlant();
-// }
+void Board::removePlantAt(int row, int col) {
+    if (row < numRows && col < numColumns) {
+        cells[row][col]->removePlant();
+    }
+}
 
-// bool Board::isCellEmpty(int row, int col) const {
-//     return cells[row][col].isEmpty();
-// }
+bool Board::isCellEmpty(int row, int col) const {
+    if (row < numRows && col < numColumns) {
+        return cells[row][col]->isEmpty();
+    }
+    return true;
+}

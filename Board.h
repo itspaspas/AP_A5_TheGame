@@ -8,6 +8,7 @@
 class Board {
 public:
     Board(sf::Vector2f beginOfBoard , sf::Vector2f endOfBoard); // Constructor
+    ~Board();
     void plantAt(sf::Vector2f mouseAddr, Plant* plant); // Plant a plant in a cell
     void removePlantAt(int row, int col); // Remove a plant from a cell
     bool isCellEmpty(int row, int col) const; // Check if a cell is empty
