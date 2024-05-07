@@ -15,6 +15,7 @@ public:
     bool isEmpty() const; // Check if the cell is empty
     bool isContainAddr(sf::Vector2f Addr);
     Plant* getPlant() const; // Get the plant in the cell
+    sf::Vector2f getCellMidPosition();
 
 private:
     sf::Vector2f beginOfCell;

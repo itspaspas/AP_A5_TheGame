@@ -1,44 +1,35 @@
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <vector>
-#include <string>
+#ifndef PLANTS_H
+#define PLANTS_H
 
-#ifndef PLANTS_HPP
-#define PLANTS_HPP
+#include <SFML/Graphics.hpp>
+#include "Cell.h"  // Assuming Cell class has necessary methods and attributes
+#include "Projectiles.hpp"  // Assuming a Projectile class exists
 
 class Plant {
 protected:
+    int damage;
+    int health;
+    int activationTime;  // Time it takes to activate or recharge
+    sf::Vector2f position; // Position on the board
+    Cell* occupiedCell;    // Pointer to the cell it occupies
+    int lastAttackTime;  // Time since last attack
+
     sf::Sprite sprite;
     sf::Texture texture;
-    std::string texturePath;
-    int health;
-    int maxHealth;
-    float scale;
 
-    void loadTexture() {
-        if (!texture.loadFromFile(texturePath)) {
-            std::cerr << "Failed to load texture from path: " << texturePath << std::endl;
-        }
-        sprite.setTexture(texture);
-        this->sprite.scale(scale, scale);
-        this->sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
-    }
+    void initTexture(const std::string& texturePath);
+    void initSprite();
 
 public:
+    Plant(int damage, int health, float activationTime, Cell* cell, const std::string& texturePath);
+    virtual ~Plant();
 
-    Plant(const std::string& path, int hp ,float _scale) : texturePath(path), health(hp), maxHealth(hp) , scale(_scale){
-        loadTexture();
-    }
-
-    void setPosition(sf::Vector2f addr){
-        this->sprite.setPosition(addr);
-    }
-
-    virtual void act() = 0; // Perform the plant's action (e.g., shoot, produce sun)
-    virtual void update() = 0; // Update method for animations or state changes
-    virtual void render(sf::RenderTarget& target) {
-        target.draw(sprite);
-    }
+    // virtual void attack(std::vector<Projectile>& projectiles) = 0;  // Pure virtual function for attacking
+    bool takeDamage(int amount);
+    void update(const sf::Time& dt);
+    void render(sf::RenderTarget& target);
+    bool canAttack() const;
+    void setPosition(sf::Vector2f target);
 };
 
 #endif
