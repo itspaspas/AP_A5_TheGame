@@ -1,7 +1,7 @@
 #include "SunFlowerPriceRectangle.h"
 
 SunFlowerPriceRectangle::SunFlowerPriceRectangle(){
-    collDownTime = 10;
+    collDownTime = 2;
     picturePath = "extrafile/1.png";
     collDownPicPath = "extrafile/1dark.png";
 }

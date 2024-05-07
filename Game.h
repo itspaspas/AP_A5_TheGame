@@ -28,6 +28,7 @@ private:
 	SunFlower* sunflower;
 	std::vector <Zombie*> zombies;
 	std::vector <Sun*> suns;
+	std::vector <SunFlower*> sunflowers;
 	sf::Clock showingRound;
 	sf::Clock zombiAttackClock;
 	sf::Clock waveAttackClock;
