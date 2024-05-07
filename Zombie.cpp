@@ -10,13 +10,13 @@ void Zombie::initTexture(std::string textureFilePath){
 }
 
 bool Zombie::hasArrivedHome(){
-    return this->sprite.getPosition().x < 350.f ;
+    return this->sprite.getPosition().x < 150.f ;
 }
 
 float getRandomPosition(){
     int randomNumber = std::rand() % 5;
     //TODO: Set positions based on window size
-    float possiblePosition[5] = {230.f,380.f,550.f,710.f,890.f};
+    float possiblePosition[5] = {115.f,200.f,300.f,390.f,485.f};
 
     return possiblePosition[randomNumber];
 }
@@ -25,7 +25,7 @@ void Zombie::initSprite(float scale){
     this->sprite.setTexture(this->texture);
     this->sprite.scale(scale, scale);
     this->sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
-    this->sprite.setPosition(1919.f,getRandomPosition());
+    this->sprite.setPosition(800.f,getRandomPosition());
 }
 
 Zombie::Zombie(std::string textureFilePath, float scale , float _movementSpeed, int _maxHealth , int _damage , int _hiRate){

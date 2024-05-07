@@ -13,9 +13,9 @@ void SunFlowerPriceRectangle::render(sf::RenderTarget& target){
         sunFlowerCost.loadFromFile(picturePath);
         sf::Sprite sunFlowerCostSprite;
         sunFlowerCostSprite.setTexture(sunFlowerCost);
-        sunFlowerCostSprite.setScale(1.8f,1.8f);
+        sunFlowerCostSprite.setScale(0.9f,0.9f);
         sunFlowerCostSprite.setOrigin(sunFlowerCost.getSize().x/2 , sunFlowerCost.getSize().y/2);
-        sunFlowerCostSprite.setPosition(120,160);
+        sunFlowerCostSprite.setPosition(60,80);
         this->sprit = sunFlowerCostSprite;
         target.draw(sunFlowerCostSprite);
     }
@@ -24,9 +24,9 @@ void SunFlowerPriceRectangle::render(sf::RenderTarget& target){
         sunFlowerCost.loadFromFile(collDownPicPath);
         sf::Sprite sunFlowerCostSprite;
         sunFlowerCostSprite.setTexture(sunFlowerCost);
-        sunFlowerCostSprite.setScale(1.8f,1.8f);
+        sunFlowerCostSprite.setScale(0.9f,0.9f);
         sunFlowerCostSprite.setOrigin(sunFlowerCost.getSize().x/2 , sunFlowerCost.getSize().y/2);
-        sunFlowerCostSprite.setPosition(120,160);
+        sunFlowerCostSprite.setPosition(60,80);
         target.draw(sunFlowerCostSprite);
     }
 }

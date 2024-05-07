@@ -12,9 +12,9 @@ void WalnutPriceRectangle::render(sf::RenderTarget& target){
         WalnutCost.loadFromFile(picturePath);
         sf::Sprite WalnutCostSprite;
         WalnutCostSprite.setTexture(WalnutCost);
-        WalnutCostSprite.setScale(1.8f,1.8f);
+        WalnutCostSprite.setScale(.9f,.9f);
         WalnutCostSprite.setOrigin(WalnutCost.getSize().x/2 , WalnutCost.getSize().y/2);
-        WalnutCostSprite.setPosition(120,160 +2* WalnutCost.getSize().y);
+        WalnutCostSprite.setPosition(60,80 + WalnutCost.getSize().y);
         target.draw(WalnutCostSprite);
     }
     else{
@@ -22,9 +22,9 @@ void WalnutPriceRectangle::render(sf::RenderTarget& target){
         WalnutCost.loadFromFile(collDownPicPath);
         sf::Sprite WalnutCostSprite;
         WalnutCostSprite.setTexture(WalnutCost);
-        WalnutCostSprite.setScale(1.8f,1.8f);
+        WalnutCostSprite.setScale(.9f,.9f);
         WalnutCostSprite.setOrigin(WalnutCost.getSize().x/2 , WalnutCost.getSize().y/2);
-        WalnutCostSprite.setPosition(120,160 +2* WalnutCost.getSize().y);
+        WalnutCostSprite.setPosition(60,80 + WalnutCost.getSize().y);
         target.draw(WalnutCostSprite);
     }
 }

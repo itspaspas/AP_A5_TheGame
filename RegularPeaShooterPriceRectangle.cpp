@@ -12,9 +12,9 @@ void RegularPeaShooterPriceRectangle::render(sf::RenderTarget& target){
         RegularPeaShooterCost.loadFromFile(picturePath);
         sf::Sprite RegularPeaShooterCostSprite;
         RegularPeaShooterCostSprite.setTexture(RegularPeaShooterCost);
-        RegularPeaShooterCostSprite.setScale(1.8f,1.8f);
+        RegularPeaShooterCostSprite.setScale(.9f,.9f);
         RegularPeaShooterCostSprite.setOrigin(RegularPeaShooterCost.getSize().x/2 , RegularPeaShooterCost.getSize().y/2);
-        RegularPeaShooterCostSprite.setPosition(120,160 + 4*RegularPeaShooterCost.getSize().y);
+        RegularPeaShooterCostSprite.setPosition(60,80 + 2*RegularPeaShooterCost.getSize().y);
         target.draw(RegularPeaShooterCostSprite);
     }
     else{
@@ -22,9 +22,9 @@ void RegularPeaShooterPriceRectangle::render(sf::RenderTarget& target){
         RegularPeaShooterCost.loadFromFile(collDownPicPath);
         sf::Sprite RegularPeaShooterCostSprite;
         RegularPeaShooterCostSprite.setTexture(RegularPeaShooterCost);
-        RegularPeaShooterCostSprite.setScale(1.8f,1.8f);
+        RegularPeaShooterCostSprite.setScale(.9f,.9f);
         RegularPeaShooterCostSprite.setOrigin(RegularPeaShooterCost.getSize().x/2 , RegularPeaShooterCost.getSize().y/2);
-        RegularPeaShooterCostSprite.setPosition(120,160 + 4*RegularPeaShooterCost.getSize().y);
+        RegularPeaShooterCostSprite.setPosition(60,80 + 2*RegularPeaShooterCost.getSize().y);
         target.draw(RegularPeaShooterCostSprite);
     }
 }
