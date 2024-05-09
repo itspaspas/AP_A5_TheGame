@@ -21,7 +21,7 @@ void Sun::initSprite(){
 }
 
 Sun::Sun(){
-    speed = 2;
+    speed = 1;
     this->initTexture();
     this->initSprite();
     this->setPosition(150 + static_cast<float>(rand() % static_cast<int>(500)) ,0.f);
