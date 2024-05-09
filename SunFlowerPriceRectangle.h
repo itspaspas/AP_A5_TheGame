@@ -20,6 +20,4 @@ public:
     bool isAbleToAdd();
 };
 
-
-
 #endif

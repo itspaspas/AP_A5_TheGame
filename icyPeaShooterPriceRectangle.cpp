@@ -15,6 +15,7 @@ void IcyPeaShooterPriceRectangle::render(sf::RenderTarget& target){
         icyPeaShooterCostSprite.setScale(.9f,.9f);
         icyPeaShooterCostSprite.setOrigin(icyPeaShooterCost.getSize().x/2 , icyPeaShooterCost.getSize().y/2);
         icyPeaShooterCostSprite.setPosition(60 ,80 + 3*icyPeaShooterCost.getSize().y);
+        this->sprit = icyPeaShooterCostSprite;
         target.draw(icyPeaShooterCostSprite);
     }
     else{
@@ -35,4 +36,8 @@ bool IcyPeaShooterPriceRectangle::isAbleToAdd(){
 
 void IcyPeaShooterPriceRectangle::startCoolDown(){
     this->clock.restart();
+}
+
+bool IcyPeaShooterPriceRectangle::isContains(sf::Vector2f addr){
+    return this->sprit.getGlobalBounds().contains(addr);
 }

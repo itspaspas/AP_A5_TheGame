@@ -27,6 +27,7 @@ Game::Game(){
 	this->isDone = false;
 	this->attacking = false;
 	this->isPressedBeforForSun = false;
+	this->isPressedBeforForWalnut =false;
 	this->waveNum = 1;
 	this->zombieAddedInWave=0;
 	this->initWindow();
@@ -41,6 +42,7 @@ Game::Game(){
 	this->icyPeaShooterPriceRectangle = new IcyPeaShooterPriceRectangle();
 
 	this->sunflower = new SunFlower();
+	this->walnut = new Walnut();
 }
 
 Game::~Game()
@@ -256,21 +258,37 @@ bool Game::plantIsOnBoard(sf::Vector2f mousePositionFloat){
 }
 
 void Game::addNewSunFlower(){
-	sf::Vector2i mousePosition = sf::Mouse::getPosition(*this->window);
-	sf::Vector2f mousePositionFloat(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
-	if(this->isPressedBeforForSun && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(mousePositionFloat)){
+	if(this->isPressedBeforForSun && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView)){
 		SunFlower* newSunFlower = new SunFlower();
-		sf::Vector2f posOfAddedSunflower = this->board->plantAt(mousePositionFloat , newSunFlower);
+		sf::Vector2f posOfAddedSunflower = this->board->plantAt(this->mousePosView , newSunFlower);
 		newSunFlower->setPosition(posOfAddedSunflower);
-		sunflowers.push_back(newSunFlower);
+		plants.push_back(newSunFlower);
 		this->sunFlowerPriceRectangle->startCoolDown();
 		this->isPressedBeforForSun = false;
 	}
-	if(this->isPressedBeforForSun || this->sunFlowerPriceRectangle->isContains(mousePositionFloat)){
+	if(this->isPressedBeforForSun || this->sunFlowerPriceRectangle->isContains(this->mousePosView)){
 		if(this->isPressedBeforForSun || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->sunFlowerPriceRectangle->isAbleToAdd()){
-			this->sunflower->setPosition(mousePositionFloat);
+			this->sunflower->setPosition(this->mousePosView);
 			this->sunflower->render(*this->window);
 			this->isPressedBeforForSun = true;
+		}
+	}
+}
+
+void Game::addNewWalnut(){
+	if(this->isPressedBeforForWalnut && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView)){
+		Walnut* newWalnut = new Walnut();
+		sf::Vector2f posOfAddedWalnut = this->board->plantAt(this->mousePosView , newWalnut);
+		newWalnut->setPosition(posOfAddedWalnut);
+		plants.push_back(newWalnut);
+		this->walnutPriceRectangle->startCoolDown();
+		this->isPressedBeforForWalnut = false;
+	}
+	if(this->isPressedBeforForWalnut || this->walnutPriceRectangle->isContains(this->mousePosView)){
+		if(this->isPressedBeforForWalnut || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->walnutPriceRectangle->isAbleToAdd()){
+			this->walnut->setPosition(this->mousePosView);
+			this->walnut->render(*this->window);
+			this->isPressedBeforForWalnut = true;
 		}
 	}
 }
@@ -303,8 +321,8 @@ void Game::render()
 	//deleting sun that reach the doown
 	this->clearDownSun();
 	//showing sunflower
-	for(auto sunflower : sunflowers)
-		sunflower->render(*this->window);
+	for(auto plant : plants)
+		plant->render(*this->window);
 	//showing zombies
 	if(!isDone){
 		for(auto zombie : this->zombies)
@@ -323,6 +341,7 @@ void Game::render()
 	this->icyPeaShooterPriceRectangle->render(*this->window);
 	//showing sunflower when adding one
 	this->addNewSunFlower();
+	this->addNewWalnut();
 
 
 	// showing the mouse position

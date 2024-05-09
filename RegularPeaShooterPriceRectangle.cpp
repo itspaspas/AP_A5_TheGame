@@ -15,6 +15,7 @@ void RegularPeaShooterPriceRectangle::render(sf::RenderTarget& target){
         RegularPeaShooterCostSprite.setScale(.9f,.9f);
         RegularPeaShooterCostSprite.setOrigin(RegularPeaShooterCost.getSize().x/2 , RegularPeaShooterCost.getSize().y/2);
         RegularPeaShooterCostSprite.setPosition(60,80 + 2*RegularPeaShooterCost.getSize().y);
+        this->sprit = RegularPeaShooterCostSprite;
         target.draw(RegularPeaShooterCostSprite);
     }
     else{
@@ -35,4 +36,8 @@ bool RegularPeaShooterPriceRectangle::isAbleToAdd(){
 
 void RegularPeaShooterPriceRectangle::startCoolDown(){
     this->clock.restart();
+}
+
+bool RegularPeaShooterPriceRectangle::isContains(sf::Vector2f addr){
+    return this->sprit.getGlobalBounds().contains(addr);
 }

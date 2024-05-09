@@ -1,7 +1,7 @@
 #include "WalnutPriceRectangle.h"
 
 WalnutPriceRectangle::WalnutPriceRectangle(){
-    collDownTime = 10;
+    collDownTime = 3;
     picturePath = "extrafile/2.png";
     collDownPicPath = "extrafile/2dark.png";
 }
@@ -15,6 +15,7 @@ void WalnutPriceRectangle::render(sf::RenderTarget& target){
         WalnutCostSprite.setScale(.9f,.9f);
         WalnutCostSprite.setOrigin(WalnutCost.getSize().x/2 , WalnutCost.getSize().y/2);
         WalnutCostSprite.setPosition(60,80 + WalnutCost.getSize().y);
+        this->sprit = WalnutCostSprite;
         target.draw(WalnutCostSprite);
     }
     else{
@@ -35,4 +36,8 @@ bool WalnutPriceRectangle::isAbleToAdd(){
 
 void WalnutPriceRectangle::startCoolDown(){
     this->clock.restart();
+}
+
+bool WalnutPriceRectangle::isContains(sf::Vector2f addr){
+    return this->sprit.getGlobalBounds().contains(addr);
 }

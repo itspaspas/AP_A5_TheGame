@@ -13,6 +13,7 @@
 #include "icyPeaShooterPriceRectangle.h"
 #include "Plants.hpp"
 #include "Sunflower.hpp"
+#include "Walnut.hpp"
 
 #ifndef GAME_H
 #define GAME_H
@@ -26,9 +27,10 @@ private:
 	int waveNum;
 	//zombi
 	SunFlower* sunflower;
+	Walnut* walnut;
 	std::vector <Zombie*> zombies;
 	std::vector <Sun*> suns;
-	std::vector <SunFlower*> sunflowers;
+	std::vector <Plant*> plants;
 	sf::Clock showingRound;
 	sf::Clock zombiAttackClock;
 	sf::Clock waveAttackClock;
@@ -45,6 +47,7 @@ private:
 	sf::Vector2f mousePosView;
 	bool mouseHeld;
 	bool isPressedBeforForSun;
+	bool isPressedBeforForWalnut;
 
 	//Private functions
 	void showWonState();
@@ -60,6 +63,7 @@ private:
 	void updateMousePositions();
 	void updateSuns();
 	void addNewSunFlower();
+	void addNewWalnut();
 	bool plantIsOnBoard(sf::Vector2f mousePositionFloat);
 	//music of game
 	sf::Music music;
