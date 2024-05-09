@@ -60,6 +60,7 @@ private:
 	void updateMousePositions();
 	void updateSuns();
 	void addNewSunFlower();
+	bool plantIsOnBoard(sf::Vector2f mousePositionFloat);
 	//music of game
 	sf::Music music;
 

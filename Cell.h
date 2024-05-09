@@ -11,7 +11,7 @@ class Plant;
 class Cell {
 public:
     Cell(sf::Vector2f beginOfCell , sf::Vector2f endOfCell);// Constructor (initialize as empty)
-    void setPlant(Plant* plant); // Set the plant in the cell
+    sf::Vector2f setPlant(Plant* plant); // Set the plant in the cell
     void removePlant(); // Remove the plant from the cell
     bool isEmpty() const; // Check if the cell is empty
     bool isContainAddr(sf::Vector2f Addr);

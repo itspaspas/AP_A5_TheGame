@@ -16,13 +16,13 @@ Game::Game(){
 	sunsNum = 50;
 
 	sf::Vector2f beginOfBoard;
-	beginOfBoard.x = 350.f;
-	beginOfBoard.y = 150.f;
+	beginOfBoard.x = 150.f;
+	beginOfBoard.y = 90.f;
 	sf::Vector2f endOfBoard;
-	endOfBoard.x = 1600.f;
-	endOfBoard.y = 980.f;
-	Board b(beginOfBoard , endOfBoard);
-	this->board = &b;
+	endOfBoard.x = 660.f;
+	endOfBoard.y = 550.f;
+
+	this->board = new Board(beginOfBoard , endOfBoard);
 
 	this->isDone = false;
 	this->attacking = false;
@@ -251,12 +251,19 @@ void Game::clearDownSun(){
 		}
 }
 
+bool Game::plantIsOnBoard(sf::Vector2f mousePositionFloat){
+	return this->board->isContain(mousePositionFloat);
+}
+
 void Game::addNewSunFlower(){
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(*this->window);
 	sf::Vector2f mousePositionFloat(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
-	if(this->isPressedBeforForSun && sf::Mouse::isButtonPressed(sf::Mouse::Left) && !this->sunFlowerPriceRectangle->isContains(mousePositionFloat)){
+	if(this->isPressedBeforForSun && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(mousePositionFloat)){
 		// board->plantAt(mousePositionFloat ,sunflower);
 		SunFlower* newSunFlower = new SunFlower();
+		// sf::Vector2f posOfAddedSunflower = this->board->plantAt(mousePositionFloat , newSunFlower);
+		// std::cout<<"the x of midel of sell"<<posOfAddedSunflower.x<<std::endl;
+		// std::cout<<"the y of midel of sell"<<posOfAddedSunflower.y<<std::endl;
 		newSunFlower->setPosition(mousePositionFloat);
 		sunflowers.push_back(newSunFlower);
 		this->isPressedBeforForSun = false;
@@ -323,9 +330,6 @@ void Game::render()
 	// showing the mouse position
     sf::Vector2i position = sf::Mouse::getPosition(*this->window);
     std::cout << "Mouse position: " << position.x << " - " << window->getSize().x << ", " << position.y << " - " << window->getSize().y << std::endl;
-
-	std::cout<<"the wave num"<<this->waveNum << std::endl;
-
 	this->window->display();
 }
 

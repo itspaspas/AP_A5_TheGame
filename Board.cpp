@@ -36,14 +36,20 @@ Board::Board(sf::Vector2f _beginOfBoard , sf::Vector2f _endOfBoard){
     }
 }
 
-void Board::plantAt(sf::Vector2f mouseAddr ,Plant* plant) {
+sf::Vector2f Board::plantAt(sf::Vector2f mouseAddr ,Plant* plant) {
     for(auto rowCell : cells){
         for(auto cell : rowCell){
             if(cell->isEmpty() && cell->isContainAddr(mouseAddr))
-                cell->setPlant(plant);
+                return cell->setPlant(plant);
         }
     }
 } 
+
+bool Board::isContain(sf::Vector2f mousePositionFloat){
+    return ((mousePositionFloat.x > this->beginOfBoard.x) && 
+            (mousePositionFloat.x < this->endOfBoard.x) && 
+            (mousePositionFloat.y > this->beginOfBoard.y) && 
+            (mousePositionFloat.y < this->endOfBoard.y));}
 
 void Board::removePlantAt(int row, int col) {
     if (row < numRows && col < numColumns) {

@@ -11,12 +11,13 @@ bool Cell::isContainAddr(sf::Vector2f Addr){
             this->beginOfCell.y <= Addr.y && Addr.y < this->endOfCell.y);
 }
 
-void Cell::setPlant(Plant* plant){
+sf::Vector2f Cell::setPlant(Plant* plant){
     this->plant = plant;
     sf::Vector2f position;
     position.x = endOfCell.x - beginOfCell.x;
     position.y = endOfCell.y - beginOfCell.y;
     plant->setPosition(position);
+    return position;
     empty = false;
 }
 
