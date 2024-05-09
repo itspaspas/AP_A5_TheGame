@@ -381,6 +381,28 @@ void Game::updatePeaShooters() {
     }
 }
 
+void Game::updateIcyPeaShooters() {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        if (!mouseHeld) {
+            mouseHeld = true;
+            sf::Vector2f mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window));
+            if (icyPeaShooterPriceRectangle->isContains(mousePos) && icyPeaShooterPriceRectangle->isAbleToAdd()) {
+                isPressedBeforForIcyPeaShooter = true;
+                icyPeaShooterPriceRectangle->startCoolDown();
+            } else if (isPressedBeforForIcyPeaShooter) {
+                IcyPeaShooter* newShooter = new IcyPeaShooter();
+                icyPeaShooters.push_back(newShooter);
+                isPressedBeforForIcyPeaShooter = false;
+            }
+        }
+    } else {
+        mouseHeld = false;
+    }
+
+    for (auto& shooter : icyPeaShooters) {
+        shooter->update();
+    }
+}
 
 void Game::update()
 {
@@ -407,7 +429,7 @@ void Game::update()
 	this->updateMousePositions();
 	this->updateSuns();
 	this->updatePeaShooters();
-
+	this->updateIcyPeaShooters();
 }
 
 void Game::render()
@@ -424,16 +446,20 @@ void Game::render()
 	//showing sunflower
 	for(auto plant : plants)
 		plant->render(*this->window);
+	for (auto& shooter : regularPeaShooters) {
+			shooter->render(*window);
+	}	
+	for (auto& icyShooter : icyPeaShooters){
+		icyShooter->render(*window);
+	}
 	//showing zombies
 	if(!isDone){
 		for(auto zombie : this->zombies)
 			zombie->render(*this->window);
 		for(auto sun : this->suns)
 			sun->render(*this->window);
-		for (auto& shooter : regularPeaShooters) {
-			shooter->render(*window);
+		
     }
-	}
 	else{
 		showWonState();
 	}

@@ -35,9 +35,11 @@ public:
     }
 
     void shoot() {
+        std::cout << "Shooting a pea" << std::endl;  // Debug output
         sf::Vector2f position = this->sprite.getPosition();
         position.x += this->sprite.getGlobalBounds().width;
         peas.push_back(new RegularPea(position));
+        std::cout << "Pea position: " << position.x << ", " << position.y << std::endl;  // Debug output
     }
 
     void render(sf::RenderWindow& window) {
