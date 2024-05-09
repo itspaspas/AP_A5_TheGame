@@ -11,17 +11,17 @@ protected:
     int health;
     int activationTime;  // Time it takes to activate or recharge
     sf::Vector2f position; // Position on the board
-    Cell* occupiedCell;    // Pointer to the cell it occupies
     int lastAttackTime;  // Time since last attack
 
     sf::Sprite sprite;
     sf::Texture texture;
+    float scale;
 
     void initTexture(const std::string& texturePath);
     void initSprite();
 
 public:
-    Plant(int damage, int health, float activationTime, Cell* cell, const std::string& texturePath);
+    Plant(int damage, int health, float activationTime, const std::string& texturePath ,float _scale);
     virtual ~Plant();
 
     // virtual void attack(std::vector<Projectile>& projectiles) = 0;  // Pure virtual function for attacking

@@ -40,7 +40,7 @@ Game::Game(){
 	this->regularPeaShooterPriceRectangle = new RegularPeaShooterPriceRectangle();
 	this->icyPeaShooterPriceRectangle = new IcyPeaShooterPriceRectangle();
 
-	this->sunflower = new SunFlower(nullptr, "extrafile/Sunflower.png");
+	this->sunflower = new SunFlower();
 }
 
 Game::~Game()
@@ -256,12 +256,9 @@ void Game::addNewSunFlower(){
 	sf::Vector2f mousePositionFloat(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
 	if(this->isPressedBeforForSun && sf::Mouse::isButtonPressed(sf::Mouse::Left) && !this->sunFlowerPriceRectangle->isContains(mousePositionFloat)){
 		// board->plantAt(mousePositionFloat ,sunflower);
-		Cell* cell = board->getCellAt(mousePositionFloat); // You need to implement getCellAt
-		if (cell != nullptr && cell->isEmpty()) {
-			SunFlower* newSunFlower = new SunFlower(cell, "extrafile/Sunflower.png");
-			newSunFlower->setPosition(cell->getCellMidPosition());
-			sunflowers.push_back(newSunFlower);
-		}
+		SunFlower* newSunFlower = new SunFlower();
+		newSunFlower->setPosition(mousePositionFloat);
+		sunflowers.push_back(newSunFlower);
 		this->isPressedBeforForSun = false;
 	}
 	if(this->isPressedBeforForSun || this->sunFlowerPriceRectangle->isContains(mousePositionFloat)){

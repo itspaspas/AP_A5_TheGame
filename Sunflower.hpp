@@ -9,7 +9,7 @@ class SunFlower : public Plant {
     float timeSinceLastProduction;
 
 public:
-    SunFlower(Cell* cell, const std::string& texturePath);  // Constructor declaration
+    SunFlower();  // Constructor declaration
     void act();  // Method to produce suns
     void update();  // Update method for timing and logic
 };
