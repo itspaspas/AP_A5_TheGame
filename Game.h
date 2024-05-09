@@ -14,6 +14,8 @@
 #include "Plants.hpp"
 #include "Sunflower.hpp"
 #include "Walnut.hpp"
+#include "RegularPeaShooter.hpp"
+#include "IcyPeaShooter.hpp"
 
 #ifndef GAME_H
 #define GAME_H
@@ -28,6 +30,8 @@ private:
 	//zombi
 	SunFlower* sunflower;
 	Walnut* walnut;
+	RegularPeaShooter* regularPeaShooter;
+	IcyPeaShooter* icyPeaShooter;
 	std::vector <Zombie*> zombies;
 	std::vector <Sun*> suns;
 	std::vector <Plant*> plants;
@@ -48,6 +52,8 @@ private:
 	bool mouseHeld;
 	bool isPressedBeforForSun;
 	bool isPressedBeforForWalnut;
+	bool isPressedBeforForRegularPeaShooter;
+	bool isPressedBeforForIcyPeaShooter;
 
 	//Private functions
 	void showWonState();
@@ -64,6 +70,8 @@ private:
 	void updateSuns();
 	void addNewSunFlower();
 	void addNewWalnut();
+	void addNewRegularPeaShooter();
+	void addNewIcyPeaShooter();
 	bool plantIsOnBoard(sf::Vector2f mousePositionFloat);
 	//music of game
 	sf::Music music;

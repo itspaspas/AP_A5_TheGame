@@ -2,9 +2,11 @@ CXX = g++
 CXXFLAGS = -Wall -Wextra -pedantic -std=c++2a
 
 OBJS = Zombie.o Game.o main.o HairMetalZombie.o RegularZombie.o sun.o Board.o Cell.o \
-SunFlowerPriceRectangle.o WalnutPriceRectangle.o RegularPeaShooterPriceRectangle.o icyPeaShooterPriceRectangle.o Plants.o Sunflower.o Walnut.o
+SunFlowerPriceRectangle.o WalnutPriceRectangle.o RegularPeaShooterPriceRectangle.o icyPeaShooterPriceRectangle.o \
+Plants.o Sunflower.o Walnut.o IcyPeaShooter.o RegularPeaShooter.o
 HEADERS = Zombie.h Game.h HairMetalZombie.h RegularZombie.h sun.h Board.h Cell.h \
-SunFlowerPriceRectangle.h WalnutPriceRectangle.h RegularPeaShooterPriceRectangle.h icyPeaShooterPriceRectangle.h Plants.hpp Sunflower.hpp Walnut.hpp
+SunFlowerPriceRectangle.h WalnutPriceRectangle.h RegularPeaShooterPriceRectangle.h icyPeaShooterPriceRectangle.h \
+Plants.hpp Sunflower.hpp Walnut.hpp IcyPeaShooter.hpp RegularPeaShooter.hpp
 
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 

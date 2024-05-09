@@ -28,6 +28,8 @@ Game::Game(){
 	this->attacking = false;
 	this->isPressedBeforForSun = false;
 	this->isPressedBeforForWalnut =false;
+	this->isPressedBeforForRegularPeaShooter = false;
+	this->isPressedBeforForIcyPeaShooter = false;
 	this->waveNum = 1;
 	this->zombieAddedInWave=0;
 	this->initWindow();
@@ -43,6 +45,8 @@ Game::Game(){
 
 	this->sunflower = new SunFlower();
 	this->walnut = new Walnut();
+	this ->regularPeaShooter = new RegularPeaShooter();
+	this->icyPeaShooter = new IcyPeaShooter();
 }
 
 Game::~Game()
@@ -293,6 +297,42 @@ void Game::addNewWalnut(){
 	}
 }
 
+void Game::addNewRegularPeaShooter(){
+	if(this->isPressedBeforForRegularPeaShooter && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView)){
+		RegularPeaShooter* regularPeaShooter = new RegularPeaShooter();
+		sf::Vector2f posOfAddedRegularPeaShooter = this->board->plantAt(this->mousePosView , regularPeaShooter);
+		regularPeaShooter->setPosition(posOfAddedRegularPeaShooter);
+		plants.push_back(regularPeaShooter);
+		this->regularPeaShooterPriceRectangle->startCoolDown();
+		this->isPressedBeforForRegularPeaShooter = false;
+	}
+	if(this->isPressedBeforForRegularPeaShooter || this->regularPeaShooterPriceRectangle->isContains(this->mousePosView)){
+		if(this->isPressedBeforForRegularPeaShooter || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->regularPeaShooterPriceRectangle->isAbleToAdd()){
+			this->regularPeaShooter->setPosition(this->mousePosView);
+			this->regularPeaShooter->render(*this->window);
+			this->isPressedBeforForRegularPeaShooter = true;
+		}
+	}
+}
+
+void Game::addNewIcyPeaShooter(){
+	if(this->isPressedBeforForIcyPeaShooter && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView)){
+		IcyPeaShooter* icyPeaShooter = new IcyPeaShooter();
+		sf::Vector2f posOfAddedIcyPeaShooter = this->board->plantAt(this->mousePosView , icyPeaShooter);
+		icyPeaShooter->setPosition(posOfAddedIcyPeaShooter);
+		plants.push_back(icyPeaShooter);
+		this->icyPeaShooterPriceRectangle->startCoolDown();
+		this->isPressedBeforForIcyPeaShooter = false;
+	}
+	if(this->isPressedBeforForIcyPeaShooter || this->icyPeaShooterPriceRectangle->isContains(this->mousePosView)){
+		if(this->isPressedBeforForIcyPeaShooter || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->icyPeaShooterPriceRectangle->isAbleToAdd()){
+			this->icyPeaShooter->setPosition(this->mousePosView);
+			this->icyPeaShooter->render(*this->window);
+			this->isPressedBeforForIcyPeaShooter = true;
+		}
+	}
+}
+
 void Game::update()
 {
 	this->pollEvents();
@@ -342,6 +382,8 @@ void Game::render()
 	//showing sunflower when adding one
 	this->addNewSunFlower();
 	this->addNewWalnut();
+	this->addNewRegularPeaShooter();
+	this->addNewIcyPeaShooter();
 
 
 	// showing the mouse position
