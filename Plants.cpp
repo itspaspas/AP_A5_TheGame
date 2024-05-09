@@ -41,3 +41,15 @@ bool Plant::canAttack() const {
 void Plant::setPosition(sf::Vector2f addr){
     this->sprite.setPosition(addr);
 }
+
+sf::Sprite Plant::getSprite(){
+    return this->sprite;
+}
+
+bool Plant::isDead(){
+    return this->health <= 0;
+}
+
+void Plant::getDamage(int damage){
+    this->health -= damage;
+}

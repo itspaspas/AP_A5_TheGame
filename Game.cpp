@@ -337,17 +337,48 @@ void Game::addNewIcyPeaShooter(){
 	}
 }
 
+void Game::checkZombiePlantCollision() {
+    for(auto &zombie : zombies) {
+        for(auto &plant : plants) {
+            sf::FloatRect plantBounds = plant->getSprite().getGlobalBounds();
+            sf::FloatRect zombieBounds = zombie->getSprite().getGlobalBounds();
+			sf::Vector2f zombieCenter = sf::Vector2f(
+                zombieBounds.left + zombieBounds.width / 2.0f,
+                zombieBounds.top + zombieBounds.height / 2.0f);
+            if(plantBounds.contains(zombieCenter)){
+                zombie->startEating(plant);
+                break;
+            }
+			else{
+				zombie->isNotEating();
+			}
+        }
+    }
+}
+
+
 void Game::update()
 {
 	this->pollEvents();
 	this->beginAttackIfItsTime();
 	this->fallingSuns();
 	this->gameOver();
-	for(auto zombie : this->zombies)
-		zombie->move(-1.f,0.f);
+	for(auto zombie : this->zombies){
+		if(!zombie->isEating())
+			zombie->move(-1.f,0.f);
+	}
 	for(auto sun : this->suns)
 		sun->move(0.f,1.f);
 
+	//delete the dead plant
+	for(int i=0 ; i<plants.size() ; i++)
+		if(plants[i]->isDead()){
+			delete plants[i];
+			plants.erase(plants.begin() + i);
+		}
+
+
+	this->checkZombiePlantCollision();
 	this->updateMousePositions();
 	this->updateSuns();
 

@@ -30,6 +30,9 @@ public:
     void render(sf::RenderTarget& target);
     bool canAttack() const;
     void setPosition(sf::Vector2f target);
+    sf::Sprite getSprite();
+    bool isDead();
+    void getDamage(int damage);
 };
 
 #endif

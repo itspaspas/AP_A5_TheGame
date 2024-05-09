@@ -73,6 +73,7 @@ private:
 	void addNewRegularPeaShooter();
 	void addNewIcyPeaShooter();
 	bool plantIsOnBoard(sf::Vector2f mousePositionFloat);
+	void checkZombiePlantCollision();
 	//music of game
 	sf::Music music;
 
