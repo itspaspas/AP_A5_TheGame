@@ -261,10 +261,8 @@ void Game::addNewSunFlower(){
 	if(this->isPressedBeforForSun && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(mousePositionFloat)){
 		// board->plantAt(mousePositionFloat ,sunflower);
 		SunFlower* newSunFlower = new SunFlower();
-		// sf::Vector2f posOfAddedSunflower = this->board->plantAt(mousePositionFloat , newSunFlower);
-		// std::cout<<"the x of midel of sell"<<posOfAddedSunflower.x<<std::endl;
-		// std::cout<<"the y of midel of sell"<<posOfAddedSunflower.y<<std::endl;
-		newSunFlower->setPosition(mousePositionFloat);
+		sf::Vector2f posOfAddedSunflower = this->board->plantAt(mousePositionFloat , newSunFlower);
+		newSunFlower->setPosition(posOfAddedSunflower);
 		sunflowers.push_back(newSunFlower);
 		this->isPressedBeforForSun = false;
 	}

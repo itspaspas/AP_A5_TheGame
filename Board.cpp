@@ -37,8 +37,8 @@ Board::Board(sf::Vector2f _beginOfBoard , sf::Vector2f _endOfBoard){
 }
 
 sf::Vector2f Board::plantAt(sf::Vector2f mouseAddr ,Plant* plant) {
-    for(auto rowCell : cells){
-        for(auto cell : rowCell){
+    for(auto rowCell : this->cells){
+        for(Cell* cell : rowCell){
             if(cell->isEmpty() && cell->isContainAddr(mouseAddr))
                 return cell->setPlant(plant);
         }

@@ -6,7 +6,7 @@ Cell::Cell(sf::Vector2f _beginOfCell , sf::Vector2f _endOfCell){
     empty = true;
 }
 
-bool Cell::isContainAddr(sf::Vector2f Addr){
+bool Cell::isContainAddr(sf::Vector2f Addr) {
     return (this->beginOfCell.x <= Addr.x && Addr.x < this->endOfCell.x &&
             this->beginOfCell.y <= Addr.y && Addr.y < this->endOfCell.y);
 }
@@ -14,8 +14,8 @@ bool Cell::isContainAddr(sf::Vector2f Addr){
 sf::Vector2f Cell::setPlant(Plant* plant){
     this->plant = plant;
     sf::Vector2f position;
-    position.x = endOfCell.x - beginOfCell.x;
-    position.y = endOfCell.y - beginOfCell.y;
+    position.x = (this->endOfCell.x + this->beginOfCell.x)/2;
+    position.y = (this->endOfCell.y + this->beginOfCell.y)/2;
     plant->setPosition(position);
     return position;
     empty = false;

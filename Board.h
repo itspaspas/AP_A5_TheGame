@@ -14,12 +14,12 @@ public:
     bool isCellEmpty(int row, int col) const; // Check if a cell is empty
     bool isContain(sf::Vector2f mousePositionFloat);
     Cell* getCellAt(sf::Vector2f position);
-    sf::Vector2f beginOfBoard;
-    sf::Vector2f endOfBoard;
 
 private:
     int numRows;
     int numColumns;
+    sf::Vector2f beginOfBoard;
+    sf::Vector2f endOfBoard;
     std::vector<std::vector<Cell*>> cells; // 2D vector of cells
 };
 
