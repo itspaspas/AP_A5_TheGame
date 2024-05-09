@@ -16,6 +16,8 @@ public:
     SunFlowerPriceRectangle();
     bool isContains(sf::Vector2f addr);
     void render(sf::RenderTarget& target);
+    void startCoolDown();
+    bool isAbleToAdd();
 };
 
 

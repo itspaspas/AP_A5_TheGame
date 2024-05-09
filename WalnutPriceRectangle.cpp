@@ -28,3 +28,11 @@ void WalnutPriceRectangle::render(sf::RenderTarget& target){
         target.draw(WalnutCostSprite);
     }
 }
+
+bool WalnutPriceRectangle::isAbleToAdd(){
+    return clock.getElapsedTime().asSeconds() >= collDownTime;
+}
+
+void WalnutPriceRectangle::startCoolDown(){
+    this->clock.restart();
+}

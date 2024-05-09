@@ -31,6 +31,14 @@ void SunFlowerPriceRectangle::render(sf::RenderTarget& target){
     }
 }
 
+bool SunFlowerPriceRectangle::isAbleToAdd(){
+    return clock.getElapsedTime().asSeconds() >= collDownTime;
+}
+
+void SunFlowerPriceRectangle::startCoolDown(){
+    this->clock.restart();
+}
+
 bool SunFlowerPriceRectangle::isContains(sf::Vector2f addr){
     return this->sprit.getGlobalBounds().contains(addr);
 }

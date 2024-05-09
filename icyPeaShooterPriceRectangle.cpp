@@ -28,3 +28,11 @@ void IcyPeaShooterPriceRectangle::render(sf::RenderTarget& target){
         target.draw(icyPeaShooterCostSprite);
     }
 }
+
+bool IcyPeaShooterPriceRectangle::isAbleToAdd(){
+    return clock.getElapsedTime().asSeconds() >= collDownTime;
+}
+
+void IcyPeaShooterPriceRectangle::startCoolDown(){
+    this->clock.restart();
+}

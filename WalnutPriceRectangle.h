@@ -14,6 +14,8 @@ private:
 public:
     WalnutPriceRectangle();
     void render(sf::RenderTarget& target);
+    void startCoolDown();
+    bool isAbleToAdd();
 };
 
 

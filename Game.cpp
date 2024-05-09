@@ -259,15 +259,15 @@ void Game::addNewSunFlower(){
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(*this->window);
 	sf::Vector2f mousePositionFloat(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
 	if(this->isPressedBeforForSun && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(mousePositionFloat)){
-		// board->plantAt(mousePositionFloat ,sunflower);
 		SunFlower* newSunFlower = new SunFlower();
 		sf::Vector2f posOfAddedSunflower = this->board->plantAt(mousePositionFloat , newSunFlower);
 		newSunFlower->setPosition(posOfAddedSunflower);
 		sunflowers.push_back(newSunFlower);
+		this->sunFlowerPriceRectangle->startCoolDown();
 		this->isPressedBeforForSun = false;
 	}
 	if(this->isPressedBeforForSun || this->sunFlowerPriceRectangle->isContains(mousePositionFloat)){
-		if(this->isPressedBeforForSun || sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+		if(this->isPressedBeforForSun || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->sunFlowerPriceRectangle->isAbleToAdd()){
 			this->sunflower->setPosition(mousePositionFloat);
 			this->sunflower->render(*this->window);
 			this->isPressedBeforForSun = true;
@@ -330,25 +330,3 @@ void Game::render()
     std::cout << "Mouse position: " << position.x << " - " << window->getSize().x << ", " << position.y << " - " << window->getSize().y << std::endl;
 	this->window->display();
 }
-
-/* std::vector<Plant*> plants; // Assuming you have a vector of pointers to Plant objects
-
-void gameLoop() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Plants vs. Zombies");
-
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear();
-        for (auto& plant : plants) {
-            plant->update();
-            plant->render(window);
-        }
-        window.display();
-    }
-}
- */

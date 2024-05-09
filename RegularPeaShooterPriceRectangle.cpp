@@ -28,3 +28,11 @@ void RegularPeaShooterPriceRectangle::render(sf::RenderTarget& target){
         target.draw(RegularPeaShooterCostSprite);
     }
 }
+
+bool RegularPeaShooterPriceRectangle::isAbleToAdd(){
+    return clock.getElapsedTime().asSeconds() >= collDownTime;
+}
+
+void RegularPeaShooterPriceRectangle::startCoolDown(){
+    this->clock.restart();
+}

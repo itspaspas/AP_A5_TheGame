@@ -14,6 +14,8 @@ private:
 public:
     IcyPeaShooterPriceRectangle();
     void render(sf::RenderTarget& target);
+    void startCoolDown();
+    bool isAbleToAdd();
 };
 
 

@@ -14,6 +14,8 @@ private:
 public:
     RegularPeaShooterPriceRectangle();
     void render(sf::RenderTarget& target);
+    void startCoolDown();
+    bool isAbleToAdd();
 };
 
 
