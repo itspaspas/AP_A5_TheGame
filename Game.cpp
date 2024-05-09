@@ -40,7 +40,7 @@ Game::Game(){
 	this->regularPeaShooterPriceRectangle = new RegularPeaShooterPriceRectangle();
 	this->icyPeaShooterPriceRectangle = new IcyPeaShooterPriceRectangle();
 
-	this->sunflower = new SunFlower("extrafile/Sunflower.png");
+	this->sunflower = new SunFlower(nullptr, "extrafile/Sunflower.png");
 }
 
 Game::~Game()
@@ -227,7 +227,7 @@ void Game::updateSuns(){
 			bool deleted = false;
 			for (size_t i = 0; i < this->suns.size() && deleted == false; i++)
 			{
-				if (this->suns[i]->sprite.getGlobalBounds().contains(this->mousePosView)){
+				if (this->suns[i]->getSprite().getGlobalBounds().contains(this->mousePosView)){
 					this->sunsNum += 25;
 					//Delete the sun
 					deleted = true;
@@ -256,9 +256,12 @@ void Game::addNewSunFlower(){
 	sf::Vector2f mousePositionFloat(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
 	if(this->isPressedBeforForSun && sf::Mouse::isButtonPressed(sf::Mouse::Left) && !this->sunFlowerPriceRectangle->isContains(mousePositionFloat)){
 		// board->plantAt(mousePositionFloat ,sunflower);
-		SunFlower* newSunFlower = new SunFlower("extrafile/Sunflower.png");
-		newSunFlower->setPosition(mousePositionFloat);
-		sunflowers.push_back(newSunFlower);
+		Cell* cell = board->getCellAt(mousePositionFloat); // You need to implement getCellAt
+		if (cell != nullptr && cell->isEmpty()) {
+			SunFlower* newSunFlower = new SunFlower(cell, "extrafile/Sunflower.png");
+			newSunFlower->setPosition(cell->getCellMidPosition());
+			sunflowers.push_back(newSunFlower);
+		}
 		this->isPressedBeforForSun = false;
 	}
 	if(this->isPressedBeforForSun || this->sunFlowerPriceRectangle->isContains(mousePositionFloat)){

@@ -2,7 +2,9 @@
 
 Plant::Plant(int _damage, int _health, float _activationTime, Cell* _cell, const std::string& texturePath) 
     : damage(_damage), health(_health), activationTime(_activationTime), occupiedCell(_cell), lastAttackTime(0) {
-    position = occupiedCell->getCellMidPosition();  // Ensure Cell has getCellPosition method
+    if (_cell != nullptr) {
+            position = occupiedCell->getCellMidPosition();
+    }
     initTexture(texturePath);
     initSprite();
 }

@@ -57,3 +57,18 @@ bool Board::isCellEmpty(int row, int col) const {
     }
     return true;
 }
+
+Cell* Board::getCellAt(sf::Vector2f position) {
+    float cellWidth = (endOfBoard.x - beginOfBoard.x) / numColumns;
+    float cellHeight = (endOfBoard.y - beginOfBoard.y) / numRows;
+
+    int column = static_cast<int>((position.x - beginOfBoard.x) / cellWidth);
+    int row = static_cast<int>((position.y - beginOfBoard.y) / cellHeight);
+
+    // Check if the calculated row and column are within the bounds of the cell grid
+    if (row >= 0 && row < numRows && column >= 0 && column < numColumns) {
+        return cells[row][column];
+    }
+
+    return nullptr; // Return nullptr if the position is out of the board's bounds
+}

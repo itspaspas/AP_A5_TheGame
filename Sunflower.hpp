@@ -1,7 +1,7 @@
 #include "Plants.hpp"
 
-#ifndef SunFlower_H
-#define SunFlower_H
+#ifndef SUNFLOWER_H
+#define SUNFLOWER_H
 
 class SunFlower : public Plant {
     float scale;
@@ -9,16 +9,9 @@ class SunFlower : public Plant {
     float timeSinceLastProduction;
 
 public:
-    SunFlower(const std::string& path) : Plant(path, 50 ,0.05f), produceInterval(5.0f), timeSinceLastProduction(0.0f) , scale(.05f) {}
-
-    void act() override {
-        // Implementation for producing suns
-        // This method would be called when it's time to produce a sun
-    }
-
-    void update() override {
-        //TODO
-    }
+    SunFlower(Cell* cell, const std::string& texturePath);  // Constructor declaration
+    void act();  // Method to produce suns
+    void update();  // Update method for timing and logic
 };
 
 #endif

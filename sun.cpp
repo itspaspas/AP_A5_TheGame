@@ -39,3 +39,7 @@ void Sun::move(const float dirX , const float dirY){
 void Sun::render(sf::RenderTarget& target){
     target.draw(this->sprite);
 }
+
+const sf::Sprite& Sun::getSprite() const{
+    return sprite;
+}

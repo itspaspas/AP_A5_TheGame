@@ -7,8 +7,8 @@ Cell::Cell(sf::Vector2f _beginOfCell , sf::Vector2f _endOfCell){
 }
 
 bool Cell::isContainAddr(sf::Vector2f Addr){
-    return ((this->beginOfCell.x < Addr.x < this->endOfCell.x ) && 
-            (this->beginOfCell.y < Addr.y < this->endOfCell.y));
+    return (this->beginOfCell.x <= Addr.x && Addr.x < this->endOfCell.x &&
+            this->beginOfCell.y <= Addr.y && Addr.y < this->endOfCell.y);
 }
 
 void Cell::setPlant(Plant* plant){

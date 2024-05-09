@@ -10,15 +10,16 @@ private:
     int speed;
     int interval;
     sf::Texture texture;
+    sf::Sprite sprite;
     void initTexture();
     void initSprite();
     void setPosition(float x, float y);
 public:
-    sf::Sprite sprite;
     Sun();
     bool hasArrivedToDown();
     void render(sf::RenderTarget& target);
     void move(const float dirX , const float dirY);
+    const sf::Sprite& getSprite() const;
 };
 
 // float getRandomPosition();

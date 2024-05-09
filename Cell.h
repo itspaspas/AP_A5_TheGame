@@ -6,6 +6,7 @@
 #ifndef cell_H
 #define cell_H
 
+class Plant;
 
 class Cell {
 public:
