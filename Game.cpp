@@ -356,6 +356,31 @@ void Game::checkZombiePlantCollision() {
     }
 }
 
+void Game::updatePeaShooters() {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        if (!mouseHeld) {
+            mouseHeld = true;
+            sf::Vector2f mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window));
+            if (regularPeaShooterPriceRectangle->isContains(mousePos) && regularPeaShooterPriceRectangle->isAbleToAdd()) {
+                isPressedBeforForRegularPeaShooter = true;
+                regularPeaShooterPriceRectangle->startCoolDown();  // Reset cooldown clock
+            } else if (isPressedBeforForRegularPeaShooter) {
+                // Check if the position is valid for planting
+                RegularPeaShooter* newShooter = new RegularPeaShooter();
+                regularPeaShooters.push_back(newShooter);
+                isPressedBeforForRegularPeaShooter = false;
+            }
+        }
+    } else {
+        mouseHeld = false;
+    }
+
+    // Update existing pea shooters
+    for (auto& shooter : regularPeaShooters) {
+			shooter->update();
+    }
+}
+
 
 void Game::update()
 {
@@ -381,6 +406,7 @@ void Game::update()
 	this->checkZombiePlantCollision();
 	this->updateMousePositions();
 	this->updateSuns();
+	this->updatePeaShooters();
 
 }
 
@@ -404,6 +430,9 @@ void Game::render()
 			zombie->render(*this->window);
 		for(auto sun : this->suns)
 			sun->render(*this->window);
+		for (auto& shooter : regularPeaShooters) {
+			shooter->render(*window);
+    }
 	}
 	else{
 		showWonState();

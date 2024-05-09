@@ -35,6 +35,7 @@ private:
 	std::vector <Zombie*> zombies;
 	std::vector <Sun*> suns;
 	std::vector <Plant*> plants;
+	std::vector <RegularPeaShooter*> regularPeaShooters;
 	sf::Clock showingRound;
 	sf::Clock zombiAttackClock;
 	sf::Clock waveAttackClock;
@@ -74,6 +75,7 @@ private:
 	void addNewIcyPeaShooter();
 	bool plantIsOnBoard(sf::Vector2f mousePositionFloat);
 	void checkZombiePlantCollision();
+	void updatePeaShooters();
 	//music of game
 	sf::Music music;
 

@@ -6,11 +6,11 @@
 
 class RegularPeaShooterPriceRectangle{
 private:
-    int collDownTime;
-    sf::Sprite sprit;
+    int coolDownTime;
+    sf::Sprite sprite;
     sf::Clock clock;
     std::string picturePath;
-    std::string collDownPicPath;
+    std::string coolDownPicPath;
     
 public:
     RegularPeaShooterPriceRectangle();

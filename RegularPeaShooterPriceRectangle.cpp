@@ -1,13 +1,13 @@
 #include "RegularPeaShooterPriceRectangle.h"
 
 RegularPeaShooterPriceRectangle::RegularPeaShooterPriceRectangle(){
-    collDownTime = 5;
+    coolDownTime = 5;
     picturePath = "extrafile/3.png";
-    collDownPicPath = "extrafile/3dark.png";
+    coolDownPicPath = "extrafile/3dark.png";
 }
 
 void RegularPeaShooterPriceRectangle::render(sf::RenderTarget& target){
-    if(clock.getElapsedTime().asSeconds() >= collDownTime){
+    if(clock.getElapsedTime().asSeconds() >= coolDownTime){
         sf::Texture RegularPeaShooterCost;
         RegularPeaShooterCost.loadFromFile(picturePath);
         sf::Sprite RegularPeaShooterCostSprite;
@@ -15,12 +15,12 @@ void RegularPeaShooterPriceRectangle::render(sf::RenderTarget& target){
         RegularPeaShooterCostSprite.setScale(.9f,.9f);
         RegularPeaShooterCostSprite.setOrigin(RegularPeaShooterCost.getSize().x/2 , RegularPeaShooterCost.getSize().y/2);
         RegularPeaShooterCostSprite.setPosition(60,80 + 2*RegularPeaShooterCost.getSize().y);
-        this->sprit = RegularPeaShooterCostSprite;
+        this->sprite = RegularPeaShooterCostSprite;
         target.draw(RegularPeaShooterCostSprite);
     }
     else{
         sf::Texture RegularPeaShooterCost;
-        RegularPeaShooterCost.loadFromFile(collDownPicPath);
+        RegularPeaShooterCost.loadFromFile(coolDownPicPath);
         sf::Sprite RegularPeaShooterCostSprite;
         RegularPeaShooterCostSprite.setTexture(RegularPeaShooterCost);
         RegularPeaShooterCostSprite.setScale(.9f,.9f);
@@ -31,7 +31,7 @@ void RegularPeaShooterPriceRectangle::render(sf::RenderTarget& target){
 }
 
 bool RegularPeaShooterPriceRectangle::isAbleToAdd(){
-    return clock.getElapsedTime().asSeconds() >= collDownTime;
+    return clock.getElapsedTime().asSeconds() >= coolDownTime;
 }
 
 void RegularPeaShooterPriceRectangle::startCoolDown(){
@@ -39,5 +39,5 @@ void RegularPeaShooterPriceRectangle::startCoolDown(){
 }
 
 bool RegularPeaShooterPriceRectangle::isContains(sf::Vector2f addr){
-    return this->sprit.getGlobalBounds().contains(addr);
+    return this->sprite.getGlobalBounds().contains(addr);
 }

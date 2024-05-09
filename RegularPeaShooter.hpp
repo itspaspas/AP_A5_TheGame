@@ -6,8 +6,7 @@
 class RegularPeaShooter : public Plant {
 private:
     std::vector<RegularPea*> peas;
-    float shootInterval;
-    float timeSinceLastShoot;
+    sf::Clock clock;
 
 public:
     RegularPeaShooter();
@@ -17,11 +16,11 @@ public:
         }
     }
 
-    void update(const sf::Time& dt) {
-        timeSinceLastShoot += dt.asSeconds();
-        if (timeSinceLastShoot >= shootInterval) {
+    void update() {
+        float dt = clock.getElapsedTime().asSeconds();
+        if (dt >= activationTime) {
             shoot();
-            timeSinceLastShoot = 0;
+            clock.restart();
         }
 
         for (auto it = peas.begin(); it != peas.end();) {
