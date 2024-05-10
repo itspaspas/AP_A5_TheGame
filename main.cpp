@@ -7,6 +7,7 @@ int main(){
 	std::srand(static_cast<unsigned int>(std::time(nullptr)));
 	Game game;
 
+	// Add comment
 	//Game loop
 	while (game.running())
 	{
