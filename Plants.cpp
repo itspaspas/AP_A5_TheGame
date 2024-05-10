@@ -4,10 +4,7 @@ Plant::Plant(int _damage, int _health, float _activationTime,const std::string& 
     : damage(_damage), health(_health), activationTime(_activationTime), lastAttackTime(0), scale(_scale){
     initTexture(texturePath);
     initSprite();
-}
-
-Plant::~Plant() {
-    // Handle any necessary cleanup
+    HaveRegularPea = false;
 }
 
 void Plant::initTexture(const std::string& texturePath) {
@@ -21,21 +18,8 @@ void Plant::initSprite() {
     this->sprite.setPosition(position);
 }
 
-bool Plant::takeDamage(int amount) {
-    health -= amount;
-    (health <= 0) ? true : false;
-}
-
-void Plant::update(const sf::Time& dt) {
-    lastAttackTime += dt.asSeconds();
-}
-
 void Plant::render(sf::RenderTarget& target) {
     target.draw(sprite);
-}
-
-bool Plant::canAttack() const {
-    return lastAttackTime >= activationTime;
 }
 
 void Plant::setPosition(sf::Vector2f addr){
@@ -52,4 +36,16 @@ bool Plant::isDead(){
 
 void Plant::getDamage(int damage){
     this->health -= damage;
+}
+
+bool Plant::isHaveRegularPea(){
+    return HaveRegularPea;
+}
+
+sf::Vector2f Plant::getPeaAddr(){
+    sf::Vector2f addr;
+    addr = this->sprite.getPosition();
+    addr.x += 20;
+    addr.y -= 14;
+    return addr;
 }

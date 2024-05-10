@@ -8,30 +8,36 @@ class Projectile {
 protected:
     sf::Sprite sprite;
     sf::Texture texture;  // Texture needs to be a member to ensure it persists
-    sf::Vector2f velocity;
+    float movementSpeed;
     float scale;
 
 public:
-    Projectile(const std::string& texturePath, sf::Vector2f position, sf::Vector2f velocity, float scale)
-        : velocity(velocity) {     
-        // sprite.setRadius(radius);
-        sprite.setTexture(texture);
-        sprite.setPosition(position);
-        sprite.setScale(scale,scale);
+    Projectile(const std::string& texturePath, float _movementSpeed, float scale){
+        initTexture(texturePath);
+        initSprite(scale);
+        movementSpeed = _movementSpeed;
     }
 
-    virtual ~Projectile() {}
-
-    virtual void move() {
-        sprite.move(velocity);
+    void initTexture(const std::string& texturePath){
+        this->texture.loadFromFile(texturePath);
     }
 
-    void draw(sf::RenderWindow& window) {
-        window.draw(sprite);
+    void initSprite(float scale){
+    this->sprite.setTexture(this->texture);
+    this->sprite.scale(scale, scale);
+    this->sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
+}
+
+    void move(const float dirX , const float dirY){
+        this->sprite.move(this->movementSpeed * dirX ,this->movementSpeed * dirY);
     }
 
-    sf::FloatRect getGlobalBounds() const {
-        return sprite.getGlobalBounds();
+    void render(sf::RenderTarget& target) {
+        target.draw(this->sprite);
+    }
+
+    void setPosition(float x, float y) {
+        this->sprite.setPosition(x, y);
     }
 
     bool isOffScreen(int screenWidth) {

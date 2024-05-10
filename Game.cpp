@@ -329,7 +329,7 @@ void Game::addNewIcyPeaShooter(){
 		this->isPressedBeforForIcyPeaShooter = false;
 	}
 	if(this->isPressedBeforForIcyPeaShooter || this->icyPeaShooterPriceRectangle->isContains(this->mousePosView)){
-		if(this->isPressedBeforForIcyPeaShooter || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->icyPeaShooterPriceRectangle->isAbleToAdd() && this->sunsNum >= 200){
+		if(this->isPressedBeforForIcyPeaShooter || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->icyPeaShooterPriceRectangle->isAbleToAdd() && this->sunsNum >= 150){
 			this->icyPeaShooter->setPosition(this->mousePosView);
 			this->icyPeaShooter->render(*this->window);
 			this->isPressedBeforForIcyPeaShooter = true;
@@ -356,54 +356,6 @@ void Game::checkZombiePlantCollision() {
     }
 }
 
-void Game::updatePeaShooters() {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        if (!mouseHeld) {
-            mouseHeld = true;
-            sf::Vector2f mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window));
-            if (regularPeaShooterPriceRectangle->isContains(mousePos) && regularPeaShooterPriceRectangle->isAbleToAdd()) {
-                isPressedBeforForRegularPeaShooter = true;
-                regularPeaShooterPriceRectangle->startCoolDown();  // Reset cooldown clock
-            } else if (isPressedBeforForRegularPeaShooter) {
-                // Check if the position is valid for planting
-                RegularPeaShooter* newShooter = new RegularPeaShooter();
-                regularPeaShooters.push_back(newShooter);
-                isPressedBeforForRegularPeaShooter = false;
-            }
-        }
-    } else {
-        mouseHeld = false;
-    }
-
-    // Update existing pea shooters
-    for (auto& shooter : regularPeaShooters) {
-			shooter->update();
-    }
-}
-
-void Game::updateIcyPeaShooters() {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        if (!mouseHeld) {
-            mouseHeld = true;
-            sf::Vector2f mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*window));
-            if (icyPeaShooterPriceRectangle->isContains(mousePos) && icyPeaShooterPriceRectangle->isAbleToAdd()) {
-                isPressedBeforForIcyPeaShooter = true;
-                icyPeaShooterPriceRectangle->startCoolDown();
-            } else if (isPressedBeforForIcyPeaShooter) {
-                IcyPeaShooter* newShooter = new IcyPeaShooter();
-                icyPeaShooters.push_back(newShooter);
-                isPressedBeforForIcyPeaShooter = false;
-            }
-        }
-    } else {
-        mouseHeld = false;
-    }
-
-    for (auto& shooter : icyPeaShooters) {
-        shooter->update();
-    }
-}
-
 void Game::update()
 {
 	this->pollEvents();
@@ -418,18 +370,45 @@ void Game::update()
 		sun->move(0.f,1.f);
 
 	//delete the dead plant
-	for(int i=0 ; i<plants.size() ; i++)
+	for(int i=0 ; i<plants.size() ; i++){
 		if(plants[i]->isDead()){
 			delete plants[i];
 			plants.erase(plants.begin() + i);
 		}
+	}
+
+
+	for(auto plant :plants){
+		plant->update();
+		// if(plant.isHaveSun()){
+
+		// }
+		if(plant->isHaveRegularPea()){
+			RegularPea* newPea = new RegularPea();
+			sf::Vector2f posOfNewPea = plant->getPeaAddr();
+			newPea->setPosition(posOfNewPea.x , posOfNewPea.y);
+			this->projectiles.push_back(newPea);
+		}
+		// if(plant.isHaveIcyPea()){
+
+		// }
+	}
+
+	for(auto projectile : projectiles){
+		projectile->move(1.f,0.f);
+	}
+
+	for(int i=0 ; i<projectiles.size() ; i++){
+		if(projectiles[i]->isOffScreen(800)){
+			delete projectiles[i];
+			projectiles.erase(projectiles.begin() + i);
+		}
+	}
 
 
 	this->checkZombiePlantCollision();
 	this->updateMousePositions();
 	this->updateSuns();
-	this->updatePeaShooters();
-	this->updateIcyPeaShooters();
 }
 
 void Game::render()
@@ -446,12 +425,7 @@ void Game::render()
 	//showing sunflower
 	for(auto plant : plants)
 		plant->render(*this->window);
-	for (auto& shooter : regularPeaShooters) {
-			shooter->render(*window);
-	}	
-	for (auto& icyShooter : icyPeaShooters){
-		icyShooter->render(*window);
-	}
+
 	//showing zombies
 	if(!isDone){
 		for(auto zombie : this->zombies)
@@ -462,6 +436,11 @@ void Game::render()
     }
 	else{
 		showWonState();
+	}
+	
+	//showing peas
+	for(auto projectile :projectiles){
+		projectile->render(*this->window);
 	}
 
 	// showing the box of cost

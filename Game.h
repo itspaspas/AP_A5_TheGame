@@ -16,7 +16,8 @@
 #include "Sunflower.hpp"
 #include "Walnut.hpp"
 #include "RegularPeaShooter.hpp"
-#include "IcyPeaShooter.hpp"
+#include "RegularPea.hpp"
+#include "IcyPea.hpp"
 
 #ifndef GAME_H
 #define GAME_H
@@ -36,8 +37,7 @@ private:
 	std::vector <Zombie*> zombies;
 	std::vector <Sun*> suns;
 	std::vector <Plant*> plants;
-	std::vector <RegularPeaShooter*> regularPeaShooters;
-	std::vector <IcyPeaShooter*> icyPeaShooters;
+	std::vector <Projectile*> projectiles;
 	sf::Clock showingRound;
 	sf::Clock zombiAttackClock;
 	sf::Clock waveAttackClock;
@@ -77,8 +77,6 @@ private:
 	void addNewIcyPeaShooter();
 	bool plantIsOnBoard(sf::Vector2f mousePositionFloat);
 	void checkZombiePlantCollision();
-	void updatePeaShooters();
-	void updateIcyPeaShooters();
 	//music of game
 	sf::Music music;
 

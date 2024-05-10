@@ -6,6 +6,5 @@ class Walnut : public Plant {
 
 public:
     Walnut();// Walnuts have a high health value
-    void act();
-    void update();
+    void update(){return;};
 };

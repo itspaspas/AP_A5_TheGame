@@ -10,8 +10,7 @@ class SunFlower : public Plant {
 
 public:
     SunFlower();  // Constructor declaration
-    void act();  // Method to produce suns
-    void update();  // Update method for timing and logic
+    void update(){return;};  // Update method for timing and log
 };
 
 #endif

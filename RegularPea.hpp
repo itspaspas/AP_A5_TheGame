@@ -6,9 +6,7 @@
 
 class RegularPea : public Projectile {
 public:
-    RegularPea(sf::Vector2f position) : Projectile("extrafile/bullet.PNG", position, sf::Vector2f(5.0f, 0.0f), 0.01) {}
-
-    virtual ~RegularPea() {}
+    RegularPea() : Projectile("extrafile/pea.png", 7 , 0.05) {}
 };
 
 #endif

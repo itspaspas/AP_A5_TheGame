@@ -12,6 +12,7 @@ protected:
     int activationTime;  // Time it takes to activate or recharge
     sf::Vector2f position; // Position on the board
     int lastAttackTime;  // Time since last attack
+    bool HaveRegularPea;
 
     sf::Sprite sprite;
     sf::Texture texture;
@@ -22,17 +23,16 @@ protected:
 
 public:
     Plant(int damage, int health, float activationTime, const std::string& texturePath ,float _scale);
-    virtual ~Plant();
-
-    // virtual void attack(std::vector<Projectile>& projectiles) = 0;  // Pure virtual function for attacking
-    bool takeDamage(int amount);
-    void update(const sf::Time& dt);
+    // bool takeDamage(int amount);
+    virtual void update() = 0;
     void render(sf::RenderTarget& target);
-    bool canAttack() const;
+    // bool canAttack() const;
     void setPosition(sf::Vector2f target);
     sf::Sprite getSprite();
     bool isDead();
     void getDamage(int damage);
+    bool isHaveRegularPea();
+    sf::Vector2f getPeaAddr();
 };
 
 #endif
