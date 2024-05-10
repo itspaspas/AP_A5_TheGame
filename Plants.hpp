@@ -14,6 +14,7 @@ protected:
     int lastAttackTime;  // Time since last attack
     bool HaveRegularPea;
     bool HaveSnowPea;
+    bool HaveSun;
 
     sf::Sprite sprite;
     sf::Texture texture;
@@ -34,7 +35,9 @@ public:
     void getDamage(int damage);
     bool isHaveRegularPea();
     bool isHaveSnowPea();
+    bool isHaveSun();
     sf::Vector2f getPeaAddr();
+    sf::Vector2f getSunPos();
 };
 
 #endif

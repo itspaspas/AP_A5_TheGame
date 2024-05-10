@@ -13,9 +13,9 @@ private:
     sf::Sprite sprite;
     void initTexture();
     void initSprite();
-    void setPosition(float x, float y);
 public:
-    Sun();
+    Sun(int speed);
+    void setPosition(float x, float y);
     bool hasArrivedToDown();
     void render(sf::RenderTarget& target);
     void move(const float dirX , const float dirY);

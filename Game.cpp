@@ -214,7 +214,10 @@ void Game::showSunsNum(){
 
 void Game::fallingSuns(){
 	if(sunClock.getElapsedTime().asSeconds()>=5.0f){
-		suns.push_back(new Sun);
+		Sun* newFallingSun = new Sun(1);
+		sf::Vector2f fallingSunPos = {150 + static_cast<float>(rand() % static_cast<int>(500)) ,0.f};
+		newFallingSun->setPosition(fallingSunPos.x , fallingSunPos.y);
+		suns.push_back(newFallingSun);
 		sunClock.restart();
 	}
 }
@@ -380,9 +383,13 @@ void Game::update()
 
 	for(auto plant :plants){
 		plant->update();
-		// if(plant.isHaveSun()){
+		if(plant->isHaveSun()){
+			Sun* newSun = new Sun(0);
+			sf::Vector2f posOfSun = plant->getSunPos();
+			newSun->setPosition(posOfSun.x , posOfSun.y);
+			this->suns.push_back(newSun);
+		}
 
-		// }
 		if(plant->isHaveRegularPea()){
 			RegularPea* newPea = new RegularPea();
 			sf::Vector2f posOfNewPea = plant->getPeaAddr();

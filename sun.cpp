@@ -20,11 +20,10 @@ void Sun::initSprite(){
     this->sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
 }
 
-Sun::Sun(){
-    speed = 1;
+Sun::Sun(int _speed){
+    speed = _speed;
     this->initTexture();
     this->initSprite();
-    this->setPosition(150 + static_cast<float>(rand() % static_cast<int>(500)) ,0.f);
 }
 
 void Sun::setPosition(float x, float y) {

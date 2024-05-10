@@ -5,12 +5,12 @@
 
 class SunFlower : public Plant {
     float scale;
-    float produceInterval;
-    float timeSinceLastProduction;
+    int coolDownTime;
+    sf::Clock coolDownClock;
 
 public:
     SunFlower();  // Constructor declaration
-    void update(){return;};  // Update method for timing and log
+    void update();  // Update method for timing and log
 };
 
 #endif
