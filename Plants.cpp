@@ -5,6 +5,7 @@ Plant::Plant(int _damage, int _health, float _activationTime,const std::string& 
     initTexture(texturePath);
     initSprite();
     HaveRegularPea = false;
+    HaveSnowPea = false;
 }
 
 void Plant::initTexture(const std::string& texturePath) {
@@ -41,6 +42,11 @@ void Plant::getDamage(int damage){
 bool Plant::isHaveRegularPea(){
     return HaveRegularPea;
 }
+
+bool Plant::isHaveSnowPea(){
+    return HaveSnowPea;
+}
+
 
 sf::Vector2f Plant::getPeaAddr(){
     sf::Vector2f addr;

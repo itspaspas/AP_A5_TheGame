@@ -8,14 +8,20 @@
 
 class IcyPeaShooter : public Plant {
 private:
-    std::vector<IcyPea*> icyPeas;
-    sf::Clock clock;
+    sf::Clock PeaShotClock;
 
 public:
     IcyPeaShooter();
-
     void update() {
-        return;
+        if (PeaShotClock.getElapsedTime().asSeconds() >= activationTime) {
+            if(!this->HaveSnowPea){
+                this->HaveSnowPea = true;
+                PeaShotClock.restart();
+            }
+        }
+        else{
+            this->HaveSnowPea = false;
+        }
     }
 };
 

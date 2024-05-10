@@ -325,7 +325,7 @@ void Game::addNewIcyPeaShooter(){
 		icyPeaShooter->setPosition(posOfAddedIcyPeaShooter);
 		plants.push_back(icyPeaShooter);
 		this->icyPeaShooterPriceRectangle->startCoolDown();
-		this->sunsNum -= 200;
+		this->sunsNum -= 150;
 		this->isPressedBeforForIcyPeaShooter = false;
 	}
 	if(this->isPressedBeforForIcyPeaShooter || this->icyPeaShooterPriceRectangle->isContains(this->mousePosView)){
@@ -389,9 +389,12 @@ void Game::update()
 			newPea->setPosition(posOfNewPea.x , posOfNewPea.y);
 			this->projectiles.push_back(newPea);
 		}
-		// if(plant.isHaveIcyPea()){
-
-		// }
+		if(plant->isHaveSnowPea()){
+			IcyPea* newIcePea = new IcyPea();
+			sf::Vector2f posOfNewPea = plant->getPeaAddr();
+			newIcePea->setPosition(posOfNewPea.x , posOfNewPea.y);
+			this->projectiles.push_back(newIcePea);
+		}
 	}
 
 	for(auto projectile : projectiles){
@@ -437,7 +440,7 @@ void Game::render()
 	else{
 		showWonState();
 	}
-	
+
 	//showing peas
 	for(auto projectile :projectiles){
 		projectile->render(*this->window);

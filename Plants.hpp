@@ -13,6 +13,7 @@ protected:
     sf::Vector2f position; // Position on the board
     int lastAttackTime;  // Time since last attack
     bool HaveRegularPea;
+    bool HaveSnowPea;
 
     sf::Sprite sprite;
     sf::Texture texture;
@@ -32,6 +33,7 @@ public:
     bool isDead();
     void getDamage(int damage);
     bool isHaveRegularPea();
+    bool isHaveSnowPea();
     sf::Vector2f getPeaAddr();
 };
 

@@ -6,7 +6,7 @@
 
 class IcyPea : public Projectile {
 public:
-    IcyPea(sf::Vector2f position) : Projectile("extrafile/bullet.PNG", 1.5, 0.01){}
+    IcyPea() : Projectile("extrafile/snowpea.png", 5, 0.08){}
 };
 
 #endif
