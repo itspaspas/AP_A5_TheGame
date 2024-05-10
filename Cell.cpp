@@ -40,3 +40,7 @@ sf::Vector2f Cell::getCellMidPosition(){
     midpoint.y = (endOfCell.y + beginOfCell.y)/2;
     return midpoint;
 }
+
+void Cell::getFull(){
+    this->empty = false;
+}

@@ -359,6 +359,23 @@ void Game::checkZombiePlantCollision() {
     }
 }
 
+void Game::checkZombiePeaCollision(){
+	for(auto pea : projectiles){
+		for(auto zombie : zombies){
+			sf::FloatRect zombieBounds = zombie->getSprite().getGlobalBounds();
+			sf::FloatRect peaBound = pea->getSprite().getGlobalBounds();
+			sf::Vector2f peaCenter = sf::Vector2f(
+                peaBound.left + peaBound.width / 2.0f,
+                peaBound.top + peaBound.height / 2.0f);
+			if(zombieBounds.contains(peaCenter)){
+				zombie->hitByPea(pea);
+				pea->getHit();
+				break;
+			}
+		}
+	}
+}
+
 void Game::update()
 {
 	this->pollEvents();
@@ -409,9 +426,17 @@ void Game::update()
 	}
 
 	for(int i=0 ; i<projectiles.size() ; i++){
-		if(projectiles[i]->isOffScreen(800)){
+		if(projectiles[i]->isOffScreen(800) || projectiles[i]->isHit()){
 			delete projectiles[i];
 			projectiles.erase(projectiles.begin() + i);
+		}
+	}
+
+	for(int i=0 ; i<zombies.size();i++){
+		zombies[i]->upDate();
+		if(zombies[i]->isDead()){
+			delete zombies[i];
+			zombies.erase(zombies.begin() + i);			
 		}
 	}
 
@@ -419,6 +444,7 @@ void Game::update()
 	this->checkZombiePlantCollision();
 	this->updateMousePositions();
 	this->updateSuns();
+	this->checkZombiePeaCollision();
 }
 
 void Game::render()
@@ -426,8 +452,6 @@ void Game::render()
 	this->window->clear();
 	//showing background
 	this->ShowBackGround("extrafile/ext8waid79e81.jpg");
-	//showing round
-	this->showRound();
 	//showing sun number
 	this->showSunsNum();
 	//deleting sun that reach the doown
@@ -452,6 +476,9 @@ void Game::render()
 	for(auto projectile :projectiles){
 		projectile->render(*this->window);
 	}
+	
+	//showing round
+	this->showRound();
 
 	// showing the box of cost
 	this->sunFlowerPriceRectangle->render(*this->window);

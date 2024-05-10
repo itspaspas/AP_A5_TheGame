@@ -10,12 +10,18 @@ protected:
     sf::Texture texture;  // Texture needs to be a member to ensure it persists
     float movementSpeed;
     float scale;
+    bool hit;
+    int damage;
+    int snowTime;
 
 public:
-    Projectile(const std::string& texturePath, float _movementSpeed, float scale){
+    Projectile(const std::string& texturePath, float _movementSpeed, float scale , int _damage ,int _snowTime){
         initTexture(texturePath);
         initSprite(scale);
         movementSpeed = _movementSpeed;
+        hit = false;
+        damage = _damage;
+        snowTime = _snowTime;
     }
 
     void initTexture(const std::string& texturePath){
@@ -42,6 +48,26 @@ public:
 
     bool isOffScreen(int screenWidth) {
         return sprite.getPosition().x > screenWidth || sprite.getPosition().x < 0;
+    }
+
+    sf::Sprite getSprite(){
+        return this->sprite;
+    }
+
+    bool isHit(){
+        return hit;
+    }
+
+    void getHit(){
+        this->hit = true;
+    }
+
+    int getDamage(){
+        return this->damage;
+    }
+
+    int getSnowTime(){
+        return this->snowTime;
     }
 };
 

@@ -31,14 +31,12 @@ void Zombie::initSprite(float scale){
 Zombie::Zombie(std::string textureFilePath, float scale , float _movementSpeed, int _maxHealth , int _damage , int _hitRate){
     movementSpeed = _movementSpeed;
     maxHealth = _maxHealth;
-    maxHealth = _maxHealth;
     damage = _damage;
     hitRate = _hitRate;
     health = _maxHealth;
     eating = false;
     freezing = false;
-    freezing_counter = 0;
-    freezing_time = 5;
+    freezing_time = 0;
 
 
     Zombie::initTexture(textureFilePath);
@@ -54,7 +52,12 @@ bool Zombie::isEating(){
 }
 
 void Zombie::move(const float dirX , const float dirY){
-    this->sprite.move(this->movementSpeed * dirX ,this->movementSpeed * dirY);
+    if(freezing){
+        this->sprite.move((this->movementSpeed/2) * dirX ,(this->movementSpeed/2) * dirY);
+    }
+    else{
+        this->sprite.move(this->movementSpeed * dirX ,this->movementSpeed * dirY);
+    }
 }
 
 void Zombie::render(sf::RenderTarget& target){
@@ -81,3 +84,24 @@ void Zombie::isNotEating(){
     this->eating = false;
 }
 
+void Zombie::hitByPea(Projectile* pea){
+    this->freezing_time += pea->getSnowTime();
+    this->health -= pea->getDamage();
+}
+
+void Zombie::upDate(){
+    if (freezeTimer.getElapsedTime().asSeconds() < freezing_time) {
+        // If it's still running, keep zombie's speed reduced
+        this->freezing = true;
+    }
+    else {
+        // If it's finished, reset zombie's speed back to normal
+        this->freezing = false;
+        freezing_time = 0; // Reset freezing time
+        freezeTimer.restart(); // Restart freeze timer for next hit
+    }
+}
+
+bool Zombie::isDead(){
+    return this->health <= 0;
+}

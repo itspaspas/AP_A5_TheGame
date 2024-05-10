@@ -2,6 +2,7 @@
 #include<SFML/System.hpp>
 #include<string>
 #include"Plants.hpp"
+#include "Projectiles.hpp"
 
 #ifndef ZOMBIE_H
 #define ZOMBIE_H
@@ -19,10 +20,10 @@ private:
     bool eating;
     bool freezing;
 	int freezing_time;
-	int freezing_counter;
     sf::Sprite sprite;
     sf::Texture texture;
     sf::Clock hitRateClock;
+    sf::Clock freezeTimer; 
     void initTexture(std::string textureFilePath);
     void initSprite(float scale);
     void setPosition(float x, float y);
@@ -35,6 +36,9 @@ public:
     sf::Sprite getSprite();
     void startEating(Plant* plant);
     void isNotEating();
+    void hitByPea(Projectile* pea);
+    void upDate();
+    bool isDead();
 };
 
 float getRandomPosition();

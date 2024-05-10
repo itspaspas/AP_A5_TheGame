@@ -17,6 +17,7 @@ public:
     bool isContainAddr(sf::Vector2f Addr);
     Plant* getPlant() const; // Get the plant in the cell
     sf::Vector2f getCellMidPosition();
+    void getFull();
 
 private:
     sf::Vector2f beginOfCell;
