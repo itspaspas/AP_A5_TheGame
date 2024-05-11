@@ -78,6 +78,7 @@ private:
 	bool plantIsOnBoard(sf::Vector2f mousePositionFloat);
 	void checkZombiePlantCollision();
 	void checkZombiePeaCollision();
+	bool notClickForOther();
 	//music of game
 	sf::Music music;
 
