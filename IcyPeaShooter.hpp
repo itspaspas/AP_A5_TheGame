@@ -9,14 +9,16 @@
 class IcyPeaShooter : public Plant {
 private:
     sf::Clock PeaShotClock;
+    bool firstTime;
 
 public:
     IcyPeaShooter();
     void update() {
-        if (PeaShotClock.getElapsedTime().asSeconds() >= activationTime) {
+        if (PeaShotClock.getElapsedTime().asSeconds() >= activationTime || this->firstTime ) {
             if(!this->HaveSnowPea){
                 this->HaveSnowPea = true;
                 PeaShotClock.restart();
+                this->firstTime = false;
             }
         }
         else{
