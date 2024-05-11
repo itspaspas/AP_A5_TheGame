@@ -67,3 +67,11 @@ sf::Vector2f Plant::getSunPos(){
     addr.y += 30;
     return addr;
 }
+
+void Plant::assignCell(Cell* cell){
+    this->cell = cell;
+}
+
+void Plant::makeCellEmpty(){
+    this->cell->getEmpty();
+}

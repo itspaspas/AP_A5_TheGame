@@ -44,3 +44,7 @@ sf::Vector2f Cell::getCellMidPosition(){
 void Cell::getFull(){
     this->empty = false;
 }
+
+void Cell::getEmpty(){
+    this->empty = true;
+}

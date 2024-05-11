@@ -18,6 +18,7 @@ public:
     Plant* getPlant() const; // Get the plant in the cell
     sf::Vector2f getCellMidPosition();
     void getFull();
+    void getEmpty();
 
 private:
     sf::Vector2f beginOfCell;

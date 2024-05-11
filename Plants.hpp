@@ -15,6 +15,7 @@ protected:
     bool HaveRegularPea;
     bool HaveSnowPea;
     bool HaveSun;
+    Cell* cell;
 
     sf::Sprite sprite;
     sf::Texture texture;
@@ -38,6 +39,8 @@ public:
     bool isHaveSun();
     sf::Vector2f getPeaAddr();
     sf::Vector2f getSunPos();
+    void assignCell(Cell* cell);
+    void makeCellEmpty();
 };
 
 #endif

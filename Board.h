@@ -11,7 +11,7 @@ public:
     ~Board();
     sf::Vector2f plantAt(sf::Vector2f mouseAddr, Plant* plant); // Plant a plant in a cell
     void removePlantAt(int row, int col); // Remove a plant from a cell
-    bool isCellEmpty(int row, int col) const; // Check if a cell is empty
+    bool isCellEmpty(sf::Vector2f addr); // Check if a cell is empty
     bool isContain(sf::Vector2f mousePositionFloat);
     Cell* getCellAt(sf::Vector2f position);
     // int getRowOfPlant(sf::Vector2f plantPosition);

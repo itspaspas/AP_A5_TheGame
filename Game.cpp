@@ -265,7 +265,7 @@ bool Game::plantIsOnBoard(sf::Vector2f mousePositionFloat){
 }
 
 void Game::addNewSunFlower(){
-	if(this->isPressedBeforForSun && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView)){
+	if(this->isPressedBeforForSun && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView) && this->board->isCellEmpty(this->mousePosView)){
 		SunFlower* newSunFlower = new SunFlower();
 		sf::Vector2f posOfAddedSunflower = this->board->plantAt(this->mousePosView , newSunFlower);
 		newSunFlower->setPosition(posOfAddedSunflower);
@@ -284,7 +284,7 @@ void Game::addNewSunFlower(){
 }
 
 void Game::addNewWalnut(){
-	if(this->isPressedBeforForWalnut && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView)){
+	if(this->isPressedBeforForWalnut && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView) && this->board->isCellEmpty(this->mousePosView)){
 		Walnut* newWalnut = new Walnut();
 		sf::Vector2f posOfAddedWalnut = this->board->plantAt(this->mousePosView , newWalnut);
 		newWalnut->setPosition(posOfAddedWalnut);
@@ -303,7 +303,7 @@ void Game::addNewWalnut(){
 }
 
 void Game::addNewRegularPeaShooter(){
-	if(this->isPressedBeforForRegularPeaShooter && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView)){
+	if(this->isPressedBeforForRegularPeaShooter && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView) && this->board->isCellEmpty(this->mousePosView)){
 		RegularPeaShooter* regularPeaShooter = new RegularPeaShooter();
 		sf::Vector2f posOfAddedRegularPeaShooter = this->board->plantAt(this->mousePosView , regularPeaShooter);
 		regularPeaShooter->setPosition(posOfAddedRegularPeaShooter);
@@ -321,17 +321,8 @@ void Game::addNewRegularPeaShooter(){
 	}
 }
 
-bool Game::zombiesArrived(Projectile* projectile, Zombie* zombie){
-	if (projectile->getSprite().getPosition().y ==  zombie->getSprite().getPosition().y){
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
 void Game::addNewIcyPeaShooter(){
-	if(this->isPressedBeforForIcyPeaShooter && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView)){
+	if(this->isPressedBeforForIcyPeaShooter && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView) && this->board->isCellEmpty(this->mousePosView)){
 		IcyPeaShooter* icyPeaShooter = new IcyPeaShooter();
 		sf::Vector2f posOfAddedIcyPeaShooter = this->board->plantAt(this->mousePosView , icyPeaShooter);
 		icyPeaShooter->setPosition(posOfAddedIcyPeaShooter);
@@ -348,6 +339,16 @@ void Game::addNewIcyPeaShooter(){
 		}
 	}
 }
+
+bool Game::zombiesArrived(Projectile* projectile, Zombie* zombie){
+	if (projectile->getSprite().getPosition().y ==  zombie->getSprite().getPosition().y){
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 
 void Game::checkZombiePlantCollision() {
     for(auto &zombie : zombies) {
@@ -401,6 +402,7 @@ void Game::update()
 	//delete the dead plant
 	for(int i=0 ; i<plants.size() ; i++){
 		if(plants[i]->isDead()){
+			plants[i]->makeCellEmpty();
 			delete plants[i];
 			plants.erase(plants.begin() + i);
 		}
@@ -507,7 +509,7 @@ void Game::render()
 
 
 	// showing the mouse position
-    sf::Vector2i position = sf::Mouse::getPosition(*this->window);
-    std::cout << "Mouse position: " << position.x << " - " << window->getSize().x << ", " << position.y << " - " << window->getSize().y << std::endl;
+    // sf::Vector2i position = sf::Mouse::getPosition(*this->window);
+    // std::cout << "Mouse position: " << position.x << " - " << window->getSize().x << ", " << position.y << " - " << window->getSize().y << std::endl;
 	this->window->display();
 }

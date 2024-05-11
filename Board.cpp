@@ -40,7 +40,8 @@ sf::Vector2f Board::plantAt(sf::Vector2f mouseAddr ,Plant* plant) {
     for(auto rowCell : this->cells){
         for(Cell* cell : rowCell){
             if(cell->isEmpty() && cell->isContainAddr(mouseAddr)){
-                // cell->getFull();
+                cell->getFull();
+                plant->assignCell(cell);
                 return cell->setPlant(plant);
             }
         }
@@ -59,11 +60,16 @@ void Board::removePlantAt(int row, int col) {
     }
 }
 
-bool Board::isCellEmpty(int row, int col) const {
-    if (row < numRows && col < numColumns) {
-        return cells[row][col]->isEmpty();
+bool Board::isCellEmpty(sf::Vector2f addr){
+    for(auto cellRow : cells){
+        for(auto cell : cellRow){
+            if(cell->isContainAddr(addr)){
+                if(cell->isEmpty())
+                    return true;
+            }
+        }
     }
-    return true;
+    return false;
 }
 
 Cell* Board::getCellAt(sf::Vector2f position) {
