@@ -321,6 +321,15 @@ void Game::addNewRegularPeaShooter(){
 	}
 }
 
+bool Game::zombiesArrived(Projectile* projectile, Zombie* zombie){
+	if (projectile->getSprite().getPosition().y ==  zombie->getSprite().getPosition().y){
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 void Game::addNewIcyPeaShooter(){
 	if(this->isPressedBeforForIcyPeaShooter && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView)){
 		IcyPeaShooter* icyPeaShooter = new IcyPeaShooter();
@@ -422,7 +431,12 @@ void Game::update()
 	}
 
 	for(auto projectile : projectiles){
-		projectile->move(1.f,0.f);
+		// for (auto zombie : zombies){
+		// 	do{
+				projectile->move(1.f,0.f);
+		// 	}
+		// 	while (zombiesArrived(projectile, zombie));
+		// }
 	}
 
 	for(int i=0 ; i<projectiles.size() ; i++){

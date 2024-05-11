@@ -104,7 +104,7 @@ public:
 	void pollEvents();
 	void update();
 	void render();
-
+	bool zombiesArrived(Projectile* projectile, Zombie* zombie);
 };
 
 #endif

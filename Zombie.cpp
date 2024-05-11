@@ -15,7 +15,6 @@ bool Zombie::hasArrivedHome(){
 
 float getRandomPosition(){
     int randomNumber = std::rand() % 5;
-    //TODO: Set positions based on window size
     float possiblePosition[5] = {125.f,210.f,310.f,400.f,495.f};
 
     return possiblePosition[randomNumber];

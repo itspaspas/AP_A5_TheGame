@@ -24,6 +24,7 @@ private:
     sf::Texture texture;
     sf::Clock hitRateClock;
     sf::Clock freezeTimer; 
+    // int numRow;
     void initTexture(std::string textureFilePath);
     void initSprite(float scale);
     void setPosition(float x, float y);

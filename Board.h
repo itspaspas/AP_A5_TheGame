@@ -14,6 +14,11 @@ public:
     bool isCellEmpty(int row, int col) const; // Check if a cell is empty
     bool isContain(sf::Vector2f mousePositionFloat);
     Cell* getCellAt(sf::Vector2f position);
+    // int getRowOfPlant(sf::Vector2f plantPosition);
+
+    // enum PlantType{
+    //     PEASHOOTER, ICYPEASHOOTER, WALLNUT, SUNFLOWER
+    // };
 
 private:
     int numRows;
