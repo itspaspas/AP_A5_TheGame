@@ -13,18 +13,7 @@ private:
 
 public:
     IcyPeaShooter();
-    void update() {
-        if (PeaShotClock.getElapsedTime().asSeconds() >= activationTime || this->firstTime ) {
-            if(!this->HaveSnowPea){
-                this->HaveSnowPea = true;
-                PeaShotClock.restart();
-                this->firstTime = false;
-            }
-        }
-        else{
-            this->HaveSnowPea = false;
-        }
-    }
+    void update();
 };
 
 #endif

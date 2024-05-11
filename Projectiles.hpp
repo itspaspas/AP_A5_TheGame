@@ -7,7 +7,7 @@
 class Projectile {
 protected:
     sf::Sprite sprite;
-    sf::Texture texture;  // Texture needs to be a member to ensure it persists
+    sf::Texture texture;
     float movementSpeed;
     float scale;
     bool hit;
@@ -15,60 +15,18 @@ protected:
     int snowTime;
 
 public:
-    Projectile(const std::string& texturePath, float _movementSpeed, float scale , int _damage ,int _snowTime){
-        initTexture(texturePath);
-        initSprite(scale);
-        movementSpeed = _movementSpeed;
-        hit = false;
-        damage = _damage;
-        snowTime = _snowTime;
-    }
-
-    void initTexture(const std::string& texturePath){
-        this->texture.loadFromFile(texturePath);
-    }
-
-    void initSprite(float scale){
-    this->sprite.setTexture(this->texture);
-    this->sprite.scale(scale, scale);
-    this->sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
-}
-
-    void move(const float dirX , const float dirY){
-        this->sprite.move(this->movementSpeed * dirX ,this->movementSpeed * dirY);
-    }
-
-    void render(sf::RenderTarget& target) {
-        target.draw(this->sprite);
-    }
-
-    void setPosition(float x, float y) {
-        this->sprite.setPosition(x, y);
-    }
-
-    bool isOffScreen(int screenWidth) {
-        return sprite.getPosition().x > screenWidth || sprite.getPosition().x < 0;
-    }
-
-    sf::Sprite getSprite(){
-        return this->sprite;
-    }
-
-    bool isHit(){
-        return hit;
-    }
-
-    void getHit(){
-        this->hit = true;
-    }
-
-    int getDamage(){
-        return this->damage;
-    }
-
-    int getSnowTime(){
-        return this->snowTime;
-    }
+    Projectile(const std::string& texturePath, float _movementSpeed, float scale , int _damage ,int _snowTime);
+    void initTexture(const std::string& texturePath);
+    void initSprite(float scale);
+    void move(const float dirX , const float dirY);
+    void render(sf::RenderTarget& target);
+    void setPosition(float x, float y);
+    bool isOffScreen(int screenWidth);
+    bool isHit();
+    void getHit();
+    int getDamage();
+    int getSnowTime();
+    sf::Sprite getSprite();
 };
 
 #endif

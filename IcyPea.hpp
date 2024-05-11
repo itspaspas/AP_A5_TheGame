@@ -6,7 +6,7 @@
 
 class IcyPea : public Projectile {
 public:
-    IcyPea() : Projectile("extrafile/snowpea.png", 5, 0.08 ,8 ,5){}
+    IcyPea();
 };
 
 #endif

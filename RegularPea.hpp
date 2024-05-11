@@ -6,7 +6,7 @@
 
 class RegularPea : public Projectile {
 public:
-    RegularPea() : Projectile("extrafile/pea.png", 7 , 0.05 ,5 ,0) {}
+    RegularPea();
 };
 
 #endif

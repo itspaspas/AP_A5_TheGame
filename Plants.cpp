@@ -1,7 +1,7 @@
 #include "Plants.hpp"
 
 Plant::Plant(int _damage, int _health, float _activationTime,const std::string& texturePath ,float _scale) 
-    : damage(_damage), health(_health), activationTime(_activationTime), lastAttackTime(0), scale(_scale){
+    : damage(_damage), health(_health), activationTime(_activationTime),scale(_scale){
     initTexture(texturePath);
     initSprite();
     HaveRegularPea = false;
@@ -17,7 +17,6 @@ void Plant::initSprite() {
     this->sprite.setTexture(texture);
     this->sprite.scale(scale , scale);
     this->sprite.setOrigin(this->sprite.getLocalBounds().width / 2, this->sprite.getLocalBounds().height / 2);
-    this->sprite.setPosition(position);
 }
 
 void Plant::render(sf::RenderTarget& target) {

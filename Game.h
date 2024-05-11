@@ -29,7 +29,8 @@ private:
 	bool isDone;
 	bool attacking;
 	int waveNum;
-	//zombi
+	int zombieAddedInWave;
+
 	SunFlower* sunflower;
 	Walnut* walnut;
 	RegularPeaShooter* regularPeaShooter;
@@ -42,7 +43,6 @@ private:
 	sf::Clock zombiAttackClock;
 	sf::Clock waveAttackClock;
 	sf::Clock sunClock;
-	int zombieAddedInWave;
 
 	//Window
 	sf::RenderWindow* window;
@@ -80,6 +80,7 @@ private:
 	void checkZombiePeaCollision();
 	bool notClickForOther();
 	bool isZombiAreInLineOf(Plant* plant);
+
 	//music of game
 	sf::Music music;
 
@@ -99,14 +100,13 @@ public:
 
 	//Accessors
 	const bool running() const;
-    
+	
 	//Functions
 	void beginAttackIfItsTime();
 	void ShowBackGround(std::string backGrountpath);
 	void pollEvents();
 	void update();
 	void render();
-	bool zombiesArrived(Projectile* projectile, Zombie* zombie);
 };
 
 #endif

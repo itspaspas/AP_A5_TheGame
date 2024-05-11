@@ -5,6 +5,6 @@ class Walnut : public Plant {
     float stamina;
 
 public:
-    Walnut();// Walnuts have a high health value
+    Walnut();
     void update(){return;};
 };

@@ -21,17 +21,8 @@ sf::Vector2f Cell::setPlant(Plant* plant){
     empty = false;
 }
 
-void Cell::removePlant() {
-    delete this->plant;
-    empty = true;
-}
-
-bool Cell::isEmpty() const {
+bool Cell::isEmpty(){
     return empty;
-}
-
-Plant* Cell::getPlant() const{
-    return this->plant;
 }
 
 sf::Vector2f Cell::getCellMidPosition(){

@@ -54,12 +54,6 @@ bool Board::isContain(sf::Vector2f mousePositionFloat){
             (mousePositionFloat.y > this->beginOfBoard.y) && 
             (mousePositionFloat.y < this->endOfBoard.y));}
 
-void Board::removePlantAt(int row, int col) {
-    if (row < numRows && col < numColumns) {
-        cells[row][col]->removePlant();
-    }
-}
-
 bool Board::isCellEmpty(sf::Vector2f addr){
     for(auto cellRow : cells){
         for(auto cell : cellRow){
@@ -71,28 +65,3 @@ bool Board::isCellEmpty(sf::Vector2f addr){
     }
     return false;
 }
-
-Cell* Board::getCellAt(sf::Vector2f position) {
-    float cellWidth = (endOfBoard.x - beginOfBoard.x) / numColumns;
-    float cellHeight = (endOfBoard.y - beginOfBoard.y) / numRows;
-
-    int column = static_cast<int>((position.x - beginOfBoard.x) / cellWidth);
-    int row = static_cast<int>((position.y - beginOfBoard.y) / cellHeight);
-
-    // Check if the calculated row and column are within the bounds of the cell grid
-    if (row >= 0 && row < numRows && column >= 0 && column < numColumns) {
-        return cells[row][column];
-    }
-
-    return nullptr; // Return nullptr if the position is out of the board's bounds
-}
-
-// int Board::getRowOfPlant(sf::Vector2f plantPosition) {
-//     Cell* cell = getCellAt(plantPosition);
-//     if (cell != nullptr) {
-//         float cellHeight = (endOfBoard.y - beginOfBoard.y) / numRows;
-//         int row = static_cast<int>((plantPosition.y - beginOfBoard.y) / cellHeight);
-//         return row;
-//     }
-//     return -1; // Return -1 if the plant is not found or the position is out of bounds
-// }

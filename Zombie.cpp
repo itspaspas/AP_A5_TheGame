@@ -90,14 +90,12 @@ void Zombie::hitByPea(Projectile* pea){
 
 void Zombie::upDate(){
     if (freezeTimer.getElapsedTime().asSeconds() < freezing_time) {
-        // If it's still running, keep zombie's speed reduced
         this->freezing = true;
     }
     else {
-        // If it's finished, reset zombie's speed back to normal
         this->freezing = false;
-        freezing_time = 0; // Reset freezing time
-        freezeTimer.restart(); // Restart freeze timer for next hit
+        freezing_time = 0;
+        freezeTimer.restart();
     }
 }
 

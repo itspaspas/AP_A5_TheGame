@@ -340,16 +340,6 @@ void Game::addNewIcyPeaShooter(){
 	}
 }
 
-bool Game::zombiesArrived(Projectile* projectile, Zombie* zombie){
-	if (projectile->getSprite().getPosition().y ==  zombie->getSprite().getPosition().y){
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
-
 void Game::checkZombiePlantCollision() {
     for(auto &zombie : zombies) {
         for(auto &plant : plants) {
@@ -478,7 +468,6 @@ void Game::render()
 	//showing sunflower
 	for(auto plant : plants)
 		plant->render(*this->window);
-
 	//showing zombies
 	if(!isDone){
 		for(auto zombie : this->zombies)
@@ -493,8 +482,6 @@ void Game::render()
 		showWonState();
 	}
 
-	//showing peas
-	
 	//showing round
 	this->showRound();
 
@@ -509,9 +496,5 @@ void Game::render()
 	this->addNewRegularPeaShooter();
 	this->addNewIcyPeaShooter();
 
-
-	// showing the mouse position
-    // sf::Vector2i position = sf::Mouse::getPosition(*this->window);
-    // std::cout << "Mouse position: " << position.x << " - " << window->getSize().x << ", " << position.y << " - " << window->getSize().y << std::endl;
 	this->window->display();
 }

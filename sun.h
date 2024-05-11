@@ -8,7 +8,6 @@
 class Sun{
 private:
     int speed;
-    int interval;
     sf::Texture texture;
     sf::Sprite sprite;
     void initTexture();
@@ -21,7 +20,5 @@ public:
     void move(const float dirX , const float dirY);
     const sf::Sprite& getSprite() const;
 };
-
-// float getRandomPosition();
 
 #endif
