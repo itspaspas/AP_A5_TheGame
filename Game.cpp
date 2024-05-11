@@ -90,10 +90,9 @@ void Game::pollEvents()
 }
 
 void Game::beginAttackIfItsTime(){
-
 	int numberOfZombies = waveNum * 3 + 2;
 	float zombieGenerateTime = numberOfZombies*zombieGenerateInterval;
-	if(!attacking && waveAttackClock.getElapsedTime().asSeconds()>=5.0f){
+	if(!attacking && waveAttackClock.getElapsedTime().asSeconds() >= 8.0f){
 		attacking = true;
 		waveAttackClock.restart();
 	}
@@ -106,7 +105,6 @@ void Game::beginAttackIfItsTime(){
 			} else {
 				addNewNormalZombie();
 			}
-			
 			zombiAttackClock.restart();
 		}
 	}
@@ -157,7 +155,6 @@ void Game::showRound(){
 		text.setCharacterSize(50);
 		text.setFillColor(sf::Color::Red);
 		text.setOrigin(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
-		// text.setPosition(this->window->getSize().x / 2, this->window->getSize().y / 2);
 		text.setPosition(325 , 225);
 		if(!isDone){
 			text.setString("Round " + std::to_string(waveNum));
@@ -207,7 +204,6 @@ void Game::showSunsNum(){
 	sunSprite.setScale(.15f,.15f);
 	sunSprite.setOrigin(sun.getSize().x/2 , sun.getSize().y/2);
 	sunSprite.setPosition(25,25);
-	// sf::RenderTarget& target = *this->window;
 	this->window->draw(sunSprite);
 	this->showSunRectangle();
 }
@@ -390,6 +386,15 @@ void Game::checkZombiePeaCollision(){
 	}
 }
 
+bool Game::isZombiAreInLineOf(Plant* plant){
+	for(auto zombi :zombies){
+		if(zombi->isInSameLine(plant->getSprite().getPosition())){
+			return true;
+		}
+	}
+	return false;
+}
+
 void Game::update()
 {
 	this->pollEvents();
@@ -412,7 +417,6 @@ void Game::update()
 		}
 	}
 
-
 	for(auto plant :plants){
 		plant->update();
 		if(plant->isHaveSun()){
@@ -422,13 +426,13 @@ void Game::update()
 			this->suns.push_back(newSun);
 		}
 
-		if(plant->isHaveRegularPea()){
+		if(plant->isHaveRegularPea() && this->isZombiAreInLineOf(plant)){
 			RegularPea* newPea = new RegularPea();
 			sf::Vector2f posOfNewPea = plant->getPeaAddr();
 			newPea->setPosition(posOfNewPea.x , posOfNewPea.y);
 			this->projectiles.push_back(newPea);
 		}
-		if(plant->isHaveSnowPea()){
+		if(plant->isHaveSnowPea() && this->isZombiAreInLineOf(plant)){
 			IcyPea* newIcePea = new IcyPea();
 			sf::Vector2f posOfNewPea = plant->getPeaAddr();
 			newIcePea->setPosition(posOfNewPea.x , posOfNewPea.y);
@@ -437,12 +441,7 @@ void Game::update()
 	}
 
 	for(auto projectile : projectiles){
-		// for (auto zombie : zombies){
-		// 	do{
-				projectile->move(1.f,0.f);
-		// 	}
-		// 	while (zombiesArrived(projectile, zombie));
-		// }
+		projectile->move(1.f,0.f);
 	}
 
 	for(int i=0 ; i<projectiles.size() ; i++){
@@ -486,16 +485,15 @@ void Game::render()
 			zombie->render(*this->window);
 		for(auto sun : this->suns)
 			sun->render(*this->window);
-		
+		for(auto projectile :projectiles){
+			projectile->render(*this->window);
+		}
     }
 	else{
 		showWonState();
 	}
 
 	//showing peas
-	for(auto projectile :projectiles){
-		projectile->render(*this->window);
-	}
 	
 	//showing round
 	this->showRound();

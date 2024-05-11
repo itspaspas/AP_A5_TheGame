@@ -13,10 +13,10 @@ bool Zombie::hasArrivedHome(){
     return this->sprite.getPosition().x < 150.f ;
 }
 
-float getRandomPosition(){
+float Zombie::getRandomPosition(){
     int randomNumber = std::rand() % 5;
+    this->row = randomNumber + 1;
     float possiblePosition[5] = {125.f,210.f,310.f,400.f,495.f};
-
     return possiblePosition[randomNumber];
 }
 
@@ -103,4 +103,10 @@ void Zombie::upDate(){
 
 bool Zombie::isDead(){
     return this->health <= 0;
+}
+
+bool Zombie::isInSameLine(sf::Vector2f addr){
+    int beginOfCell = 90 + ((row-1)*92);
+    int endOfCell = 90 + (row * 92);
+    return (addr.y > beginOfCell) && (addr.y < endOfCell);
 }

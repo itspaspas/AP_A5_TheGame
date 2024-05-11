@@ -79,6 +79,7 @@ private:
 	void checkZombiePlantCollision();
 	void checkZombiePeaCollision();
 	bool notClickForOther();
+	bool isZombiAreInLineOf(Plant* plant);
 	//music of game
 	sf::Music music;
 

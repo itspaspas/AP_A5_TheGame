@@ -16,6 +16,7 @@ private:
     int maxHealth;
     int health;
     int hitRate;
+    int row;
     float movementSpeed;
     bool eating;
     bool freezing;
@@ -23,11 +24,12 @@ private:
     sf::Sprite sprite;
     sf::Texture texture;
     sf::Clock hitRateClock;
-    sf::Clock freezeTimer; 
+    sf::Clock freezeTimer;
     // int numRow;
     void initTexture(std::string textureFilePath);
     void initSprite(float scale);
     void setPosition(float x, float y);
+    float getRandomPosition();
 public:
     Zombie(std::string textureFilePath, float scale ,float _movementSpeed, int maxHealth , int damage , int hiRate);
     bool hasArrivedHome();
@@ -40,6 +42,7 @@ public:
     void hitByPea(Projectile* pea);
     void upDate();
     bool isDead();
+    bool isInSameLine(sf::Vector2f addr);
 };
 
 float getRandomPosition();
