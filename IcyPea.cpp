@@ -1,3 +1,3 @@
 #include "IcyPea.hpp"
 
-IcyPea::IcyPea() : Projectile("extrafile/snowpea.png", 5, 0.08 ,8 ,5){}
+IcyPea::IcyPea() : Projectile("extrafile/snowpea.png", 5, 0.09 ,8 ,5){}

@@ -1,7 +1,7 @@
 #include "WalnutPriceRectangle.h"
 
 WalnutPriceRectangle::WalnutPriceRectangle(){
-    collDownTime = 3;
+    collDownTime = 10;
     picturePath = "extrafile/2.png";
     collDownPicPath = "extrafile/2dark.png";
 }

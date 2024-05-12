@@ -2,7 +2,7 @@
 #include "HairMetalZombie.h"
 #include "RegularZombie.h"
 
-const float zombieGenerateInterval = 3.0f;
+const float zombieGenerateInterval = 5.0f;
 
 void Game::initWindow()
 {
@@ -91,9 +91,16 @@ void Game::pollEvents()
 }
 
 void Game::beginAttackIfItsTime(){
-	int numberOfZombies = waveNum * 3 + 2;
+	int numberOfZombies = waveNum * 3;
 	float zombieGenerateTime = numberOfZombies*zombieGenerateInterval;
-	if(!attacking && waveAttackClock.getElapsedTime().asSeconds() >= 8.0f){
+	int waitingTimeBeforNewRound;
+	if(this->waveNum == 1){
+		waitingTimeBeforNewRound = 25;
+	}
+	else{
+		waitingTimeBeforNewRound = 10;
+	}
+	if(!attacking && waveAttackClock.getElapsedTime().asSeconds() >= waitingTimeBeforNewRound){
 		attacking = true;
 		waveAttackClock.restart();
 	}
@@ -115,6 +122,7 @@ void Game::beginAttackIfItsTime(){
 		waveNum += 1;
 		if(waveNum == 5){
 			isDone = true;
+			this->music.stop();
 		}
 		showingRound.restart();
 		zombieAddedInWave = 0;
@@ -135,12 +143,13 @@ void Game::ShowGameOverPic(){
 }
 
 void Game::gameOver(){
-	for(int i=0 ; i<zombies.size() ; i++)
+	for(int i=0 ; i<zombies.size() ; i++){
 		if(zombies[i]->hasArrivedHome()){
 			this->isGameOver = true;
 			this->music.stop();
+			break;
 		}
-
+	}
 }
 
 
@@ -220,9 +229,9 @@ void Game::showSunsNum(){
 }
 
 void Game::fallingSuns(){
-	if(sunClock.getElapsedTime().asSeconds()>=5.0f){
+	if(sunClock.getElapsedTime().asSeconds() >= 10){
 		Sun* newFallingSun = new Sun(1);
-		sf::Vector2f fallingSunPos = {150 + static_cast<float>(rand() % static_cast<int>(500)) ,0.f};
+		sf::Vector2f fallingSunPos = {150 + static_cast<float>(rand() % static_cast<int>(550)) ,0.f};
 		newFallingSun->setPosition(fallingSunPos.x , fallingSunPos.y);
 		suns.push_back(newFallingSun);
 		sunClock.restart();

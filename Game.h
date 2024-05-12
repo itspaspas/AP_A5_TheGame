@@ -85,6 +85,8 @@ private:
 
 	//music of game
 	sf::Music music;
+	// sf::Music gameOverMusic;
+	// sf::Sound winMusic;
 
 	//board of game
 	Board* board;
