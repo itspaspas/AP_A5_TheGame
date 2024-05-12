@@ -108,3 +108,7 @@ bool Zombie::isInSameLine(sf::Vector2f addr){
     int endOfCell = 90 + (row * 92);
     return (addr.y > beginOfCell) && (addr.y < endOfCell);
 }
+
+void Zombie::getDamage(int damage){
+    this->health -= damage;
+}

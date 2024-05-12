@@ -41,6 +41,7 @@ public:
     void upDate();
     bool isDead();
     bool isInSameLine(sf::Vector2f addr);
+    void getDamage(int damage);
     sf::Sprite getSprite();
 };
 

@@ -18,9 +18,9 @@ public:
 
     Cell(sf::Vector2f beginOfCell , sf::Vector2f endOfCell);
     sf::Vector2f setPlant(Plant* plant);
+    sf::Vector2f getCellMidPosition();
     bool isEmpty();
     bool isContainAddr(sf::Vector2f Addr);
-    sf::Vector2f getCellMidPosition();
     void getFull();
     void getEmpty();
 

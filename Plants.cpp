@@ -29,7 +29,6 @@ void Plant::render(sf::RenderTarget& target) {
 void Plant::setPosition(sf::Vector2f addr){
     if(this->itWatermelon){
         addr.x -= 15;
-        addr.y -= 15;
     }
     this->sprite.setPosition(addr);
 }

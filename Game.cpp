@@ -204,13 +204,13 @@ void Game::showSunRectangle(){
     rectangle.setFillColor(sf::Color::Black);
 	rectangle.setOrigin(rectangle.getLocalBounds().width / 2, rectangle.getLocalBounds().height / 2);
     rectangle.setPosition(92 , 25);
-	//Create a text object
+
 	sf::Text text;
     text.setString(std::to_string(this->sunsNum));
 	text.setOrigin(15, 12);
     text.setCharacterSize(20);
 	text.setColor(sf::Color::White);
-    // Load a font
+
     sf::Font font;
     font.loadFromFile("extrafile/Dosis-Light.ttf");
     text.setFont(font);
@@ -257,7 +257,6 @@ void Game::updateSuns(){
 			{
 				if (this->suns[i]->getSprite().getGlobalBounds().contains(this->mousePosView)){
 					this->sunsNum += 25;
-					//Delete the sun
 					deleted = true;
 					this->suns.erase(this->suns.begin() + i);
 				}
@@ -427,6 +426,15 @@ bool Game::isZombiAreInLineOf(Plant* plant){
 	return false;
 }
 
+sf::Vector2f Game::fineNearestZombie(Plant* plant , Watermelon* newWatermelon){
+	for(int i =0 ; i<zombies.size() ; i++){
+		if(zombies[i]->isInSameLine(plant->getSprite().getPosition())){
+			newWatermelon->assignZombi(zombies[i]);
+			return zombies[i]->getSprite().getPosition();
+		}
+	}
+}
+
 void Game::update()
 {
 	this->pollEvents();
@@ -440,7 +448,6 @@ void Game::update()
 	for(auto sun : this->suns)
 		sun->move(0.f,1.f);
 
-	//delete the dead plant
 	for(int i=0 ; i<plants.size() ; i++){
 		if(plants[i]->isDead()){
 			plants[i]->makeCellEmpty();
@@ -474,6 +481,9 @@ void Game::update()
 			Watermelon* newWatermelon = new Watermelon();
 			sf::Vector2f posOfNewWatermelon  = plant->getWatermelonAddr();
 			newWatermelon->setPosition(posOfNewWatermelon.x , posOfNewWatermelon.y);
+			newWatermelon->addStartPos(posOfNewWatermelon);
+			sf:: Vector2f NearestZombieAddr = this->fineNearestZombie(plant,newWatermelon);
+			newWatermelon->addEndPos(NearestZombieAddr.x - 50);
 			this->Watermelons.push_back(newWatermelon);
 		}
 	}
@@ -497,6 +507,19 @@ void Game::update()
 		}
 	}
 
+	for(int i=0 ; i<Watermelons.size();i++){
+		float x = abs(Watermelons[i]->middleOfDistance() - Watermelons[i]->position().x);
+		float y = sqrt(pow(Watermelons[i]->middleOfDistance(), 2) - pow(x ,2));
+		float dy = abs(Watermelons[i]->middleOfDistance() - y);
+		float newY = Watermelons[i]->getStartPos().y + dy - 0.5f * Watermelons[i]->getSprite().getLocalBounds().height;
+		Watermelons[i]->setPosition(Watermelons[i]->position().x, newY);
+		Watermelons[i]->move(3,0);
+		if(Watermelons[i]->position().x >= Watermelons[i]->getEndPos()){
+			Watermelons[i]->giveDamage();
+			delete Watermelons[i];
+			Watermelons.erase(Watermelons.begin() + i);				
+		}
+	}
 
 	this->checkZombiePlantCollision();
 	this->updateMousePositions();
@@ -507,30 +530,22 @@ void Game::update()
 void Game::render()
 {
 	this->window->clear();
-	//showing background
 	this->ShowBackGround("extrafile/ext8waid79e81.jpg");
-	//showing sun number
 	this->showSunsNum();
-	//deleting sun that reach the doown
 	this->clearDownSun();
-	//showing sunflower
-	for(auto plant : plants)
-		plant->render(*this->window);
-	//showing zombies
 	if(!isDone && !isGameOver){
+		for(auto watermelon : Watermelons)
+			watermelon->render(*this->window);
+		for(auto plant : plants)
+			plant->render(*this->window);
 		for(auto zombie : this->zombies)
 			zombie->render(*this->window);
 		for(auto sun : this->suns)
 			sun->render(*this->window);
-		for(auto projectile :projectiles){
+		for(auto projectile :projectiles)
 			projectile->render(*this->window);
-		}
-		for(auto watermelon : Watermelons){
-			watermelon->render(*this->window);
-		}
     }
 
-	// showing the box of cost
 	this->sunFlowerPriceRectangle->render(*this->window);
 	this->walnutPriceRectangle->render(*this->window);
 	this->regularPeaShooterPriceRectangle->render(*this->window);
@@ -538,9 +553,8 @@ void Game::render()
 	this->watermelonShooterPriceRectangle->render(*this->window);
 
 	if(!isGameOver){
-		//showing round
 		this->showRound();
-		//showing sunflower when adding one
+
 		this->addNewSunFlower();
 		this->addNewWalnut();
 		this->addNewRegularPeaShooter();

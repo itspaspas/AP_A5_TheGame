@@ -12,12 +12,12 @@ WatermelonShooterPriceRectangle.h WatermelonShooter.hpp Watermelon.hpp
 
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
-all: PlantVsZombi clean
+all: pvz clean
 
 %.o: %.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-PlantVsZombi: $(OBJS)
+pvz: $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $@ $(LIBS)
 
 .PHONY: clean

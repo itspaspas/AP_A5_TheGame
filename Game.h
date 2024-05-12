@@ -6,6 +6,8 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <cmath>
+#include <math.h>
 #include "Board.h"
 #include "SunFlowerPriceRectangle.h"
 #include "WalnutPriceRectangle.h"
@@ -49,12 +51,10 @@ private:
 	sf::Clock waveAttackClock;
 	sf::Clock sunClock;
 
-	//Window
 	sf::RenderWindow* window;
 	sf::VideoMode videoMode;
 	sf::Event event;
 
-	//Mouse positions
 	sf::Vector2i mousePosWindow;
 	sf::Vector2f mousePosView;
 	bool mouseHeld;
@@ -64,7 +64,6 @@ private:
 	bool isPressedBeforForIcyPeaShooter;
 	bool isPressedBeforForWatermelon;
 
-	//Private functions
 	void showWonState();
 	void showRound();
 	void initWindow();
@@ -88,16 +87,14 @@ private:
 	void checkZombiePeaCollision();
 	bool notClickForOther();
 	bool isZombiAreInLineOf(Plant* plant);
+	sf::Vector2f fineNearestZombie(Plant* plant , Watermelon* newWatermelon);
 
-	//music of game
 	sf::Music music;
 	// sf::Music gameOverMusic;
 	// sf::Sound winMusic;
 
-	//board of game
 	Board* board;
 
-	//price rectangle
 	SunFlowerPriceRectangle* sunFlowerPriceRectangle;
 	WalnutPriceRectangle* walnutPriceRectangle;
 	RegularPeaShooterPriceRectangle* regularPeaShooterPriceRectangle;
@@ -105,14 +102,9 @@ private:
 	WatermelonShooterPriceRectangle* watermelonShooterPriceRectangle;
 
 public:
-	//Constructors / Destructors
 	Game();
 	virtual ~Game();
-
-	//Accessors
 	const bool running() const;
-	
-	//Functions
 	void beginAttackIfItsTime();
 	void ShowBackGround(std::string backGrountpath);
 	void pollEvents();

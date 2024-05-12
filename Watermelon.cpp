@@ -5,7 +5,6 @@ Watermelon::Watermelon(){
     initSprite(.3f);
     movementSpeed = 1;
     damage = 15;
-    hit = false;
 }
 
 void Watermelon::initTexture(const std::string& texturePath){
@@ -34,14 +33,33 @@ sf::Sprite Watermelon::getSprite(){
     return this->sprite;
 }
 
-bool Watermelon::isHit(){
-    return hit;
+void Watermelon::addStartPos(sf::Vector2f _startPos){
+    this->startPos = _startPos;
+}
+void Watermelon::addEndPos(float _EndPos){
+    this->endPos = _EndPos;
 }
 
-void Watermelon::getHit(){
-    this->hit = true;
+float Watermelon::middleOfDistance(){
+    return (endPos + startPos.x)/2 ;
 }
 
-int Watermelon::getDamage(){
-    return this->damage;
+sf::Vector2f Watermelon::position(){
+    return this->sprite.getPosition();
+}
+
+sf::Vector2f Watermelon::getStartPos(){
+    return this->startPos;
+}
+
+float Watermelon::getEndPos(){
+    return this->endPos;
+}
+
+void Watermelon::assignZombi(Zombie* _zombie){
+    this->zombie = _zombie;
+}
+
+void Watermelon::giveDamage(){
+    this->zombie->getDamage(this->damage);
 }
