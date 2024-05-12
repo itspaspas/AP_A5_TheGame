@@ -27,6 +27,7 @@ class Game
 private:
 	int sunsNum; 
 	bool isDone;
+	bool isGameOver;
 	bool attacking;
 	int waveNum;
 	int zombieAddedInWave;
@@ -65,6 +66,7 @@ private:
 	void addNewNormalZombie();
 	void addNewBigZombie();
 	void gameOver();
+	void ShowGameOverPic();
 	void showSunsNum();
 	void showSunRectangle();
 	void fallingSuns();

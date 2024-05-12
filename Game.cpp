@@ -25,6 +25,7 @@ Game::Game(){
 	this->board = new Board(beginOfBoard , endOfBoard);
 
 	this->isDone = false;
+	this->isGameOver = false;
 	this->attacking = false;
 	this->isPressedBeforForSun = false;
 	this->isPressedBeforForWalnut =false;
@@ -123,11 +124,21 @@ void Game::beginAttackIfItsTime(){
 		
 }
 
+void Game::ShowGameOverPic(){
+	sf::Texture texture;
+    texture.loadFromFile("extrafile/endpage.png");
+    sf::Sprite sprite(texture);
+	sprite.setTexture(texture);
+	sprite.setPosition(150,90);
+    sprite.setScale(1, 1);
+    this->window->draw(sprite);
+}
+
 void Game::gameOver(){
 	for(int i=0 ; i<zombies.size() ; i++)
 		if(zombies[i]->hasArrivedHome()){
-			delete zombies[i];
-			zombies.erase(zombies.begin() + i);
+			this->isGameOver = true;
+			this->music.stop();
 		}
 
 }
@@ -469,7 +480,7 @@ void Game::render()
 	for(auto plant : plants)
 		plant->render(*this->window);
 	//showing zombies
-	if(!isDone){
+	if(!isDone && !isGameOver){
 		for(auto zombie : this->zombies)
 			zombie->render(*this->window);
 		for(auto sun : this->suns)
@@ -478,23 +489,30 @@ void Game::render()
 			projectile->render(*this->window);
 		}
     }
-	else{
-		showWonState();
-	}
-
-	//showing round
-	this->showRound();
 
 	// showing the box of cost
 	this->sunFlowerPriceRectangle->render(*this->window);
 	this->walnutPriceRectangle->render(*this->window);
 	this->regularPeaShooterPriceRectangle->render(*this->window);
 	this->icyPeaShooterPriceRectangle->render(*this->window);
-	//showing sunflower when adding one
-	this->addNewSunFlower();
-	this->addNewWalnut();
-	this->addNewRegularPeaShooter();
-	this->addNewIcyPeaShooter();
+
+	if(!isGameOver){
+		//showing round
+		this->showRound();
+		//showing sunflower when adding one
+		this->addNewSunFlower();
+		this->addNewWalnut();
+		this->addNewRegularPeaShooter();
+		this->addNewIcyPeaShooter();
+	}
+
+	if(isDone){
+		this->showWonState();
+	}
+
+	if(isGameOver){
+		this->ShowGameOverPic();
+	}
 
 	this->window->display();
 }
