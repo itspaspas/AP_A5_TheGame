@@ -7,6 +7,7 @@ Plant::Plant(int _damage, int _health, float _activationTime,const std::string& 
     HaveRegularPea = false;
     HaveSnowPea = false;
     HaveSun = false;
+    HaveWatermelon = false;
     this->itWatermelon = isWatermelon;
 
 }
@@ -79,4 +80,16 @@ void Plant::assignCell(Cell* cell){
 
 void Plant::makeCellEmpty(){
     this->cell->getEmpty();
+}
+
+bool Plant::isHaveWatermelon(){
+    return HaveWatermelon;
+}
+
+sf::Vector2f Plant::getWatermelonAddr(){
+    sf::Vector2f addr;
+    addr = this->sprite.getPosition();
+    addr.x -= 17;
+    addr.y -= 17;
+    return addr;
 }

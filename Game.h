@@ -43,6 +43,7 @@ private:
 	std::vector <Sun*> suns;
 	std::vector <Plant*> plants;
 	std::vector <Projectile*> projectiles;
+	std::vector <Watermelon*> Watermelons;
 	sf::Clock showingRound;
 	sf::Clock zombiAttackClock;
 	sf::Clock waveAttackClock;

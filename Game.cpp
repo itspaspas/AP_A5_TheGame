@@ -470,6 +470,12 @@ void Game::update()
 			newIcePea->setPosition(posOfNewPea.x , posOfNewPea.y);
 			this->projectiles.push_back(newIcePea);
 		}
+		if(plant->isHaveWatermelon() && this->isZombiAreInLineOf(plant)){
+			Watermelon* newWatermelon = new Watermelon();
+			sf::Vector2f posOfNewWatermelon  = plant->getWatermelonAddr();
+			newWatermelon->setPosition(posOfNewWatermelon.x , posOfNewWatermelon.y);
+			this->Watermelons.push_back(newWatermelon);
+		}
 	}
 
 	for(auto projectile : projectiles){
@@ -518,6 +524,9 @@ void Game::render()
 			sun->render(*this->window);
 		for(auto projectile :projectiles){
 			projectile->render(*this->window);
+		}
+		for(auto watermelon : Watermelons){
+			watermelon->render(*this->window);
 		}
     }
 

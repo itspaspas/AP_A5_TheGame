@@ -7,13 +7,13 @@ WatermelonShooter::WatermelonShooter()
 
 void WatermelonShooter::update() {
     if (WatermelonShotClock.getElapsedTime().asSeconds() >= activationTime || this->firstTime ) {
-        if(!this->HaveRegularPea){
-            this->HaveRegularPea = true;
+        if(!this->HaveWatermelon){
+            this->HaveWatermelon = true;
             WatermelonShotClock.restart();
             this->firstTime = false;
         }
     }
     else{
-        this->HaveRegularPea = false;
+        this->HaveWatermelon = false;
     }
 }
