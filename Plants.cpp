@@ -1,12 +1,14 @@
 #include "Plants.hpp"
 
-Plant::Plant(int _damage, int _health, float _activationTime,const std::string& texturePath ,float _scale) 
+Plant::Plant(int _damage, int _health, float _activationTime,const std::string& texturePath ,float _scale ,bool isWatermelon) 
     : damage(_damage), health(_health), activationTime(_activationTime),scale(_scale){
     initTexture(texturePath);
     initSprite();
     HaveRegularPea = false;
     HaveSnowPea = false;
     HaveSun = false;
+    this->itWatermelon = isWatermelon;
+
 }
 
 void Plant::initTexture(const std::string& texturePath) {
@@ -24,6 +26,10 @@ void Plant::render(sf::RenderTarget& target) {
 }
 
 void Plant::setPosition(sf::Vector2f addr){
+    if(this->itWatermelon){
+        addr.x -= 15;
+        addr.y -= 15;
+    }
     this->sprite.setPosition(addr);
 }
 

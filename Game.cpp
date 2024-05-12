@@ -31,6 +31,7 @@ Game::Game(){
 	this->isPressedBeforForWalnut =false;
 	this->isPressedBeforForRegularPeaShooter = false;
 	this->isPressedBeforForIcyPeaShooter = false;
+	this->isPressedBeforForWatermelon = false;
 	this->waveNum = 1;
 	this->zombieAddedInWave=0;
 	this->initWindow();
@@ -43,11 +44,13 @@ Game::Game(){
 	this->walnutPriceRectangle = new WalnutPriceRectangle();
 	this->regularPeaShooterPriceRectangle = new RegularPeaShooterPriceRectangle();
 	this->icyPeaShooterPriceRectangle = new IcyPeaShooterPriceRectangle();
+	this->watermelonShooterPriceRectangle = new WatermelonShooterPriceRectangle();
 
 	this->sunflower = new SunFlower();
 	this->walnut = new Walnut();
 	this ->regularPeaShooter = new RegularPeaShooter();
 	this->icyPeaShooter = new IcyPeaShooter();
+	this->watermelonShooter = new WatermelonShooter();
 }
 
 Game::~Game()
@@ -360,6 +363,25 @@ void Game::addNewIcyPeaShooter(){
 	}
 }
 
+void Game::addNewWatermelonShooter(){
+	if(this->isPressedBeforForWatermelon && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView) && this->board->isCellEmpty(this->mousePosView)){
+		WatermelonShooter* watermelonShooter = new WatermelonShooter();
+		sf::Vector2f posOfAddedWatermelonShooter = this->board->plantAt(this->mousePosView , watermelonShooter);
+		watermelonShooter->setPosition(posOfAddedWatermelonShooter);
+		plants.push_back(watermelonShooter);
+		this->watermelonShooterPriceRectangle->startCoolDown();
+		this->sunsNum -= 200;
+		this->isPressedBeforForWatermelon = false;
+	}
+	if(this->isPressedBeforForWatermelon || this->watermelonShooterPriceRectangle->isContains(this->mousePosView)){
+		if(this->isPressedBeforForWatermelon || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->watermelonShooterPriceRectangle->isAbleToAdd() && this->sunsNum >= 200 && this->notClickForOther()){
+			this->watermelonShooter->setPosition(this->mousePosView);
+			this->watermelonShooter->render(*this->window);
+			this->isPressedBeforForWatermelon = true;
+		}
+	}
+}
+
 void Game::checkZombiePlantCollision() {
     for(auto &zombie : zombies) {
         for(auto &plant : plants) {
@@ -504,6 +526,7 @@ void Game::render()
 	this->walnutPriceRectangle->render(*this->window);
 	this->regularPeaShooterPriceRectangle->render(*this->window);
 	this->icyPeaShooterPriceRectangle->render(*this->window);
+	this->watermelonShooterPriceRectangle->render(*this->window);
 
 	if(!isGameOver){
 		//showing round
@@ -513,6 +536,7 @@ void Game::render()
 		this->addNewWalnut();
 		this->addNewRegularPeaShooter();
 		this->addNewIcyPeaShooter();
+		this->addNewWatermelonShooter();
 	}
 
 	if(isDone){

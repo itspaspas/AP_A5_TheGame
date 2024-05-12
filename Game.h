@@ -11,6 +11,7 @@
 #include "WalnutPriceRectangle.h"
 #include "RegularPeaShooterPriceRectangle.h"
 #include "icyPeaShooterPriceRectangle.h"
+#include "WatermelonShooterPriceRectangle.h"
 #include "IcyPeaShooter.hpp"
 #include "Plants.hpp"
 #include "Sunflower.hpp"
@@ -18,6 +19,7 @@
 #include "RegularPeaShooter.hpp"
 #include "RegularPea.hpp"
 #include "IcyPea.hpp"
+#include "WatermelonShooter.hpp"
 
 #ifndef GAME_H
 #define GAME_H
@@ -36,6 +38,7 @@ private:
 	Walnut* walnut;
 	RegularPeaShooter* regularPeaShooter;
 	IcyPeaShooter* icyPeaShooter;
+	WatermelonShooter* watermelonShooter;
 	std::vector <Zombie*> zombies;
 	std::vector <Sun*> suns;
 	std::vector <Plant*> plants;
@@ -58,6 +61,7 @@ private:
 	bool isPressedBeforForWalnut;
 	bool isPressedBeforForRegularPeaShooter;
 	bool isPressedBeforForIcyPeaShooter;
+	bool isPressedBeforForWatermelon;
 
 	//Private functions
 	void showWonState();
@@ -77,6 +81,7 @@ private:
 	void addNewWalnut();
 	void addNewRegularPeaShooter();
 	void addNewIcyPeaShooter();
+	void addNewWatermelonShooter();
 	bool plantIsOnBoard(sf::Vector2f mousePositionFloat);
 	void checkZombiePlantCollision();
 	void checkZombiePeaCollision();
@@ -96,6 +101,7 @@ private:
 	WalnutPriceRectangle* walnutPriceRectangle;
 	RegularPeaShooterPriceRectangle* regularPeaShooterPriceRectangle;
 	IcyPeaShooterPriceRectangle* icyPeaShooterPriceRectangle;
+	WatermelonShooterPriceRectangle* watermelonShooterPriceRectangle;
 
 public:
 	//Constructors / Destructors

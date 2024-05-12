@@ -16,6 +16,10 @@ sf::Vector2f Cell::setPlant(Plant* plant){
     sf::Vector2f position;
     position.x = (this->endOfCell.x + this->beginOfCell.x)/2;
     position.y = (this->endOfCell.y + this->beginOfCell.y)/2;
+    if(plant->itWatermelon){
+        position.x -= 8;
+        position.y -= 8;
+    }
     plant->setPosition(position);
     return position;
     empty = false;
