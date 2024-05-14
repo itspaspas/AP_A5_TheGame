@@ -24,6 +24,8 @@ Game::Game(){
 
 	this->board = new Board(beginOfBoard , endOfBoard);
 
+	this->gameOverSound = true;
+	this->winSound = true;
 	this->isDone = false;
 	this->isGameOver = false;
 	this->attacking = false;
@@ -39,6 +41,8 @@ Game::Game(){
 	this->music.openFromFile("extrafile/Main-Music.ogg");
 	this->music.setLoop(true);
 	this->music.play();
+	this->gameOverMusic.openFromFile("extrafile/GameOverMusic.ogg");
+	this->winMusic.openFromFile("extrafile/WinMusic.ogg");
 
 	this->sunFlowerPriceRectangle = new SunFlowerPriceRectangle();
 	this->walnutPriceRectangle = new WalnutPriceRectangle();
@@ -98,7 +102,7 @@ void Game::beginAttackIfItsTime(){
 	float zombieGenerateTime = numberOfZombies*zombieGenerateInterval;
 	int waitingTimeBeforNewRound;
 	if(this->waveNum == 1){
-		waitingTimeBeforNewRound = 25;
+		waitingTimeBeforNewRound = 30;
 	}
 	else{
 		waitingTimeBeforNewRound = 10;
@@ -125,7 +129,11 @@ void Game::beginAttackIfItsTime(){
 		waveNum += 1;
 		if(waveNum == 5){
 			isDone = true;
-			this->music.stop();
+			if(winSound){
+				this->music.stop();
+				this->winMusic.play();
+				winSound = false;
+			}
 		}
 		showingRound.restart();
 		zombieAddedInWave = 0;
@@ -149,7 +157,11 @@ void Game::gameOver(){
 	for(int i=0 ; i<zombies.size() ; i++){
 		if(zombies[i]->hasArrivedHome()){
 			this->isGameOver = true;
-			this->music.stop();
+			if(gameOverSound){
+				this->music.stop();
+				this->gameOverMusic.play();
+				gameOverSound = false;
+			}
 			break;
 		}
 	}
@@ -534,16 +546,22 @@ void Game::render()
 	this->showSunsNum();
 	this->clearDownSun();
 	if(!isDone && !isGameOver){
-		for(auto watermelon : Watermelons)
-			watermelon->render(*this->window);
-		for(auto plant : plants)
-			plant->render(*this->window);
+		for(auto plant : plants){
+			if(plant->itWatermelon)
+				plant->render(*this->window);
+		}
+		for(auto plant : plants){
+			if(!plant->itWatermelon)
+				plant->render(*this->window);
+		}
 		for(auto zombie : this->zombies)
 			zombie->render(*this->window);
 		for(auto sun : this->suns)
 			sun->render(*this->window);
 		for(auto projectile :projectiles)
 			projectile->render(*this->window);
+		for(auto watermelon : Watermelons)
+			watermelon->render(*this->window);
     }
 
 	this->sunFlowerPriceRectangle->render(*this->window);

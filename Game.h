@@ -63,6 +63,8 @@ private:
 	bool isPressedBeforForRegularPeaShooter;
 	bool isPressedBeforForIcyPeaShooter;
 	bool isPressedBeforForWatermelon;
+	bool gameOverSound;
+	bool winSound;
 
 	void showWonState();
 	void showRound();
@@ -90,8 +92,8 @@ private:
 	sf::Vector2f fineNearestZombie(Plant* plant , Watermelon* newWatermelon);
 
 	sf::Music music;
-	// sf::Music gameOverMusic;
-	// sf::Sound winMusic;
+	sf::Music gameOverMusic;
+	sf::Music winMusic;
 
 	Board* board;
 
