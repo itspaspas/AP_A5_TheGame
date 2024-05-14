@@ -1,9 +1,18 @@
 #include "icyPeaShooterPriceRectangle.h"
 
+const int COOL_DOWN_TIME = 9;
+const std::string PIC_PATH = "extrafile/4.png";
+const std::string COOL_DOWN_PIC_PATH = "extrafile/4dark.png";
+const float RECTANGLE_SCALE = .9f;
+const int FIRST_RECTANGLE_X = 60;
+const int FIRST_RECTANGLE_Y = 80;
+const int RECTANGLE_NUM = 3;
+
+
 IcyPeaShooterPriceRectangle::IcyPeaShooterPriceRectangle(){
-    collDownTime = 9;
-    picturePath = "extrafile/4.png";
-    collDownPicPath = "extrafile/4dark.png";
+    collDownTime = COOL_DOWN_TIME;
+    picturePath = PIC_PATH;
+    collDownPicPath = COOL_DOWN_PIC_PATH;
 }
 
 void IcyPeaShooterPriceRectangle::render(sf::RenderTarget& target){
@@ -12,9 +21,9 @@ void IcyPeaShooterPriceRectangle::render(sf::RenderTarget& target){
         icyPeaShooterCost.loadFromFile(picturePath);
         sf::Sprite icyPeaShooterCostSprite;
         icyPeaShooterCostSprite.setTexture(icyPeaShooterCost);
-        icyPeaShooterCostSprite.setScale(.9f,.9f);
+        icyPeaShooterCostSprite.setScale(RECTANGLE_SCALE , RECTANGLE_SCALE);
         icyPeaShooterCostSprite.setOrigin(icyPeaShooterCost.getSize().x/2 , icyPeaShooterCost.getSize().y/2);
-        icyPeaShooterCostSprite.setPosition(60 ,80 + 3*icyPeaShooterCost.getSize().y);
+        icyPeaShooterCostSprite.setPosition(FIRST_RECTANGLE_X  ,FIRST_RECTANGLE_Y + RECTANGLE_NUM * icyPeaShooterCost.getSize().y);
         this->sprit = icyPeaShooterCostSprite;
         target.draw(icyPeaShooterCostSprite);
     }
@@ -23,9 +32,9 @@ void IcyPeaShooterPriceRectangle::render(sf::RenderTarget& target){
         icyPeaShooterCost.loadFromFile(collDownPicPath);
         sf::Sprite icyPeaShooterCostSprite;
         icyPeaShooterCostSprite.setTexture(icyPeaShooterCost);
-        icyPeaShooterCostSprite.setScale(.9f,.9f);
+        icyPeaShooterCostSprite.setScale(RECTANGLE_SCALE , RECTANGLE_SCALE);
         icyPeaShooterCostSprite.setOrigin(icyPeaShooterCost.getSize().x/2 , icyPeaShooterCost.getSize().y/2);
-        icyPeaShooterCostSprite.setPosition(60,80 + 3*icyPeaShooterCost.getSize().y);
+        icyPeaShooterCostSprite.setPosition(FIRST_RECTANGLE_X ,FIRST_RECTANGLE_Y + RECTANGLE_NUM * icyPeaShooterCost.getSize().y);
         target.draw(icyPeaShooterCostSprite);
     }
 }

@@ -5,7 +5,7 @@
 #include "Cell.h"
 #include "Projectiles.hpp"
 
-class Plant {
+class Plant{
 protected:
 
     int damage;

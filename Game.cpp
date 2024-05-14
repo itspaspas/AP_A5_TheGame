@@ -2,25 +2,61 @@
 #include "HairMetalZombie.h"
 #include "RegularZombie.h"
 
-const float zombieGenerateInterval = 5.0f;
+const int WINDOW_X = 800;
+const int WINDOW_Y = 600;
+
+const float BEGIN_OF_BOARD_X = 150.f;
+const float BEGIN_OF_BOARD_Y = 90.f;
+const float END_OF_BOARD_X = 660.f;
+const float END_OF_BOARD_Y = 550.f;
+
+const int START_SUN_NUM = 50;
+const int ADD_POINT_PER_SUN = 25;
+
+const float ZOMBIE_GENERATE_INTERVAL = 5.0f;
+const int ZOMBIE_NUM_FREQUENCY_PER_WAVE = 3;
+const int BIG_ZOMBIE_PER_ZOMBIE = 3;
+
+const int FIRST_ROUND_DELAY = 30;
+const int OTHER_ROUND_DELAY = 10;
+const int NUMBER_OF_WAVE = 4;
+
+const int SUNFLOWER_PRICE = 50;
+const int WALNUT_PRICE = 50;
+const int REGULAR_PEA_SHOOTER_PRICE = 100;
+const int ICY_PEA_SHOOTER_PRICE = 150;
+const int WATERMELON_PRICE = 200;
+
+const std::string BACK_GROUND_PATH = "extrafile/ext8waid79e81.jpg";
+const std::string GAME_OVER_PIC_PATH = "extrafile/endpage.png";
+const std::string SUN_PIC_PATH = "extrafile/sun.png";
+
+const std::string BACK_GROUND_MUSIC_PATH = "extrafile/Main-Music.ogg";
+const std::string GAME_OVER_MUSIC_PATH = "extrafile/GameOverMusic.ogg";
+const std::string WIN_MUSIC_PATH = "extrafile/WinMusic.ogg";
+
+const std::string ROUND_FONT_PATH = "extrafile/BROMPH_TOWN.ttf";
+const std::string STAR_NUM_FONT_PATH = "extrafile/Dosis-Light.ttf";
+
+
 
 void Game::initWindow()
 {
-	this->videoMode = sf::VideoMode(800,600);
-	this->window = new sf::RenderWindow(videoMode, "Plant vs Zombie");
+	this->videoMode = sf::VideoMode(WINDOW_X , WINDOW_Y);
+	this->window = new sf::RenderWindow(videoMode , "Plant vs Zombie");
 	this->window->setFramerateLimit(144);
 	this->window->setVerticalSyncEnabled(false);
 }
 
 Game::Game(){
-	sunsNum = 50;
+	sunsNum = START_SUN_NUM;
 
 	sf::Vector2f beginOfBoard;
-	beginOfBoard.x = 150.f;
-	beginOfBoard.y = 90.f;
+	beginOfBoard.x = BEGIN_OF_BOARD_X;
+	beginOfBoard.y = BEGIN_OF_BOARD_Y;
 	sf::Vector2f endOfBoard;
-	endOfBoard.x = 660.f;
-	endOfBoard.y = 550.f;
+	endOfBoard.x = END_OF_BOARD_X;
+	endOfBoard.y = END_OF_BOARD_Y;
 
 	this->board = new Board(beginOfBoard , endOfBoard);
 
@@ -38,11 +74,11 @@ Game::Game(){
 	this->zombieAddedInWave=0;
 	this->initWindow();
 
-	this->music.openFromFile("extrafile/Main-Music.ogg");
+	this->music.openFromFile(BACK_GROUND_MUSIC_PATH);
 	this->music.setLoop(true);
 	this->music.play();
-	this->gameOverMusic.openFromFile("extrafile/GameOverMusic.ogg");
-	this->winMusic.openFromFile("extrafile/WinMusic.ogg");
+	this->gameOverMusic.openFromFile(GAME_OVER_MUSIC_PATH);
+	this->winMusic.openFromFile(WIN_MUSIC_PATH);
 
 	this->sunFlowerPriceRectangle = new SunFlowerPriceRectangle();
 	this->walnutPriceRectangle = new WalnutPriceRectangle();
@@ -98,14 +134,14 @@ void Game::pollEvents()
 }
 
 void Game::beginAttackIfItsTime(){
-	int numberOfZombies = waveNum * 3;
-	float zombieGenerateTime = numberOfZombies*zombieGenerateInterval;
+	int numberOfZombies = waveNum * ZOMBIE_NUM_FREQUENCY_PER_WAVE;
+	float zombieGenerateTime = numberOfZombies*ZOMBIE_GENERATE_INTERVAL;
 	int waitingTimeBeforNewRound;
 	if(this->waveNum == 1){
-		waitingTimeBeforNewRound = 30;
+		waitingTimeBeforNewRound = FIRST_ROUND_DELAY;
 	}
 	else{
-		waitingTimeBeforNewRound = 10;
+		waitingTimeBeforNewRound = OTHER_ROUND_DELAY;
 	}
 	if(!attacking && waveAttackClock.getElapsedTime().asSeconds() >= waitingTimeBeforNewRound){
 		attacking = true;
@@ -113,9 +149,9 @@ void Game::beginAttackIfItsTime(){
 	}
 
 	if(attacking && waveAttackClock.getElapsedTime().asSeconds()<=zombieGenerateTime){
-		if (zombiAttackClock.getElapsedTime().asSeconds() >= zombieGenerateInterval) {
+		if (zombiAttackClock.getElapsedTime().asSeconds() >= ZOMBIE_GENERATE_INTERVAL) {
 			zombieAddedInWave += 1;
-			if (zombieAddedInWave % 3 == 0){
+			if (zombieAddedInWave % BIG_ZOMBIE_PER_ZOMBIE == 0){
 				addNewBigZombie();
 			} else {
 				addNewNormalZombie();
@@ -127,7 +163,7 @@ void Game::beginAttackIfItsTime(){
 	if(attacking && waveAttackClock.getElapsedTime().asSeconds()>=zombieGenerateTime && zombies.size()== 0){
 		attacking = false;
 		waveNum += 1;
-		if(waveNum == 5){
+		if(waveNum == NUMBER_OF_WAVE + 1){
 			isDone = true;
 			if(winSound){
 				this->music.stop();
@@ -145,7 +181,7 @@ void Game::beginAttackIfItsTime(){
 
 void Game::ShowGameOverPic(){
 	sf::Texture texture;
-    texture.loadFromFile("extrafile/endpage.png");
+    texture.loadFromFile(GAME_OVER_PIC_PATH);
     sf::Sprite sprite(texture);
 	sprite.setTexture(texture);
 	sprite.setPosition(150,90);
@@ -184,7 +220,7 @@ void Game::ShowBackGround(std::string backgroundPath){
 void Game::showRound(){
 	if(showingRound.getElapsedTime().asSeconds() <= 2){
 		sf::Font font;
-		font.loadFromFile("extrafile/BROMPH_TOWN.ttf");
+		font.loadFromFile(ROUND_FONT_PATH);
 		sf::Text text;
 		text.setFont(font);
 		text.setCharacterSize(50);
@@ -200,7 +236,7 @@ void Game::showRound(){
 
 void Game::showWonState(){
 		sf::Font font;
-		font.loadFromFile("extrafile/BROMPH_TOWN.ttf");
+		font.loadFromFile(ROUND_FONT_PATH);
 		sf::Text text;
 		text.setFont(font);
 		text.setCharacterSize(50);
@@ -224,7 +260,7 @@ void Game::showSunRectangle(){
 	text.setColor(sf::Color::White);
 
     sf::Font font;
-    font.loadFromFile("extrafile/Dosis-Light.ttf");
+    font.loadFromFile(STAR_NUM_FONT_PATH);
     text.setFont(font);
 	text.setPosition(92 , 25);
 	this->window->draw(rectangle);
@@ -233,7 +269,7 @@ void Game::showSunRectangle(){
 
 void Game::showSunsNum(){
 	sf::Texture sun;
-	sun.loadFromFile("extrafile/sun.png");
+	sun.loadFromFile(SUN_PIC_PATH);
 	sf::Sprite sunSprite;
 	sunSprite.setTexture(sun);
 	sunSprite.setScale(.15f,.15f);
@@ -246,7 +282,7 @@ void Game::showSunsNum(){
 void Game::fallingSuns(){
 	if(sunClock.getElapsedTime().asSeconds() >= 10){
 		Sun* newFallingSun = new Sun(1);
-		sf::Vector2f fallingSunPos = {150 + static_cast<float>(rand() % static_cast<int>(550)) ,0.f};
+		sf::Vector2f fallingSunPos = {BEGIN_OF_BOARD_X + static_cast<float>(rand() % static_cast<int>(550)) ,0.f};
 		newFallingSun->setPosition(fallingSunPos.x , fallingSunPos.y);
 		suns.push_back(newFallingSun);
 		sunClock.restart();
@@ -259,24 +295,20 @@ void Game::updateMousePositions(){
 }
 
 void Game::updateSuns(){
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-	{
-		if (this->mouseHeld == false)
-		{
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+		if (this->mouseHeld == false){
 			this->mouseHeld = true;
 			bool deleted = false;
-			for (size_t i = 0; i < this->suns.size() && deleted == false; i++)
-			{
+			for (size_t i = 0; i < this->suns.size() && deleted == false; i++){
 				if (this->suns[i]->getSprite().getGlobalBounds().contains(this->mousePosView)){
-					this->sunsNum += 25;
+					this->sunsNum += ADD_POINT_PER_SUN;
 					deleted = true;
 					this->suns.erase(this->suns.begin() + i);
 				}
 			}
 		}
 	}
-	else
-	{
+	else{
 		this->mouseHeld = false;
 	}
 }
@@ -295,21 +327,24 @@ bool Game::plantIsOnBoard(sf::Vector2f mousePositionFloat){
 }
 
 bool Game::notClickForOther(){
-	return !(this->isPressedBeforForIcyPeaShooter || this->isPressedBeforForRegularPeaShooter || this->isPressedBeforForSun || this->isPressedBeforForWalnut);
+	return !(this->isPressedBeforForIcyPeaShooter || this->isPressedBeforForRegularPeaShooter ||
+			 this->isPressedBeforForSun || this->isPressedBeforForWalnut);
 }
 
 void Game::addNewSunFlower(){
-	if(this->isPressedBeforForSun && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView) && this->board->isCellEmpty(this->mousePosView)){
+	if(this->isPressedBeforForSun && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView) 
+		&& this->board->isCellEmpty(this->mousePosView)){
 		SunFlower* newSunFlower = new SunFlower();
 		sf::Vector2f posOfAddedSunflower = this->board->plantAt(this->mousePosView , newSunFlower);
 		newSunFlower->setPosition(posOfAddedSunflower);
 		plants.push_back(newSunFlower);
 		this->sunFlowerPriceRectangle->startCoolDown();
-		this->sunsNum -= 50;
+		this->sunsNum -= SUNFLOWER_PRICE;
 		this->isPressedBeforForSun = false;
 	}
 	if(this->isPressedBeforForSun || this->sunFlowerPriceRectangle->isContains(this->mousePosView)){
-		if(this->isPressedBeforForSun || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->sunFlowerPriceRectangle->isAbleToAdd() && this->sunsNum >= 50 && this->notClickForOther()){
+		if(this->isPressedBeforForSun || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->sunFlowerPriceRectangle->isAbleToAdd() 
+			&& this->sunsNum >= SUNFLOWER_PRICE && this->notClickForOther()){
 			this->sunflower->setPosition(this->mousePosView);
 			this->sunflower->render(*this->window);
 			this->isPressedBeforForSun = true;
@@ -318,17 +353,19 @@ void Game::addNewSunFlower(){
 }
 
 void Game::addNewWalnut(){
-	if(this->isPressedBeforForWalnut && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView) && this->board->isCellEmpty(this->mousePosView)){
+	if(this->isPressedBeforForWalnut && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView) 
+		&& this->board->isCellEmpty(this->mousePosView)){
 		Walnut* newWalnut = new Walnut();
 		sf::Vector2f posOfAddedWalnut = this->board->plantAt(this->mousePosView , newWalnut);
 		newWalnut->setPosition(posOfAddedWalnut);
 		plants.push_back(newWalnut);
 		this->walnutPriceRectangle->startCoolDown();
-		this->sunsNum -= 50;
+		this->sunsNum -= WALNUT_PRICE;
 		this->isPressedBeforForWalnut = false;
 	}
 	if(this->isPressedBeforForWalnut || this->walnutPriceRectangle->isContains(this->mousePosView)){
-		if(this->isPressedBeforForWalnut || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->walnutPriceRectangle->isAbleToAdd()  && this->sunsNum >= 50 && this->notClickForOther()){
+		if(this->isPressedBeforForWalnut || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->walnutPriceRectangle->isAbleToAdd()  
+			&& this->sunsNum >= WALNUT_PRICE && this->notClickForOther()){
 			this->walnut->setPosition(this->mousePosView);
 			this->walnut->render(*this->window);
 			this->isPressedBeforForWalnut = true;
@@ -337,17 +374,19 @@ void Game::addNewWalnut(){
 }
 
 void Game::addNewRegularPeaShooter(){
-	if(this->isPressedBeforForRegularPeaShooter && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView) && this->board->isCellEmpty(this->mousePosView)){
+	if(this->isPressedBeforForRegularPeaShooter && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView) 
+		&& this->board->isCellEmpty(this->mousePosView)){
 		RegularPeaShooter* regularPeaShooter = new RegularPeaShooter();
 		sf::Vector2f posOfAddedRegularPeaShooter = this->board->plantAt(this->mousePosView , regularPeaShooter);
 		regularPeaShooter->setPosition(posOfAddedRegularPeaShooter);
 		plants.push_back(regularPeaShooter);
 		this->regularPeaShooterPriceRectangle->startCoolDown();
-		this->sunsNum -= 100;
+		this->sunsNum -= REGULAR_PEA_SHOOTER_PRICE;
 		this->isPressedBeforForRegularPeaShooter = false;
 	}
 	if(this->isPressedBeforForRegularPeaShooter || this->regularPeaShooterPriceRectangle->isContains(this->mousePosView)){
-		if(this->isPressedBeforForRegularPeaShooter || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->regularPeaShooterPriceRectangle->isAbleToAdd() && this->sunsNum >= 100 && this->notClickForOther()){
+		if(this->isPressedBeforForRegularPeaShooter || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->regularPeaShooterPriceRectangle->isAbleToAdd() 
+			&& this->sunsNum >= REGULAR_PEA_SHOOTER_PRICE && this->notClickForOther()){
 			this->regularPeaShooter->setPosition(this->mousePosView);
 			this->regularPeaShooter->render(*this->window);
 			this->isPressedBeforForRegularPeaShooter = true;
@@ -356,17 +395,19 @@ void Game::addNewRegularPeaShooter(){
 }
 
 void Game::addNewIcyPeaShooter(){
-	if(this->isPressedBeforForIcyPeaShooter && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView) && this->board->isCellEmpty(this->mousePosView)){
+	if(this->isPressedBeforForIcyPeaShooter && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView) 
+		&& this->board->isCellEmpty(this->mousePosView)){
 		IcyPeaShooter* icyPeaShooter = new IcyPeaShooter();
 		sf::Vector2f posOfAddedIcyPeaShooter = this->board->plantAt(this->mousePosView , icyPeaShooter);
 		icyPeaShooter->setPosition(posOfAddedIcyPeaShooter);
 		plants.push_back(icyPeaShooter);
 		this->icyPeaShooterPriceRectangle->startCoolDown();
-		this->sunsNum -= 150;
+		this->sunsNum -= ICY_PEA_SHOOTER_PRICE;
 		this->isPressedBeforForIcyPeaShooter = false;
 	}
 	if(this->isPressedBeforForIcyPeaShooter || this->icyPeaShooterPriceRectangle->isContains(this->mousePosView)){
-		if(this->isPressedBeforForIcyPeaShooter || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->icyPeaShooterPriceRectangle->isAbleToAdd() && this->sunsNum >= 150 && this->notClickForOther()){
+		if(this->isPressedBeforForIcyPeaShooter || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->icyPeaShooterPriceRectangle->isAbleToAdd() 
+			&& this->sunsNum >= ICY_PEA_SHOOTER_PRICE && this->notClickForOther()){
 			this->icyPeaShooter->setPosition(this->mousePosView);
 			this->icyPeaShooter->render(*this->window);
 			this->isPressedBeforForIcyPeaShooter = true;
@@ -375,17 +416,19 @@ void Game::addNewIcyPeaShooter(){
 }
 
 void Game::addNewWatermelonShooter(){
-	if(this->isPressedBeforForWatermelon && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView) && this->board->isCellEmpty(this->mousePosView)){
+	if(this->isPressedBeforForWatermelon && sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->plantIsOnBoard(this->mousePosView) 
+		&& this->board->isCellEmpty(this->mousePosView)){
 		WatermelonShooter* watermelonShooter = new WatermelonShooter();
 		sf::Vector2f posOfAddedWatermelonShooter = this->board->plantAt(this->mousePosView , watermelonShooter);
 		watermelonShooter->setPosition(posOfAddedWatermelonShooter);
 		plants.push_back(watermelonShooter);
 		this->watermelonShooterPriceRectangle->startCoolDown();
-		this->sunsNum -= 200;
+		this->sunsNum -= WATERMELON_PRICE;
 		this->isPressedBeforForWatermelon = false;
 	}
 	if(this->isPressedBeforForWatermelon || this->watermelonShooterPriceRectangle->isContains(this->mousePosView)){
-		if(this->isPressedBeforForWatermelon || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->watermelonShooterPriceRectangle->isAbleToAdd() && this->sunsNum >= 200 && this->notClickForOther()){
+		if(this->isPressedBeforForWatermelon || sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->watermelonShooterPriceRectangle->isAbleToAdd() 
+			&& this->sunsNum >= WATERMELON_PRICE && this->notClickForOther()){
 			this->watermelonShooter->setPosition(this->mousePosView);
 			this->watermelonShooter->render(*this->window);
 			this->isPressedBeforForWatermelon = true;
@@ -393,9 +436,9 @@ void Game::addNewWatermelonShooter(){
 	}
 }
 
-void Game::checkZombiePlantCollision() {
-    for(auto &zombie : zombies) {
-        for(auto &plant : plants) {
+void Game::checkZombiePlantCollision(){
+    for(auto &zombie : zombies){
+        for(auto &plant : plants){
             sf::FloatRect plantBounds = plant->getSprite().getGlobalBounds();
             sf::FloatRect zombieBounds = zombie->getSprite().getGlobalBounds();
 			sf::Vector2f zombieCenter = sf::Vector2f(
@@ -542,7 +585,7 @@ void Game::update()
 void Game::render()
 {
 	this->window->clear();
-	this->ShowBackGround("extrafile/ext8waid79e81.jpg");
+	this->ShowBackGround(BACK_GROUND_PATH);
 	this->showSunsNum();
 	this->clearDownSun();
 	if(!isDone && !isGameOver){

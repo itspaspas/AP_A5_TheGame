@@ -4,7 +4,7 @@
 #include "Projectiles.hpp"
 #include <SFML/Graphics.hpp>
 
-class RegularPea : public Projectile {
+class RegularPea : public Projectile{
 public:
     RegularPea();
 };

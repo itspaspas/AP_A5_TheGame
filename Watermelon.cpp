@@ -1,10 +1,15 @@
 #include "Watermelon.hpp"
 
+const std::string WATERMELON_PIC_PATH = "extrafile/watermelon.png";
+const float SCALE = .3f;
+const int SPEED = 1;
+const int DAMAGE = 15; 
+
 Watermelon::Watermelon(){
-    initTexture("extrafile/watermelon.png");
-    initSprite(.3f);
-    movementSpeed = 1;
-    damage = 15;
+    initTexture(WATERMELON_PIC_PATH);
+    initSprite(SCALE);
+    movementSpeed = SPEED;
+    damage = DAMAGE;
 }
 
 void Watermelon::initTexture(const std::string& texturePath){

@@ -1,10 +1,10 @@
-#ifndef ICYPEA_HPP
-#define ICYPEA_HPP
-
 #include "Projectiles.hpp"
 #include <SFML/Graphics.hpp>
 
-class IcyPea : public Projectile {
+#ifndef ICY_PEA_HPP
+#define ICY_PEA_HPP
+
+class IcyPea : public Projectile{
 public:
     IcyPea();
 };

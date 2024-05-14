@@ -1,9 +1,17 @@
 #include "WatermelonShooterPriceRectangle.h"
 
+const int COOL_DOWN_TIME = 10;
+const std::string PIC_PATH = "extrafile/5.png";
+const std::string COOL_DOWN_PIC_PATH = "extrafile/5dark.png";
+const float RECTANGLE_SCALE = .9f;
+const int FIRST_RECTANGLE_X = 60;
+const int FIRST_RECTANGLE_Y = 80;
+const int RECTANGLE_NUM = 4;
+
 WatermelonShooterPriceRectangle::WatermelonShooterPriceRectangle(){
-    coolDownTime = 10;
-    picturePath = "extrafile/5.png";
-    coolDownPicPath = "extrafile/5dark.png";
+    coolDownTime = COOL_DOWN_TIME;
+    picturePath = PIC_PATH;
+    coolDownPicPath = COOL_DOWN_PIC_PATH;
 }
 
 void WatermelonShooterPriceRectangle::render(sf::RenderTarget& target){
@@ -12,9 +20,9 @@ void WatermelonShooterPriceRectangle::render(sf::RenderTarget& target){
         watermelonShooterCost.loadFromFile(picturePath);
         sf::Sprite watermelonShooterCostSprite;
         watermelonShooterCostSprite.setTexture(watermelonShooterCost);
-        watermelonShooterCostSprite.setScale(.9f,.9f);
+        watermelonShooterCostSprite.setScale(RECTANGLE_SCALE , RECTANGLE_SCALE);
         watermelonShooterCostSprite.setOrigin(watermelonShooterCost.getSize().x/2 , watermelonShooterCost.getSize().y/2);
-        watermelonShooterCostSprite.setPosition(60,80 + 4*watermelonShooterCost.getSize().y);
+        watermelonShooterCostSprite.setPosition(FIRST_RECTANGLE_X ,FIRST_RECTANGLE_Y + RECTANGLE_NUM * watermelonShooterCost.getSize().y);
         this->sprite = watermelonShooterCostSprite;
         target.draw(watermelonShooterCostSprite);
     }
@@ -23,9 +31,9 @@ void WatermelonShooterPriceRectangle::render(sf::RenderTarget& target){
         watermelonShooterCost.loadFromFile(coolDownPicPath);
         sf::Sprite watermelonShooterCostSprite;
         watermelonShooterCostSprite.setTexture(watermelonShooterCost);
-        watermelonShooterCostSprite.setScale(.9f,.9f);
+        watermelonShooterCostSprite.setScale(RECTANGLE_SCALE , RECTANGLE_SCALE);
         watermelonShooterCostSprite.setOrigin(watermelonShooterCost.getSize().x/2 , watermelonShooterCost.getSize().y/2);
-        watermelonShooterCostSprite.setPosition(60,80 + 4*watermelonShooterCost.getSize().y);
+        watermelonShooterCostSprite.setPosition(FIRST_RECTANGLE_X ,FIRST_RECTANGLE_Y + RECTANGLE_NUM * watermelonShooterCost.getSize().y);
         target.draw(watermelonShooterCostSprite);
     }
 }

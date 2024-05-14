@@ -6,7 +6,6 @@
 #ifndef HAIR_METAL_ZOMBIE_H
 #define HAIR_METAL_ZOMBIE_H
 
-
 class HairMetalZombie : public Zombie{
 public:
     HairMetalZombie();

@@ -2,7 +2,6 @@
 #include<SFML/System.hpp>
 #include"Zombie.h"
 
-
 #ifndef REGULAR_ZOMBIE_H
 #define REGULAR_ZOMBIE_H
 

@@ -5,13 +5,14 @@
 #include <iostream>
 #include <string>
 
+const float END_OF_WINDOW = 600.f;
 
 void Sun::initTexture(){
     this->texture.loadFromFile("extrafile/sun.png");
 }
 
 bool Sun::hasArrivedToDown(){
-    return this->sprite.getPosition().y > 600.f ;
+    return this->sprite.getPosition().y > END_OF_WINDOW ;
 }
 
 void Sun::initSprite(){

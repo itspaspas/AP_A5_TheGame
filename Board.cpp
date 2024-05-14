@@ -1,19 +1,22 @@
 #include "Board.h"
 
-Board::~Board() {
-    for (auto& row : cells) {
-        for (auto cell : row) {
+const int NUMBER_OF_ROW = 5;
+const int NUMBER_OF_COL = 9;
+
+Board::~Board(){
+    for (auto& row : cells){
+        for (auto cell : row){
             delete cell;
         }
     }
 }
 
 float calculateHeight(sf::Vector2f beginOfBoard , sf::Vector2f endOfBoard){
-    return (endOfBoard.y - beginOfBoard.y)/5;
+    return (endOfBoard.y - beginOfBoard.y)/NUMBER_OF_ROW;
 }
 
 float calculateWeight(sf::Vector2f beginOfBoard , sf::Vector2f endOfBoard){
-    return (endOfBoard.x - beginOfBoard.x)/9;
+    return (endOfBoard.x - beginOfBoard.x)/NUMBER_OF_COL;
 }
 
 Board::Board(sf::Vector2f _beginOfBoard , sf::Vector2f _endOfBoard){
@@ -21,9 +24,9 @@ Board::Board(sf::Vector2f _beginOfBoard , sf::Vector2f _endOfBoard){
     this->endOfBoard = _endOfBoard;
     float cellHeight = calculateHeight(this->beginOfBoard ,this->endOfBoard);
     float cellWeight = calculateWeight(this->beginOfBoard ,this->endOfBoard);
-    for(int i = 0 ; i < 5 ; i++){
+    for(int i = 0 ; i < NUMBER_OF_ROW ; i++){
         std::vector<Cell*> rowCell;
-        for(int j = 0 ; j < 9 ; j++){
+        for(int j = 0 ; j < NUMBER_OF_COL ; j++){
             sf::Vector2f beginOfCell;
             beginOfCell.x = beginOfBoard.x + j*cellWeight;
             beginOfCell.y = beginOfBoard.y + i*cellHeight;

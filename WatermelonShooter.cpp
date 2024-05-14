@@ -1,7 +1,14 @@
 #include "WatermelonShooter.hpp"
 
+const int DAMAGE = 15;
+const int HEALTH = 20;
+const float ACTIVATION_TIME = 8;
+const std::string PLANT_PIC_PATH = "extrafile/Melonpult.png";
+const float SCALE = .25f;
+const bool IS_WATERMELON = true;
+
 WatermelonShooter::WatermelonShooter()
-    : Plant(15, 20, 8 ,"extrafile/Melonpult.png" , .25f ,true){
+    : Plant(DAMAGE , HEALTH , ACTIVATION_TIME , PLANT_PIC_PATH , SCALE , IS_WATERMELON){
         this->firstTime = true ;
 }
 

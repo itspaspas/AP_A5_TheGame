@@ -12,6 +12,7 @@ class Plant;
 class Zombie{
 
 private:
+
     int damage;
     int maxHealth;
     int health;
@@ -29,7 +30,9 @@ private:
     sf::Texture texture;
     sf::Clock hitRateClock;
     sf::Clock freezeTimer;
+
 public:
+
     Zombie(std::string textureFilePath, float scale ,float _movementSpeed, int maxHealth , int damage , int hiRate);
     bool hasArrivedHome();
     void render(sf::RenderTarget& target);
@@ -43,6 +46,7 @@ public:
     bool isInSameLine(sf::Vector2f addr);
     void getDamage(int damage);
     sf::Sprite getSprite();
+    
 };
 
 #endif

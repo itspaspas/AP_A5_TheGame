@@ -6,6 +6,7 @@
 
 class SunFlowerPriceRectangle{
 private:
+
     int collDownTime;
     sf::Sprite sprit;
     sf::Clock clock;
@@ -13,11 +14,13 @@ private:
     std::string collDownPicPath;
     
 public:
+
     SunFlowerPriceRectangle();
     bool isContains(sf::Vector2f addr);
     void render(sf::RenderTarget& target);
     void startCoolDown();
     bool isAbleToAdd();
+    
 };
 
 #endif

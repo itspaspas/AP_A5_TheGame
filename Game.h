@@ -66,6 +66,9 @@ private:
 	bool gameOverSound;
 	bool winSound;
 
+	void beginAttackIfItsTime();
+	void ShowBackGround(std::string backGrountpath);
+	void pollEvents();
 	void showWonState();
 	void showRound();
 	void initWindow();
@@ -107,9 +110,6 @@ public:
 	Game();
 	virtual ~Game();
 	const bool running() const;
-	void beginAttackIfItsTime();
-	void ShowBackGround(std::string backGrountpath);
-	void pollEvents();
 	void update();
 	void render();
 };

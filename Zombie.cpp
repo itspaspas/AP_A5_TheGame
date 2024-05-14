@@ -5,18 +5,31 @@
 #include <iostream>
 #include <string>
 
+const float BEGIN_OF_BOARD = 150.f;
+const float END_OF_BOARD = 800.f;
+
+const int NUM_OF_ROW = 5;
+const float CENTER_OF_ROW_1 = 125.f;
+const float CENTER_OF_ROW_2 = 210.f;
+const float CENTER_OF_ROW_3 = 310.f;
+const float CENTER_OF_ROW_4 = 400.f; 
+const float CENTER_OF_ROW_5 = 495.f;
+
+const int CELL_HIGHT = 92;
+const int DISTANCE_TO_CELL_ONE = 90;
+
 void Zombie::initTexture(std::string textureFilePath){
     this->texture.loadFromFile(textureFilePath);
 }
 
 bool Zombie::hasArrivedHome(){
-    return this->sprite.getPosition().x < 150.f ;
+    return this->sprite.getPosition().x < BEGIN_OF_BOARD;
 }
 
 float Zombie::getRandomPosition(){
-    int randomNumber = std::rand() % 5;
+    int randomNumber = std::rand() % NUM_OF_ROW;
     this->row = randomNumber + 1;
-    float possiblePosition[5] = {125.f,210.f,310.f,400.f,495.f};
+    float possiblePosition[NUM_OF_ROW] = {CENTER_OF_ROW_1 , CENTER_OF_ROW_2 , CENTER_OF_ROW_3 , CENTER_OF_ROW_4 , CENTER_OF_ROW_5};
     return possiblePosition[randomNumber];
 }
 
@@ -24,7 +37,7 @@ void Zombie::initSprite(float scale){
     this->sprite.setTexture(this->texture);
     this->sprite.scale(scale, scale);
     this->sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
-    this->sprite.setPosition(800.f,getRandomPosition());
+    this->sprite.setPosition(END_OF_BOARD , getRandomPosition());
 }
 
 Zombie::Zombie(std::string textureFilePath, float scale , float _movementSpeed, int _maxHealth , int _damage , int _hitRate){
@@ -38,7 +51,7 @@ Zombie::Zombie(std::string textureFilePath, float scale , float _movementSpeed, 
     freezing_time = 0;
 
 
-    Zombie::initTexture(textureFilePath);
+    initTexture(textureFilePath);
     initSprite(scale);
 }
 
@@ -104,8 +117,8 @@ bool Zombie::isDead(){
 }
 
 bool Zombie::isInSameLine(sf::Vector2f addr){
-    int beginOfCell = 90 + ((row-1)*92);
-    int endOfCell = 90 + (row * 92);
+    int beginOfCell = DISTANCE_TO_CELL_ONE + ((row-1) * CELL_HIGHT);
+    int endOfCell = DISTANCE_TO_CELL_ONE + (row * CELL_HIGHT);
     return (addr.y > beginOfCell) && (addr.y < endOfCell);
 }
 

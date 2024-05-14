@@ -1,5 +1,7 @@
 #include "Cell.h"
 
+const int WATERMELON_ORIGIN_POS_DISTANCE = 8;
+
 Cell::Cell(sf::Vector2f _beginOfCell , sf::Vector2f _endOfCell){
     this->beginOfCell = _beginOfCell;
     this->endOfCell = _endOfCell;
@@ -17,8 +19,8 @@ sf::Vector2f Cell::setPlant(Plant* plant){
     position.x = (this->endOfCell.x + this->beginOfCell.x)/2;
     position.y = (this->endOfCell.y + this->beginOfCell.y)/2;
     if(plant->itWatermelon){
-        position.x -= 8;
-        position.y -= 8;
+        position.x -= WATERMELON_ORIGIN_POS_DISTANCE;
+        position.y -= WATERMELON_ORIGIN_POS_DISTANCE;
     }
     plant->setPosition(position);
     return position;

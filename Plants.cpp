@@ -1,5 +1,15 @@
 #include "Plants.hpp"
 
+const int X_SUN_RELATIVE_TO_SUNFLOWER = 15;
+const int Y_SUN_RELATIVE_TO_SUNFLOWER = 30;
+
+const int X_PEA_RELATIVE_TO_PEASHOOTER = 20;
+const int Y_PEA_RELATIVE_TO_PEASHOOTER = 14;
+
+const int X_WATERMELON_RELATIVE_TO_CELL = 15;
+
+const int WATERMELON_RELATIVE_TO_POSITION = 17;
+
 Plant::Plant(int _damage, int _health, float _activationTime,const std::string& texturePath ,float _scale ,bool isWatermelon) 
     : damage(_damage), health(_health), activationTime(_activationTime),scale(_scale){
     initTexture(texturePath);
@@ -28,7 +38,7 @@ void Plant::render(sf::RenderTarget& target) {
 
 void Plant::setPosition(sf::Vector2f addr){
     if(this->itWatermelon){
-        addr.x -= 15;
+        addr.x -= X_WATERMELON_RELATIVE_TO_CELL;
     }
     this->sprite.setPosition(addr);
 }
@@ -60,16 +70,16 @@ bool Plant::isHaveSun(){
 sf::Vector2f Plant::getPeaAddr(){
     sf::Vector2f addr;
     addr = this->sprite.getPosition();
-    addr.x += 20;
-    addr.y -= 14;
+    addr.x += X_PEA_RELATIVE_TO_PEASHOOTER;
+    addr.y -= Y_PEA_RELATIVE_TO_PEASHOOTER;
     return addr;
 }
 
 sf::Vector2f Plant::getSunPos(){
     sf::Vector2f addr;
     addr = this->sprite.getPosition();
-    addr.x += 15;
-    addr.y += 30;
+    addr.x += X_SUN_RELATIVE_TO_SUNFLOWER;
+    addr.y += Y_SUN_RELATIVE_TO_SUNFLOWER;
     return addr;
 }
 
@@ -88,7 +98,7 @@ bool Plant::isHaveWatermelon(){
 sf::Vector2f Plant::getWatermelonAddr(){
     sf::Vector2f addr;
     addr = this->sprite.getPosition();
-    addr.x -= 17;
-    addr.y -= 17;
+    addr.x -= WATERMELON_RELATIVE_TO_POSITION;
+    addr.y -= WATERMELON_RELATIVE_TO_POSITION;
     return addr;
 }

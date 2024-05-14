@@ -1,6 +1,6 @@
 #include "Plants.hpp"
 
-class Walnut : public Plant {
+class Walnut : public Plant{
     float scale;
     float stamina;
 

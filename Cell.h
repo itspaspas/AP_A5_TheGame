@@ -2,7 +2,6 @@
 #include "Plants.hpp"
 #include "Zombie.h"
 
-
 #ifndef cell_H
 #define cell_H
 
@@ -25,6 +24,5 @@ public:
     void getEmpty();
 
 };
-
 
 #endif

@@ -23,15 +23,15 @@ void Projectile::move(const float dirX , const float dirY){
     this->sprite.move(this->movementSpeed * dirX ,this->movementSpeed * dirY);
 }
 
-void Projectile::render(sf::RenderTarget& target) {
+void Projectile::render(sf::RenderTarget& target){
     target.draw(this->sprite);
 }
 
-void Projectile::setPosition(float x, float y) {
+void Projectile::setPosition(float x, float y){
     this->sprite.setPosition(x, y);
 }
 
-bool Projectile::isOffScreen(int screenWidth) {
+bool Projectile::isOffScreen(int screenWidth){
     return sprite.getPosition().x > screenWidth || sprite.getPosition().x < 0;
 }
 

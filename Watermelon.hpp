@@ -5,8 +5,9 @@
 #include <iostream>
 #include "Zombie.h"
 
-class Watermelon {
+class Watermelon{
 protected:
+
     sf::Sprite sprite;
     sf::Texture texture;
     sf::Vector2f startPos;
@@ -17,6 +18,7 @@ protected:
     Zombie* zombie;
 
 public:
+
     Watermelon();
     void initTexture(const std::string& texturePath);
     void initSprite(float scale);
@@ -32,6 +34,7 @@ public:
     sf::Vector2f position();
     sf::Vector2f getStartPos();
     sf::Sprite getSprite();
+    
 };
 
 #endif

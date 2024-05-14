@@ -9,8 +9,8 @@ class SunFlower : public Plant {
     sf::Clock coolDownClock;
 
 public:
-    SunFlower();  // Constructor declaration
-    void update();  // Update method for timing and log
+    SunFlower();
+    void update();
 };
 
 #endif

@@ -3,7 +3,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-class WatermelonShooter : public Plant {
+class WatermelonShooter : public Plant{
 private:
     sf::Clock WatermelonShotClock;
     bool firstTime;

@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-class Projectile {
+class Projectile{
 protected:
     sf::Sprite sprite;
     sf::Texture texture;
